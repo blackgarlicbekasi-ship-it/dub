@@ -1,64 +1,12 @@
-FROM node:20-alpine AS deps
+FROM node:20-alpine
 RUN corepack enable
 WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY packages/ ./packages/
-COPY apps/web/package.json ./apps/web/
-RUN pnpm install --frozen-lockfile
-
-FROM node:20-alpine AS builder
-RUN corepack enable
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/ ./packages/
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
-ENV NODE_OPTIONS=--max-old-space-size=6144
+RUN pnpm install --frozen-lockfile
+ENV NODE_OPTIONS=--max-old-space-size=4096
 ENV NEXT_TELEMETRY_DISABLED=1
-ARG STRIPE_SECRET_KEY=sk_test_placeholder
-ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_placeholder
-ARG NEXT_PUBLIC_APP_DOMAIN=localhost
-ARG NEXT_PUBLIC_APP_SHORT_DOMAIN=localhost
-ARG TINYBIRD_API_KEY=placeholder
-ARG TINYBIRD_API_URL=https://api.tinybird.co
-ARG PROJECT_ID_VERCEL=placeholder
-ARG TEAM_ID_VERCEL=placeholder
-ARG AUTH_BEARER_TOKEN=placeholder
-ARG UPSTASH_REDIS_REST_URL=https://placeholder.upstash.io
-ARG UPSTASH_REDIS_REST_TOKEN=placeholder
-ARG QSTASH_TOKEN=placeholder
-ARG QSTASH_CURRENT_SIGNING_KEY=placeholder
-ARG QSTASH_NEXT_SIGNING_KEY=placeholder
-ARG DATABASE_URL=mysql://root:@localhost:3306/dub
-ARG NEXTAUTH_SECRET=placeholder32chars
-ARG NEXTAUTH_URL=http://localhost:8888
-ARG RESEND_API_KEY=placeholder
-ENV STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
-ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-ENV NEXT_PUBLIC_APP_DOMAIN=$NEXT_PUBLIC_APP_DOMAIN
-ENV NEXT_PUBLIC_APP_SHORT_DOMAIN=$NEXT_PUBLIC_APP_SHORT_DOMAIN
-ENV TINYBIRD_API_KEY=$TINYBIRD_API_KEY
-ENV TINYBIRD_API_URL=$TINYBIRD_API_URL
-ENV PROJECT_ID_VERCEL=$PROJECT_ID_VERCEL
-ENV TEAM_ID_VERCEL=$TEAM_ID_VERCEL
-ENV AUTH_BEARER_TOKEN=$AUTH_BEARER_TOKEN
-ENV UPSTASH_REDIS_REST_URL=$UPSTASH_REDIS_REST_URL
-ENV UPSTASH_REDIS_REST_TOKEN=$UPSTASH_REDIS_REST_TOKEN
-ENV QSTASH_TOKEN=$QSTASH_TOKEN
-ENV QSTASH_CURRENT_SIGNING_KEY=$QSTASH_CURRENT_SIGNING_KEY
-ENV QSTASH_NEXT_SIGNING_KEY=$QSTASH_NEXT_SIGNING_KEY
-ENV DATABASE_URL=$DATABASE_URL
-ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
-ENV NEXTAUTH_URL=$NEXTAUTH_URL
-ENV RESEND_API_KEY=$RESEND_API_KEY
-RUN pnpm --filter=@dub/prisma exec prisma generate --schema=./schema
-RUN pnpm run build --filter=web || true
-
-FROM node:20-alpine AS runner
-RUN corepack enable
+WORKDIR /app/packages/prisma
+RUN pnpm exec prisma generate --schema=./schema
 WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app ./
 EXPOSE 8888
-WORKDIR /app/apps/web
-CMD ["pnpm", "start"]
+CMD ["pnpm", "run", "dev", "--filter=web"]
