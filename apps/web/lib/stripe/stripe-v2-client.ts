@@ -23,7 +23,7 @@ export const STRIPE_API_VERSION = "2025-09-30.preview";
 export const stripeV2Fetch = createFetch({
   baseURL: "https://api.stripe.com",
   headers: {
-    Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+    Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY || "sk_test_placeholder"}`,
     "Stripe-Version": STRIPE_API_VERSION,
   },
   schema: createSchema(

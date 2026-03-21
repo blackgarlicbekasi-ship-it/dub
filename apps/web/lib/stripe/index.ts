@@ -1,7 +1,8 @@
 import Stripe from "stripe";
 import { StripeMode } from "../types";
 
-export const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
+const stripeKey = process.env.STRIPE_SECRET_KEY || "sk_test_placeholder";
+export const stripe = new Stripe(stripeKey, {
   apiVersion: "2025-05-28.basil",
   appInfo: {
     name: "Dub.co",
@@ -19,7 +20,8 @@ const secretMap: Record<StripeMode, string | undefined> = {
 export const stripeAppClient = ({ mode }: { mode?: StripeMode }) => {
   const appSecretKey = secretMap[mode ?? "test"];
 
-  return new Stripe(appSecretKey!, {
+  const safeKey = appSecretKey || "sk_test_placeholder";
+  return new Stripe(safeKey, {
     apiVersion: "2025-05-28.basil",
     appInfo: {
       name: "Dub.co",
