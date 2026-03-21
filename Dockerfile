@@ -15,7 +15,6 @@ COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
 ENV NODE_OPTIONS=--max-old-space-size=6144
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV SKIP_ENV_VALIDATION=1
 ARG STRIPE_SECRET_KEY=sk_test_placeholder
 ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_placeholder
 ARG NEXT_PUBLIC_APP_DOMAIN=localhost
@@ -52,9 +51,7 @@ ENV DATABASE_URL=$DATABASE_URL
 ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
 ENV NEXTAUTH_URL=$NEXTAUTH_URL
 ENV RESEND_API_KEY=$RESEND_API_KEY
-WORKDIR /app/apps/web
-RUN npx prisma generate --schema=../../packages/prisma/schema
-WORKDIR /app
+RUN pnpm --filter=@dub/prisma exec prisma generate --schema=./schema
 RUN pnpm run build --filter=web || true
 
 FROM node:20-alpine AS runner
