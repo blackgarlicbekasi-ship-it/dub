@@ -312,7 +312,7 @@ function AmountRowItem({
                 <TooltipContent
                   title="This partner does not have a tenant ID configured, which is required to process external payouts."
                   cta="Learn more"
-                  href="http://dub.co/docs/partners/external-payouts"
+                  href="http://ingat.cc/docs/partners/external-payouts"
                   target="_blank"
                 />
               ),
@@ -336,7 +336,7 @@ function AmountRowItem({
 
     if (payout.mode === "internal" && !payout.partner?.payoutsEnabledAt) {
       return (
-        <Tooltip content="This partner has not [connected a bank account](https://dub.co/help/article/receiving-payouts) to receive payouts yet, which means they won't be able to receive payouts from your program.">
+        <Tooltip content="This partner has not [connected a bank account](https://ingat.cc/help/article/receiving-payouts) to receive payouts yet, which means they won't be able to receive payouts from your program.">
           <span className="cursor-help truncate text-neutral-400 underline decoration-dotted underline-offset-2">
             {display}
           </span>

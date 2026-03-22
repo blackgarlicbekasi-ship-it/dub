@@ -130,8 +130,8 @@ export default async function WorkspaceInvitePage({
                       <DubLinksIcon className="size-3 text-orange-900" />
                     </div>
                   ),
-                  title: "Dub Links",
-                  href: "https://dub.co/links",
+                  title: "Ingat Links",
+                  href: "https://ingat.cc/links",
                   cta: "Learn more",
                 },
                 ...(invite.project.defaultProgramId
@@ -142,8 +142,8 @@ export default async function WorkspaceInvitePage({
                             <DubPartnersIcon className="size-3 text-violet-900" />
                           </div>
                         ),
-                        title: "Dub Partners",
-                        href: "https://dub.co/partners",
+                        title: "Ingat Partners",
+                        href: "https://ingat.cc/partners",
                         cta: "Learn more",
                       },
                     ]
@@ -234,21 +234,21 @@ export default async function WorkspaceInvitePage({
                   icon: LifeRingFill,
                   title: "Help center",
                   description: "Answers to your questions",
-                  href: "https://dub.co/help",
+                  href: "https://ingat.cc/help",
                   cta: "Read",
                 },
                 {
                   icon: Book2Fill,
                   title: "Docs",
                   description: "Platform documentation",
-                  href: "https://dub.co/docs",
+                  href: "https://ingat.cc/docs",
                   cta: "Learn",
                 },
                 {
                   icon: MsgsFill,
                   title: "Support",
                   description: "Product support or help requests",
-                  href: "https://dub.co/contact/support",
+                  href: "https://ingat.cc/contact/support",
                   cta: "Chat",
                 },
               ].map(({ icon: Icon, title, description, href, cta }) => (
@@ -352,8 +352,8 @@ function Hero({
               <Tooltip
                 content={
                   invite.role === "owner"
-                    ? "You have the highest workspace permissions. [Learn more](https://dub.co/help/article/workspace-roles#member-role)"
-                    : "You have limited workspace permissions. [Learn more](https://dub.co/help/article/workspace-roles#member-role)"
+                    ? "You have the highest workspace permissions. [Learn more](https://ingat.cc/help/article/workspace-roles#member-role)"
+                    : "You have limited workspace permissions. [Learn more](https://ingat.cc/help/article/workspace-roles#member-role)"
                 }
               >
                 <span className="underline decoration-dotted underline-offset-2">

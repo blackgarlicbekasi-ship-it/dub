@@ -13,7 +13,7 @@ const CORS_HEADERS = new Headers({
 export const POST = async (req: NextRequest) => {
   const origin = req.headers.get("origin");
 
-  if (origin && (origin === "https://dub.co" || origin.endsWith(".dub.co"))) {
+  if (origin && (origin === "https://ingat.cc" || origin.endsWith(".ingat.cc"))) {
     CORS_HEADERS["Access-Control-Allow-Origin"] = origin;
   }
 

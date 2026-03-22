@@ -9,18 +9,18 @@ import { useOnboardingProgress } from "../../use-onboarding-progress";
 const products = {
   links: {
     image: "https://assets.dub.co/icons/link.webp",
-    title: "Dub Links",
-    href: "https://dub.co/links",
+    title: "Ingat Links",
+    href: "https://ingat.cc/links",
     description:
-      "[Short links](https://dub.co/help/category/link-management), [QR codes](https://dub.co/help/article/custom-qr-codes), [real-time analytics](https://dub.co/help/article/dub-analytics), and [conversion tracking](https://dub.co/docs/conversions/quickstart).",
+      "[Short links](https://ingat.cc/help/category/link-management), [QR codes](https://ingat.cc/help/article/custom-qr-codes), [real-time analytics](https://ingat.cc/help/article/dub-analytics), and [conversion tracking](https://ingat.cc/docs/conversions/quickstart).",
     paidPlanRequired: false,
   },
   partners: {
     image: "https://assets.dub.co/icons/trophy.webp",
-    title: "Dub Partners",
-    href: "https://dub.co/partners",
+    title: "Ingat Partners",
+    href: "https://ingat.cc/partners",
     description:
-      "Modern [affiliate programs](https://dub.co/partners) with [global payouts](https://dub.co/help/article/partner-payouts) and [accurate attribution](https://dub.co/help/article/program-analytics).",
+      "Modern [affiliate programs](https://ingat.cc/partners) with [global payouts](https://ingat.cc/help/article/partner-payouts) and [accurate attribution](https://ingat.cc/help/article/program-analytics).",
     paidPlanRequired: true,
   },
 };

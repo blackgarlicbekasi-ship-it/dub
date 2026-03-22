@@ -113,7 +113,7 @@ export function ProgramHelpAndSupportContent({
                 <input
                   type="email"
                   className="block w-full rounded-md border-neutral-300 text-neutral-900 placeholder-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-neutral-500 sm:text-sm"
-                  placeholder="support@dub.co"
+                  placeholder="support@ingat.cc"
                   {...register("supportEmail", {
                     required: true,
                   })}
@@ -175,7 +175,7 @@ export function ProgramHelpAndSupportContent({
                   type="url"
                   className="block w-full rounded-md border-neutral-300 text-neutral-900 placeholder-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-neutral-500 sm:text-sm"
                   {...register("helpUrl")}
-                  placeholder="https://dub.co/help"
+                  placeholder="https://ingat.cc/help"
                 />
               </div>
             </div>
@@ -191,7 +191,7 @@ export function ProgramHelpAndSupportContent({
                   type="url"
                   className="block w-full rounded-md border-neutral-300 text-neutral-900 placeholder-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-neutral-500 sm:text-sm"
                   {...register("termsUrl")}
-                  placeholder="https://dub.co/legal/affiliates"
+                  placeholder="https://ingat.cc/legal/affiliates"
                 />
               </div>
             </div>

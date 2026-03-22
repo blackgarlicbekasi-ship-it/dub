@@ -71,7 +71,7 @@ export default function WorkspaceUtmTemplatesClient() {
             </>
           }
           addButton={<AddUtmTemplateButton />}
-          learnMoreHref="https://dub.co/help/article/how-to-create-utm-templates"
+          learnMoreHref="https://ingat.cc/help/article/how-to-create-utm-templates"
         />
       )}
     </div>

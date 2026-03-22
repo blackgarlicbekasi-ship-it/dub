@@ -37,7 +37,7 @@ export function OutboundDomainTrackingSection() {
             <p className="text-content-subtle text-sm font-medium">
               Track outbound clicks to your other domains.{" "}
               <a
-                href="https://dub.co/docs/sdks/client-side/features/cross-domain-tracking#cross-domain-tracking"
+                href="https://ingat.cc/docs/sdks/client-side/features/cross-domain-tracking#cross-domain-tracking"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-help text-neutral-800 underline decoration-dotted underline-offset-2"

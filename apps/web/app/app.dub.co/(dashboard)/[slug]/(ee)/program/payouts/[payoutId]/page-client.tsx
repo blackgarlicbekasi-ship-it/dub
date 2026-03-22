@@ -520,7 +520,7 @@ function PayoutConfirmButton() {
           hasHold
             ? `This partner's payouts are on hold due to [unresolved fraud events](${APP_DOMAIN}/${slug}/program/fraud?partnerId=${payout.partner.id}). They cannot be paid out until resolved.`
             : !payout.partner.payoutsEnabledAt
-              ? "This partner has not [connected a bank account](https://dub.co/help/article/receiving-payouts) to receive payouts yet, which means they won't be able to receive payouts from your program."
+              ? "This partner has not [connected a bank account](https://ingat.cc/help/article/receiving-payouts) to receive payouts yet, which means they won't be able to receive payouts from your program."
               : permissionsError || undefined
         }
         onClick={() => {

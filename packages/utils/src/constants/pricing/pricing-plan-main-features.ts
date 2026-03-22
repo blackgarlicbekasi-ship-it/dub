@@ -53,7 +53,7 @@ const getPartnersStandards = (plan: Plan): HeroFeature[] => [
       title:
         "Send payouts to your partners with 1-click (or automate it completely) – all across the world.",
       cta: "Learn more.",
-      href: "https://dub.co/help/article/partner-payouts",
+      href: "https://ingat.cc/help/article/partner-payouts",
     },
   },
 ];
@@ -75,7 +75,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get a free .link custom domain for 1 year with any of Dub's paid plans.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/free-dot-link-domain",
+              href: "https://ingat.cc/help/article/free-dot-link-domain",
             },
           },
           {
@@ -85,7 +85,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Organize and manage access to your links on Dub using folders.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/link-folders",
+              href: "https://ingat.cc/help/article/link-folders",
             },
           },
           {
@@ -95,7 +95,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Redirect users to a specific page within your mobile application using deep links.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/concepts/deep-links/quickstart",
+              href: "https://ingat.cc/docs/concepts/deep-links/quickstart",
             },
           },
         ],
@@ -120,7 +120,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get real-time insights into your customers' behavior and preferences.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/customer-insights",
+              href: "https://ingat.cc/help/article/customer-insights",
             },
           },
           {
@@ -130,7 +130,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get real-time notifications when a link is clicked or a QR code is scanned using webhooks.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/concepts/webhooks/introduction",
+              href: "https://ingat.cc/docs/concepts/webhooks/introduction",
             },
           },
         ],
@@ -179,7 +179,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Create custom click, lead, or sale-based rewards, tailored to each partner's needs.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/partner-rewards",
+              href: "https://ingat.cc/help/article/partner-rewards",
             },
           },
           {
@@ -189,7 +189,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Offer dual-sided incentives to your partners and the users they refer.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/dual-sided-incentives",
+              href: "https://ingat.cc/help/article/dual-sided-incentives",
             },
           },
           {
@@ -199,7 +199,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Drive partner engagement by creating performance and submission bounties for your partner program.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/program-bounties",
+              href: "https://ingat.cc/help/article/program-bounties",
             },
           },
           {
@@ -209,7 +209,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get real-time insights into your partner program's performance and engagement.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/program-analytics",
+              href: "https://ingat.cc/help/article/program-analytics",
             },
           },
           {
@@ -219,7 +219,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Generate compelling landing pages using Dub AI to attract high-quality partners to join your program.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/program-landing-page",
+              href: "https://ingat.cc/help/article/program-landing-page",
             },
           },
           {
@@ -229,7 +229,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get real-time notifications when a link is clicked or a QR code is scanned using webhooks.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/concepts/webhooks/introduction",
+              href: "https://ingat.cc/docs/concepts/webhooks/introduction",
             },
           },
           {
@@ -250,7 +250,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Create dynamic click, lead, or sale-based rewards with country and product-specific modifiers.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/partner-rewards",
+              href: "https://ingat.cc/help/article/partner-rewards",
             },
           },
           {
@@ -260,7 +260,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Send marketing and transactional emails to your partners to increase engagement and drive conversions.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/email-campaigns",
+              href: "https://ingat.cc/help/article/email-campaigns",
             },
           },
           {
@@ -278,7 +278,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Safeguard your partner program by automatically flagging, reviewing, and resolving suspicious activity.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/fraud-detection",
+              href: "https://ingat.cc/help/article/fraud-detection",
             },
           },
           {
@@ -288,7 +288,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Create an embedded referral dashboard directly in your app in just a few lines of code.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/partners/embedded-referrals",
+              href: "https://ingat.cc/docs/partners/embedded-referrals",
             },
           },
           {
@@ -298,7 +298,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Leverage our partners API to build a bespoke, white-labeled referral program that lives within your app.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/api-reference/endpoint/create-a-partner",
+              href: "https://ingat.cc/docs/api-reference/endpoint/create-a-partner",
             },
           },
           {
@@ -335,7 +335,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Get featured in front of our network of 500,000+ total affiliates and receive 10x more applications.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/program-marketplace",
+              href: "https://ingat.cc/help/article/program-marketplace",
             },
           },
           {
@@ -345,7 +345,7 @@ export const PRICING_PLAN_MAIN_FEATURES = {
               title:
                 "Enable single sign-on (SSO) for your entire organization using SAML.",
               cta: "Learn more.",
-              href: "https://dub.co/help/category/saml-sso",
+              href: "https://ingat.cc/help/category/saml-sso",
             },
           },
           {

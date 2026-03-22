@@ -207,12 +207,12 @@ export function ChatInterface({
   const accountTypeOptions = [
     {
       value: "workspace",
-      label: "Workspace (app.dub.co)",
+      label: "Workspace (app.ingat.cc)",
       icon: <OfficeBuilding className="size-3.5 shrink-0" />,
     },
     {
       value: "partner",
-      label: "Partner (partners.dub.co)",
+      label: "Partner (partners.ingat.cc)",
       icon: <Users2 className="size-3.5 shrink-0" />,
     },
   ];
@@ -261,7 +261,7 @@ export function ChatInterface({
       >
         <img
           src="https://assets.dub.co/misc/dub-avatar.svg"
-          alt="Dub Support"
+          alt="Ingat Support"
           className="size-12 rounded-full"
           draggable={false}
         />
@@ -274,7 +274,7 @@ export function ChatInterface({
           </p>
         </div>
         <a
-          href="https://app.dub.co/login"
+          href="https://app.ingat.cc/login"
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-700"
@@ -360,12 +360,12 @@ export function ChatInterface({
                   profile.
                 </p>
                 <a
-                  href="https://partners.dub.co"
+                  href="https://partners.ingat.cc"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-3 inline-flex items-center gap-1 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 shadow-sm transition-colors hover:bg-neutral-50"
                 >
-                  Go to partners.dub.co ↗
+                  Go to partners.ingat.cc ↗
                 </a>
               </>
             ) : (

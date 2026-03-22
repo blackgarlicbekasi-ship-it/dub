@@ -166,7 +166,7 @@ function ChangeGroupModal({
               <h3 className="text-sm font-medium leading-none text-neutral-700">
                 Keep partner in selected group
               </h3>
-              <InfoTooltip content="When enabled, this partner will remain in the selected group and won't be subject to [group move rules](https://dub.co/help/article/partner-groups#group-move-rules)." />
+              <InfoTooltip content="When enabled, this partner will remain in the selected group and won't be subject to [group move rules](https://ingat.cc/help/article/partner-groups#group-move-rules)." />
             </div>
           </div>
         )}

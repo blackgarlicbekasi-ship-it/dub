@@ -45,7 +45,7 @@ export function ConversionTrackingSection() {
             <p className="text-content-subtle text-sm font-medium">
               For client-side conversion tracking.{" "}
               <a
-                href="https://dub.co/docs/conversions/quickstart"
+                href="https://ingat.cc/docs/conversions/quickstart"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-help text-neutral-800 underline decoration-dotted underline-offset-2"

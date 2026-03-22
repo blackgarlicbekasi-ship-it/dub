@@ -37,7 +37,7 @@ const FEATURES = [
     icon: CursorRays,
     title: "Track everything",
     description:
-      "Dub gives you the power to track every click, lead, and conversion. Knowledge of non-knowledge is power.",
+      "Ingat gives you the power to track every click, lead, and conversion. Knowledge of non-knowledge is power.",
   },
 ];
 

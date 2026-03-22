@@ -30,7 +30,7 @@ export function CampaignsUpsell() {
           <p className="text-content-subtle mt-2 text-sm">
             Send{" "}
             <a
-              href="https://dub.co/help/article/email-campaigns"
+              href="https://ingat.cc/help/article/email-campaigns"
               target="_blank"
               rel="noopener noreferrer"
               className="text-content-default hover:text-content-emphasis cursor-alias underline decoration-dotted underline-offset-2"

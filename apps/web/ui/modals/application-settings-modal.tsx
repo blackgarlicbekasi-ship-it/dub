@@ -150,7 +150,7 @@ function ApplicationSettingsModal({
                     <p className="text-sm text-neutral-500">
                       Only eligible partners can apply.{" "}
                       <Link
-                        href="https://dub.co/help/article/partner-groups#eligibility-requirements"
+                        href="https://ingat.cc/help/article/partner-groups#eligibility-requirements"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-neutral-500 underline underline-offset-2"

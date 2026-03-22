@@ -168,7 +168,7 @@ function ImportRewardfulModal({
           </h3>
           <MarkdownDescription className="text-center text-sm text-neutral-500">
             [Migrate your existing Rewardful
-            campaigns](https://dub.co/help/article/migrating-from-rewardful),
+            campaigns](https://ingat.cc/help/article/migrating-from-rewardful),
             partners, and historical stats into Dub in just a few clicks.
           </MarkdownDescription>
         </div>

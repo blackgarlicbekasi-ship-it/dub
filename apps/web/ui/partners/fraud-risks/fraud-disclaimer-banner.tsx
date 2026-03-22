@@ -14,7 +14,7 @@ export function FraudDisclaimerBanner({ className }: { className?: string }) {
         We recommend reviewing the flagged events thoroughly and potentially
         reaching out to the partner before making a final decision.{" "}
         <a
-          href="https://dub.co/help/article/fraud-detection"
+          href="https://ingat.cc/help/article/fraud-detection"
           target="_blank"
           className="font-medium underline underline-offset-2 transition-colors hover:text-neutral-800"
         >

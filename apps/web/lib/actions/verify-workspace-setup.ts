@@ -50,7 +50,7 @@ export const verifyWorkspaceSetup = authActionClient
     }
 
     // const siteUrl = domain.slug;
-    const siteUrl = "https://dub.co/home";
+    const siteUrl = "https://ingat.cc/home";
 
     const hostnames = (workspace.allowedHostnames as string[]) || [];
 

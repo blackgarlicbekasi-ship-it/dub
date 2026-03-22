@@ -93,7 +93,7 @@ export function Nav({
   staticDomain?: string;
   maxWidthWrapperClassName?: string;
 }) {
-  let { domain = "dub.co" } = useParams() as { domain: string };
+  let { domain = "ingat.cc" } = useParams() as { domain: string };
   if (staticDomain) {
     domain = staticDomain;
   }
@@ -103,7 +103,7 @@ export function Nav({
   const scrolled = useScroll(40);
   const pathname = usePathname();
   const { data: session, isLoading } = useSWR(
-    domain.endsWith("dub.co") && "/api/auth/session",
+    domain.endsWith("ingat.cc") && "/api/auth/session",
     fetcher,
     {
       dedupingInterval: 60000,
@@ -217,7 +217,7 @@ export function Nav({
                 ) : !isLoading ? (
                   <>
                     <Link
-                      href="https://app.dub.co/login"
+                      href="https://app.ingat.cc/login"
                       className={cn(
                         buttonVariants({ variant: "secondary" }),
                         "flex h-8 items-center rounded-lg border px-4 text-sm",
@@ -227,7 +227,7 @@ export function Nav({
                       Log in
                     </Link>
                     <Link
-                      href="https://app.dub.co/register"
+                      href="https://app.ingat.cc/register"
                       className={cn(
                         buttonVariants({ variant: "primary" }),
                         "flex h-8 items-center rounded-lg border px-4 text-sm",

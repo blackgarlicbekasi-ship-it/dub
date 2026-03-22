@@ -52,7 +52,7 @@ export function PartnersUpgradeModal({
           title:
             "Send payouts to your partners with 1-click (or automate it completely) – all across the world.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/partner-payouts",
+          href: "https://ingat.cc/help/article/partner-payouts",
         },
       },
       ...({
@@ -64,7 +64,7 @@ export function PartnersUpgradeModal({
               title:
                 "Create dynamic click, lead, or sale-based rewards with country and product-specific modifiers.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/partner-rewards",
+              href: "https://ingat.cc/help/article/partner-rewards",
             },
           },
           {
@@ -74,7 +74,7 @@ export function PartnersUpgradeModal({
               title:
                 "Create an embedded referral dashboard directly in your app in just a few lines of code.",
               cta: "Learn more.",
-              href: "https://dub.co/docs/partners/embedded-referrals",
+              href: "https://ingat.cc/docs/partners/embedded-referrals",
             },
           },
           {
@@ -84,7 +84,7 @@ export function PartnersUpgradeModal({
               title:
                 "Send marketing and transactional emails to your partners to increase engagement and drive conversions.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/email-campaigns",
+              href: "https://ingat.cc/help/article/email-campaigns",
             },
           },
           {
@@ -94,7 +94,7 @@ export function PartnersUpgradeModal({
               title:
                 "Easily communicate with your partners using our messaging center.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/messaging-partners",
+              href: "https://ingat.cc/help/article/messaging-partners",
             },
           },
           {
@@ -104,7 +104,7 @@ export function PartnersUpgradeModal({
               title:
                 "Safeguard your partner program by automatically flagging, reviewing, and resolving suspicious activity.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/fraud-detection",
+              href: "https://ingat.cc/help/article/fraud-detection",
             },
           },
           {
@@ -114,7 +114,7 @@ export function PartnersUpgradeModal({
               title:
                 "Learn how you can create partner groups to segment partners by rewards, discounts, performance, location, and more.",
               cta: "Learn more.",
-              href: "https://dub.co/help/article/partner-groups",
+              href: "https://ingat.cc/help/article/partner-groups",
             },
           },
           {
@@ -134,7 +134,7 @@ export function PartnersUpgradeModal({
               title:
                 "Enable single sign-on (SSO) for your entire organization using SAML.",
               cta: "Learn more.",
-              href: "https://dub.co/help/category/saml-sso",
+              href: "https://ingat.cc/help/category/saml-sso",
             },
           },
           {
@@ -268,7 +268,7 @@ export function PartnersUpgradeModal({
             />
           ) : (
             <Link
-              href="https://dub.co/contact/sales"
+              href="https://ingat.cc/contact/sales"
               target="_blank"
               className={cn(
                 "flex h-10 w-full items-center justify-center rounded-md text-center text-sm transition-all duration-200 ease-in-out",

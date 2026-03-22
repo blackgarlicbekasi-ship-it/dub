@@ -37,11 +37,11 @@ function ProgramWelcomeModal({
     },
     {
       text: "Set up a bank account for partner payouts",
-      href: "https://dub.co/help/article/how-to-set-up-bank-account",
+      href: "https://ingat.cc/help/article/how-to-set-up-bank-account",
     },
     {
       text: "Invite more partners to your program",
-      href: "https://dub.co/help/article/inviting-partners",
+      href: "https://ingat.cc/help/article/inviting-partners",
     },
     {
       text: "Set up click, lead, and sale-based rewards",

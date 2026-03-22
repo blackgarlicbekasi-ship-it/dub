@@ -9,7 +9,7 @@ export function EnterpriseLink() {
 
   return (
     <a
-      href="https://dub.co/enterprise"
+      href="https://ingat.cc/enterprise"
       target="_blank"
       rel="noopener noreferrer"
       className={cn(

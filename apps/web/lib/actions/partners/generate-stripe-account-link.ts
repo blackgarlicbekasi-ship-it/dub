@@ -28,7 +28,7 @@ export const generateStripeAccountLink = authPartnerActionClient.action(
 
       if (!partner.country) {
         throw new Error(
-          "You haven't set your country yet. Please go to partners.dub.co/settings to set your country.",
+          "You haven't set your country yet. Please go to partners.ingat.cc/settings to set your country.",
         );
       }
 
@@ -38,7 +38,7 @@ export const generateStripeAccountLink = authPartnerActionClient.action(
 
       if (!availablePayoutMethods.includes(PartnerPayoutMethod.connect)) {
         throw new Error(
-          `Your current country (${COUNTRIES[partner.country]}) is not supported for Stripe payouts. Please go to partners.dub.co/settings to update your country, or contact support.`,
+          `Your current country (${COUNTRIES[partner.country]}) is not supported for Stripe payouts. Please go to partners.ingat.cc/settings to update your country, or contact support.`,
         );
       }
 

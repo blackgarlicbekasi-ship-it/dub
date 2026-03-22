@@ -355,7 +355,7 @@ function AddDestinationUrlModalContent({
                 I confirm that conversion tracking has been set up on this{" "}
                 {validationMode === "domain" ? "domain" : "URL"}.{" "}
                 <a
-                  href="https://dub.co/docs/partners/quickstart"
+                  href="https://ingat.cc/docs/partners/quickstart"
                   target="_blank"
                   rel="noreferrer noopener"
                   className="text-neutral-900 underline hover:text-neutral-700"

@@ -10,7 +10,7 @@ export default function Page() {
       titleInfo={{
         title:
           "Drive partner engagement by creating performance and submission bounties for your partner program.",
-        href: "https://dub.co/help/article/program-bounties",
+        href: "https://ingat.cc/help/article/program-bounties",
       }}
       controls={<CreateBountyButton />}
     >

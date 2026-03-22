@@ -111,7 +111,7 @@ export async function checkoutSessionCompleted(event: Stripe.Event) {
     sendBatchEmail(
       users.map((user) => ({
         to: user.email as string,
-        replyTo: "steven.tey@dub.co",
+        replyTo: "support@ingat.cc",
         subject: `Thank you for upgrading to Dub ${plan.name}!`,
         react: UpgradeEmail({
           name: user.name,

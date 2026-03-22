@@ -89,7 +89,7 @@ export default async function ApplyLayout(
           {/* Footer */}
           <footer className="mt-14 flex flex-col items-center gap-4 py-6 text-center text-xs text-neutral-500">
             <Link
-              href="https://dub.co/partners"
+              href="https://ingat.cc/partners"
               target="_blank"
               className="flex items-center gap-1.5 whitespace-nowrap"
             >
@@ -97,7 +97,7 @@ export default async function ApplyLayout(
             </Link>
             <span className="flex items-center gap-2">
               <a
-                href="https://dub.co/legal/partners"
+                href="https://ingat.cc/legal/partners"
                 target="_blank"
                 className="transition-colors duration-75 hover:text-neutral-600"
               >
@@ -105,7 +105,7 @@ export default async function ApplyLayout(
               </a>
               <span className="text-base text-neutral-200">&bull;</span>
               <a
-                href="https://dub.co/legal/privacy"
+                href="https://ingat.cc/legal/privacy"
                 target="_blank"
                 className="transition-colors duration-75 hover:text-neutral-600"
               >

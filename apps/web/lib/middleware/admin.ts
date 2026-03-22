@@ -29,6 +29,6 @@ export async function AdminMiddleware(req: NextRequest) {
   }
 
   return NextResponse.rewrite(
-    new URL(`/admin.dub.co${path === "/" ? "" : path}`, req.url),
+    new URL(`/admin.ingat.cc${path === "/" ? "" : path}`, req.url),
   );
 }

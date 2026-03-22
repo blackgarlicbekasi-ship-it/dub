@@ -94,7 +94,7 @@ export function BountiesPageClient() {
             <>
               This program isn't offering any bounties at the moment.{" "}
               <a
-                href="https://dub.co/help/article/program-bounties"
+                href="https://ingat.cc/help/article/program-bounties"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-content-default underline sm:whitespace-nowrap"

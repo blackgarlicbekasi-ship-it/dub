@@ -68,7 +68,7 @@ export const POST = withCron(async ({ rawBody }) => {
   // Send notification emails
   const emailResponse = await sendBatchEmail(
     programEnrollments
-      // only notify partners with user accounts (meaning they've signed up on partners.dub.co)
+      // only notify partners with user accounts (meaning they've signed up on partners.ingat.cc)
       .filter(({ partner }) => partner._count.users > 0)
       .map(({ partner }) => ({
         variant: "notifications",

@@ -75,7 +75,7 @@ function AddEditEmailDomainModalContent({
   const onSubmit = async (data: FormData) => {
     if (isApexDomain) {
       toast.error(
-        "Please use a subdomain instead of an apex domain (e.g., mail.dub.co)",
+        "Please use a subdomain instead of an apex domain (e.g., mail.ingat.cc)",
       );
       return;
     }
@@ -162,7 +162,7 @@ function AddEditEmailDomainModalContent({
                         return true;
                       },
                     })}
-                    placeholder="mail.dub.co"
+                    placeholder="mail.ingat.cc"
                   />
                 </div>
 
@@ -182,7 +182,7 @@ function AddEditEmailDomainModalContent({
                         </span>
                         ) to maintain domain reputation.{" "}
                         <a
-                          href="https://dub.co/help/article/email-campaigns#email-domain-setup"
+                          href="https://ingat.cc/help/article/email-campaigns#email-domain-setup"
                           target="_blank"
                           className="cursor-help font-semibold underline decoration-dotted underline-offset-2"
                         >

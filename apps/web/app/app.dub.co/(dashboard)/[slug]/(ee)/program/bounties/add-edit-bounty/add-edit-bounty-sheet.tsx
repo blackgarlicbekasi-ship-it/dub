@@ -545,7 +545,7 @@ function BountySheetContent({ setIsOpen, bounty }: BountySheetProps) {
               disabledTooltip={
                 showBountySocialMetricsUpsell ? (
                   <TooltipContent
-                    title="[Social metrics bounties](https://dub.co/help/article/program-bounties#social-metrics-bounties) are only available on the Advanced plan and above."
+                    title="[Social metrics bounties](https://ingat.cc/help/article/program-bounties#social-metrics-bounties) are only available on the Advanced plan and above."
                     cta="Upgrade to Advanced"
                     href={`/${workspaceSlug}/upgrade?showPartnersUpgradeModal=true`}
                     target="_blank"

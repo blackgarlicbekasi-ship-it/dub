@@ -249,7 +249,7 @@ export function WorkspaceMembersClient() {
         title="Members"
         titleInfo={{
           title:
-            "Learn how to [invite teammates](https://dub.co/help/article/how-to-invite-teammates) to your workspace and [assign them different roles and permissions](https://dub.co/help/article/workspace-roles).",
+            "Learn how to [invite teammates](https://ingat.cc/help/article/how-to-invite-teammates) to your workspace and [assign them different roles and permissions](https://ingat.cc/help/article/workspace-roles).",
         }}
         controls={
           <div className="flex space-x-2">

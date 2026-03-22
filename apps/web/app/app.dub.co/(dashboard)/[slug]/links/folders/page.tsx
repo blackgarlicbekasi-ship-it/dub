@@ -9,7 +9,7 @@ export default async function FoldersPage() {
       titleInfo={{
         title:
           "Learn how to use folders to organize and manage access to your links with fine-grained role-based access controls.",
-        href: "https://dub.co/help/article/link-folders",
+        href: "https://ingat.cc/help/article/link-folders",
       }}
       controls={<FoldersPageControls />}
     >

@@ -41,7 +41,7 @@ export function PartnersUpgradeCTA({
       </div>
       <div className="max-w-sm text-pretty text-center">
         <span className="text-base font-medium text-neutral-900">
-          {title || "Dub Partners"}
+          {title || "Ingat Partners"}
         </span>
         <p className="mt-2 text-pretty text-sm text-neutral-500">
           {description || (
@@ -49,7 +49,7 @@ export function PartnersUpgradeCTA({
               Kickstart viral product-led growth with powerful, branded referral
               and affiliate programs.{" "}
               <Link
-                href="https://dub.co/partners"
+                href="https://ingat.cc/partners"
                 target="_blank"
                 className="text-content-default hover:text-content-emphasis font-medium transition-colors"
               >

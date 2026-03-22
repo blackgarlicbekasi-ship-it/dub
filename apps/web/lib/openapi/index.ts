@@ -23,14 +23,14 @@ import { trackPaths } from "./track";
 export const document = createDocument({
   openapi: "3.0.3",
   info: {
-    title: "Dub API",
+    title: "Ingat API",
     description:
-      "Dub is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
+      "Ingat is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
     version: "0.0.1",
     contact: {
-      name: "Dub Support",
-      email: "support@dub.co",
-      url: "https://dub.co/support",
+      name: "Ingat Support",
+      email: "support@ingat.cc",
+      url: "https://ingat.cc/support",
     },
     license: {
       name: "AGPL-3.0 license",

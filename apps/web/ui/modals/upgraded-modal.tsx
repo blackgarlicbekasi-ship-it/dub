@@ -138,7 +138,7 @@ function UpgradedModal({
             <p className="mt-6 text-pretty text-center text-xs text-neutral-500">
               By claiming your .link domain, you agree to our{" "}
               <a
-                href="https://dub.co/help/article/free-dot-link-domain#terms-and-conditions"
+                href="https://ingat.cc/help/article/free-dot-link-domain#terms-and-conditions"
                 target="_blank"
                 className="underline transition-colors hover:text-neutral-700"
               >

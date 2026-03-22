@@ -4,27 +4,27 @@ const advancedLinkFeatures = [
   {
     icon: Views,
     text: "Custom link previews",
-    href: "https://dub.co/help/article/custom-link-previews",
+    href: "https://ingat.cc/help/article/custom-link-previews",
   },
   {
     icon: Earth,
     text: "Geo/device targeting",
-    href: "https://dub.co/help/article/geo-targeting",
+    href: "https://ingat.cc/help/article/geo-targeting",
   },
   {
     icon: InputPasswordPointer,
     text: "Password protection",
-    href: "https://dub.co/help/article/password-protected-links",
+    href: "https://ingat.cc/help/article/password-protected-links",
   },
   {
     icon: Timer2,
     text: "Link expiration",
-    href: "https://dub.co/help/article/link-expiration",
+    href: "https://ingat.cc/help/article/link-expiration",
   },
   {
     icon: Incognito,
     text: "Link cloaking",
-    href: "https://dub.co/help/article/link-cloaking",
+    href: "https://ingat.cc/help/article/link-cloaking",
   },
 ];
 

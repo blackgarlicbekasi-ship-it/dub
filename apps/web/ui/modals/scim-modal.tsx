@@ -121,7 +121,7 @@ function SCIMModal({
                 Directory Provider
               </h2>
               <InfoTooltip
-                content={`Your directory provider is the IDP you use to manage your users. [${selectedProvider ? "Read the guide." : "Learn more."}](https://dub.co/help/${
+                content={`Your directory provider is the IDP you use to manage your users. [${selectedProvider ? "Read the guide." : "Learn more."}](https://ingat.cc/help/${
                   currentProvider
                     ? `article/${currentProvider.saml}-scim`
                     : "category/saml-sso"
@@ -153,7 +153,7 @@ function SCIMModal({
             </select>
             {currentProvider && (
               <a
-                href={`https://dub.co/help/article/${currentProvider.saml}-scim`}
+                href={`https://ingat.cc/help/article/${currentProvider.saml}-scim`}
                 target="_blank"
                 className="ml-2 mt-2 block text-sm text-neutral-500 underline"
               >
@@ -171,7 +171,7 @@ function SCIMModal({
                     {currentProvider.scimModalCopy.url}
                   </h2>
                   <InfoTooltip
-                    content={`Your directory provider is the IDP you use to manage your users. [Read the guide.](https://dub.co/help/article/${currentProvider.saml}-scim)`}
+                    content={`Your directory provider is the IDP you use to manage your users. [Read the guide.](https://ingat.cc/help/article/${currentProvider.saml}-scim)`}
                   />
                 </div>
                 <div className="mt-1 flex w-full items-center justify-between rounded-md border border-neutral-300 bg-white px-3 py-2 shadow-sm">
@@ -205,7 +205,7 @@ function SCIMModal({
                     {currentProvider.scimModalCopy.token}
                   </h2>
                   <InfoTooltip
-                    content={`Your directory provider is the IDP you use to manage your users. [Read the guide.](https://dub.co/help/article/${currentProvider.saml}-scim)`}
+                    content={`Your directory provider is the IDP you use to manage your users. [Read the guide.](https://ingat.cc/help/article/${currentProvider.saml}-scim)`}
                   />
                 </div>
                 <div className="mt-1 flex w-full items-center justify-between rounded-md border border-neutral-300 bg-white px-3 py-2 shadow-sm">

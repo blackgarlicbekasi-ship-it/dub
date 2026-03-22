@@ -32,7 +32,7 @@ const ErrorSchema = z.object({
     }),
     doc_url: z.string().optional().meta({
       description: "A URL to more information about the error code reported.",
-      example: "https://dub.co/docs/api-reference",
+      example: "https://ingat.cc/docs/api-reference",
     }),
   }),
 });
@@ -59,7 +59,7 @@ export class DubApiError extends Error {
   }
 }
 
-const docErrorUrl = "https://dub.co/docs/api-reference/errors";
+const docErrorUrl = "https://ingat.cc/docs/api-reference/errors";
 
 export function fromZodError(error: z.ZodError): ErrorResponse {
   return {

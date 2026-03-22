@@ -126,7 +126,7 @@ export default async function DeepLinkPreviewPage(props: {
         <div className="relative z-10 flex flex-1 flex-col px-8 py-8">
           <div className="flex justify-center">
             <Link
-              href="https://dub.co/docs/concepts/deep-links/quickstart"
+              href="https://ingat.cc/docs/concepts/deep-links/quickstart"
               target="_blank"
               className={cn(
                 "flex items-center gap-1 whitespace-nowrap text-sm font-medium text-neutral-900",

@@ -64,7 +64,7 @@ function CapableLayout({ children }: { children: ReactNode }) {
                   </h1>
                   <InfoTooltip
                     content={
-                      "Chat with your partners in real time, with email notifications & read statuses built in. [Learn more](https://dub.co/help/article/messaging-partners)"
+                      "Chat with your partners in real time, with email notifications & read statuses built in. [Learn more](https://ingat.cc/help/article/messaging-partners)"
                     }
                   />
                 </div>

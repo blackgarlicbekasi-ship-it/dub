@@ -157,7 +157,7 @@ function DefaultPartnerLinkSheetContent({
                       Custom domain for your partner referral links (applies to
                       all{" "}
                       <a
-                        href="https://dub.co/help/article/partner-groups"
+                        href="https://ingat.cc/help/article/partner-groups"
                         target="_blank"
                         className="cursor-help font-medium text-neutral-800 underline decoration-dotted underline-offset-2"
                       >
@@ -183,7 +183,7 @@ function DefaultPartnerLinkSheetContent({
                   <p className="text-xs font-normal text-neutral-500">
                     Where your partner referral links will redirect to.{" "}
                     <a
-                      href="https://dub.co/help/article/partner-link-settings"
+                      href="https://ingat.cc/help/article/partner-link-settings"
                       target="_blank"
                       className="cursor-help font-medium text-neutral-800 underline decoration-dotted underline-offset-2"
                     >

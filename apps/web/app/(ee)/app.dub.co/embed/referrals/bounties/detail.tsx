@@ -21,7 +21,7 @@ import { useState } from "react";
 import {
   BountyEndDate,
   BountyRewardsTable,
-} from "../../../../partners.dub.co/(dashboard)/programs/[programSlug]/(enrolled)/bounties/bounty-card";
+} from "../../../../partners.ingat.cc/(dashboard)/programs/[programSlug]/(enrolled)/bounties/bounty-card";
 import { EmbedBountyPerformanceSection } from "./performance-section";
 import { EmbedBountySubmissionDetail } from "./submission-detail";
 import { EmbedBountySubmissionForm } from "./submission-form";

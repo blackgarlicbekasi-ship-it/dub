@@ -14,7 +14,7 @@ export function DubStatusBadge({ className }: { className?: string }) {
         | "partial_outage"
         | "full_outage";
     }[];
-  }>("https://status.dub.co/api/v1/summary", fetcher);
+  }>("https://status.ingat.cc/api/v1/summary", fetcher);
 
   const [color, setColor] = useState("bg-neutral-200");
   const [status, setStatus] = useState("Loading status...");
@@ -38,7 +38,7 @@ export function DubStatusBadge({ className }: { className?: string }) {
 
   return (
     <Link
-      href="https://status.dub.co"
+      href="https://status.ingat.cc"
       target="_blank"
       className={cn(
         "group flex max-w-fit items-center gap-2 rounded-lg border border-neutral-200 bg-white py-2 pl-2 pr-2.5 transition-colors hover:bg-neutral-50 active:bg-neutral-100",

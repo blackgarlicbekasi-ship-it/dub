@@ -82,7 +82,7 @@ export const LinkPreview = memo(() => {
 
   const [debouncedUrl] = useDebounce(url, 500);
   const hostname = useMemo(() => {
-    if (password) return "dub.co";
+    if (password) return "ingat.cc";
     return getDomainWithoutWWW(debouncedUrl) ?? null;
   }, [password, debouncedUrl]);
 
@@ -107,7 +107,7 @@ export const LinkPreview = memo(() => {
           <h2 className="text-sm font-medium text-neutral-700">
             Custom Link Preview
           </h2>
-          <InfoTooltip content="Customize how your links look when shared on social media to improve click-through rates. When enabled, the preview settings below will be shown publicly (instead of the URL's original metatags). [Learn more.](https://dub.co/help/article/custom-link-previews)" />
+          <InfoTooltip content="Customize how your links look when shared on social media to improve click-through rates. When enabled, the preview settings below will be shown publicly (instead of the URL's original metatags). [Learn more.](https://ingat.cc/help/article/custom-link-previews)" />
         </div>
 
         <Switch
@@ -120,7 +120,7 @@ export const LinkPreview = memo(() => {
               <TooltipContent
                 title="Custom Link Previews are only available on the Pro plan and above."
                 cta="Upgrade to Pro"
-                href={slug ? `/${slug}/upgrade` : "https://dub.co/pricing"}
+                href={slug ? `/${slug}/upgrade` : "https://ingat.cc/pricing"}
                 target="_blank"
               />
             ) : undefined

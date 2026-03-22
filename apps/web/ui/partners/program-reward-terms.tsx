@@ -16,7 +16,7 @@ export function ProgramRewardTerms({
             value: currencyFormatter(minPayoutAmount, {
               trailingZeroDisplay: "stripIfInteger",
             }),
-            href: "https://dub.co/help/article/commissions-payouts#what-does-minimum-payout-amount-mean",
+            href: "https://ingat.cc/help/article/commissions-payouts#what-does-minimum-payout-amount-mean",
           },
         ]
       : []),
@@ -25,7 +25,7 @@ export function ProgramRewardTerms({
           {
             label: "holding period",
             value: `${holdingPeriodDays}-day`,
-            href: "https://dub.co/help/article/commissions-payouts#what-does-holding-period-mean",
+            href: "https://ingat.cc/help/article/commissions-payouts#what-does-holding-period-mean",
           },
         ]
       : []),

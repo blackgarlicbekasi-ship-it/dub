@@ -32,7 +32,7 @@ const tw = createTw({
   },
 });
 
-// GET /partners.dub.co/invoices/[payoutId] - get the invoice for a payout
+// GET /partners.ingat.cc/invoices/[payoutId] - get the invoice for a payout
 export const GET = withPartnerProfile(async ({ partner, params }) => {
   const { payoutId } = params;
 

@@ -81,7 +81,7 @@ export default async function LoginPage(props: {
             <div className="mt-12 w-full">
               <AuthAlternativeBanner
                 text="Looking for your Dub workspace account?"
-                cta="Log in at app.dub.co"
+                cta="Log in at app.ingat.cc"
                 href="https://app.dub.co/login"
               />
             </div>

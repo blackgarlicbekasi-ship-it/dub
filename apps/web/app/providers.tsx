@@ -9,17 +9,17 @@ import { Toaster } from "sonner";
 export default function RootProviders({ children }: { children: ReactNode }) {
   return (
     <TooltipProvider>
-      <PlausibleProvider domain="dub.co" revenue />
+      <PlausibleProvider domain="ingat.cc" revenue />
       <KeyboardShortcutProvider>
         <Toaster className="pointer-events-auto" closeButton />
         {children}
         <DubAnalytics
           apiHost="/_proxy/dub"
           cookieOptions={{
-            domain: process.env.VERCEL === "1" ? ".dub.co" : "localhost",
+            domain: process.env.VERCEL === "1" ? ".ingat.cc" : "localhost",
           }}
           domainsConfig={{
-            refer: "refer.dub.co",
+            refer: "refer.ingat.cc",
           }}
         />
       </KeyboardShortcutProvider>

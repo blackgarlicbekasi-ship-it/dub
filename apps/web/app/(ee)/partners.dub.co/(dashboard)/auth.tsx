@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 const ERROR_CODES = {
   unauthorized:
-    "Unauthorized. You must be logged in https://partners.dub.co to continue.",
+    "Unauthorized. You must be logged in https://partners.ingat.cc to continue.",
   partner_not_found: "Partner profile not found.",
   invalid_state:
     "Invalid or expired state. Please try again from the beginning.",

@@ -80,7 +80,7 @@ export const updateProgramAction = authActionClient
         });
 
         if (updatedProgram.termsUrl !== program.termsUrl) {
-          revalidatePath(`/partners.dub.co/${program.slug}/apply`);
+          revalidatePath(`/partners.ingat.cc/${program.slug}/apply`);
         }
       })(),
     );

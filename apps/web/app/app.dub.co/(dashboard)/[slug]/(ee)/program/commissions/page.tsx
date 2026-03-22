@@ -14,7 +14,7 @@ export default function ProgramCommissions() {
       titleInfo={{
         title:
           "Learn how partner commissions work on Dub, and how to create manual commissions or clawbacks.",
-        href: "https://dub.co/help/article/partner-commissions-clawbacks",
+        href: "https://ingat.cc/help/article/partner-commissions-clawbacks",
       }}
       controls={
         <>

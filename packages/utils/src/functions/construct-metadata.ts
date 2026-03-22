@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export function constructMetadata({
   title,
   fullTitle,
-  description = "Dub is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
+  description = "Ingat is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
   image = "https://assets.dub.co/thumbnail.jpg",
   video,
   icons = [
@@ -44,7 +44,7 @@ export function constructMetadata({
   return {
     title:
       fullTitle ||
-      (title ? `${title} | Dub` : "Dub - The Modern Link Attribution Platform"),
+      (title ? `${title} | Ingat` : "Ingat - The Modern Link Attribution Platform"),
     description,
     openGraph: {
       title,
@@ -67,10 +67,10 @@ export function constructMetadata({
       ...(video && {
         player: video,
       }),
-      creator: "@dubdotco",
+      creator: "@ingatcc",
     },
     icons,
-    metadataBase: new URL("https://dub.co"),
+    metadataBase: new URL("https://ingat.cc"),
     ...((url || canonicalUrl) && {
       alternates: {
         canonical: url || canonicalUrl,

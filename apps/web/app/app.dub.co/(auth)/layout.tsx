@@ -51,7 +51,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
           <div className="relative flex min-h-[100dvh] min-h-screen w-full justify-center">
             <a
-              href="https://dub.co"
+              href="https://ingat.cc"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute left-1/2 top-4 z-10 -translate-x-1/2"

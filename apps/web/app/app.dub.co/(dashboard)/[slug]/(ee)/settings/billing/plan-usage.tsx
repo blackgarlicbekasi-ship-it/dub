@@ -261,7 +261,7 @@ export default function PlanUsage() {
             title="Payout fees"
             icon={CirclePercentage}
             usage={payoutFeeDisplay}
-            href="https://dub.co/help/article/partner-payouts#payout-fees-and-timing"
+            href="https://ingat.cc/help/article/partner-payouts#payout-fees-and-timing"
           />
         </div>
       </div>

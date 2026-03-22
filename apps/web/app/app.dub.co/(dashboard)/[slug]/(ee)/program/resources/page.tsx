@@ -10,7 +10,7 @@ export default function ProgramResourcesPage() {
       titleInfo={{
         title:
           "Learn how to configure brand and support resources for your partners.",
-        href: "https://dub.co/help/article/program-resources",
+        href: "https://ingat.cc/help/article/program-resources",
       }}
     >
       <PageWidthWrapper className="mb-8 grid gap-8">

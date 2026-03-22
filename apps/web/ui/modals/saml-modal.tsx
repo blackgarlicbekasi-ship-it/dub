@@ -113,7 +113,7 @@ function SAMLModal({
             </select>
             {currentProvider ? (
               <a
-                href={`https://dub.co/help/article/${selectedProvider}-saml`}
+                href={`https://ingat.cc/help/article/${selectedProvider}-saml`}
                 target="_blank"
                 className="ml-2 mt-2 block text-sm text-neutral-500 underline"
               >
@@ -121,7 +121,7 @@ function SAMLModal({
               </a>
             ) : (
               <a
-                href="https://dub.co/help/category/saml-sso"
+                href="https://ingat.cc/help/category/saml-sso"
                 target="_blank"
                 className="ml-2 mt-2 block text-sm text-neutral-500 underline"
               >
@@ -138,7 +138,7 @@ function SAMLModal({
                     {currentProvider.samlModalCopy}
                   </h2>
                   <InfoTooltip
-                    content={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata. [Learn more.](https://dub.co/help/article/${selectedProvider}-saml)`}
+                    content={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata. [Learn more.](https://ingat.cc/help/article/${selectedProvider}-saml)`}
                   />
                 </div>
                 <label
@@ -189,7 +189,7 @@ function SAMLModal({
                     {currentProvider.samlModalCopy}
                   </h2>
                   <InfoTooltip
-                    content={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata. [Learn more.](https://dub.co/help/article/${selectedProvider}-saml#step-4-copy-the-metadata-url)`}
+                    content={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata. [Learn more.](https://ingat.cc/help/article/${selectedProvider}-saml#step-4-copy-the-metadata-url)`}
                   />
                 </div>
                 <input

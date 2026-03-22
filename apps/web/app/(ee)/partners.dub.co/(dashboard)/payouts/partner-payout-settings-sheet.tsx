@@ -128,7 +128,7 @@ function PartnerPayoutSettingsSheetInner() {
           Payout settings{" "}
           <InfoTooltip
             content={
-              "Learn how to set up your payout account and receive payouts. [Learn more.](https://dub.co/help/article/receiving-payouts)"
+              "Learn how to set up your payout account and receive payouts. [Learn more.](https://ingat.cc/help/article/receiving-payouts)"
             }
           />
         </Sheet.Title>
@@ -399,7 +399,7 @@ function ConnectedExternalAccounts() {
       <p className="text-content-subtle text-xs font-normal leading-4">
         These programs manage payouts externally through their own systems.
         <Link
-          href="https://dub.co/help/article/receiving-payouts"
+          href="https://ingat.cc/help/article/receiving-payouts"
           target="_blank"
           className="ml-1 underline underline-offset-2"
         >

@@ -54,7 +54,7 @@ export function BountyList() {
             <>
               This program doesn't have any active bounties.{" "}
               <a
-                href="https://dub.co/help/article/program-bounties"
+                href="https://ingat.cc/help/article/program-bounties"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-content-default underline sm:whitespace-nowrap"

@@ -9,7 +9,7 @@ import { useState } from "react";
 import {
   BountyEndDate,
   PartnerBountyCard,
-} from "../../../../partners.dub.co/(dashboard)/programs/[programSlug]/(enrolled)/bounties/bounty-card";
+} from "../../../../partners.ingat.cc/(dashboard)/programs/[programSlug]/(enrolled)/bounties/bounty-card";
 import { useReferralsEmbedData } from "../page-client";
 import { EmbedBountyDetail, EmbedBountyView } from "./detail";
 

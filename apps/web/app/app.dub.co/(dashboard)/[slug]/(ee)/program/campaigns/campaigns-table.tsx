@@ -198,7 +198,7 @@ export function CampaignsTable() {
           addButton={!isFiltered ? <CreateCampaignButton /> : undefined}
           learnMoreHref={
             !isFiltered
-              ? "https://dub.co/help/article/email-campaigns"
+              ? "https://ingat.cc/help/article/email-campaigns"
               : undefined
           }
         />

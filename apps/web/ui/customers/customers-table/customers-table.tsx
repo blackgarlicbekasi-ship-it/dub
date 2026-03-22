@@ -472,7 +472,7 @@ export function CustomersTable({
                     breakdown etc.? Upgrade to our Business Plan to get deeper,
                     real-time customer insights.{" "}
                     <a
-                      href="https://dub.co/help/article/customer-insights"
+                      href="https://ingat.cc/help/article/customer-insights"
                       target="_blank"
                       className="underline underline-offset-2 hover:text-neutral-800"
                     >

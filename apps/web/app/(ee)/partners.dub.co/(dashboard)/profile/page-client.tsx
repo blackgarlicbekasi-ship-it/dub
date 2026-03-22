@@ -30,7 +30,7 @@ export function ProfileSettingsPageClient() {
       titleInfo={{
         title:
           "Build a stronger partner profile and increase trust by adding and verifying your website and social accounts.",
-        href: "https://dub.co/help/article/partner-profile",
+        href: "https://ingat.cc/help/article/partner-profile",
       }}
       controls={<Controls />}
     >

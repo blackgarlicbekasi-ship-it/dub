@@ -229,7 +229,7 @@ export function ProfileMembersPageClient() {
         titleInfo={{
           title:
             "Learn how to invite team members, assign roles, and manage access to your partner profile.",
-          href: "https://dub.co/help/article/managing-partner-teams",
+          href: "https://ingat.cc/help/article/managing-partner-teams",
         }}
         controls={
           isCurrentUserOwner && (

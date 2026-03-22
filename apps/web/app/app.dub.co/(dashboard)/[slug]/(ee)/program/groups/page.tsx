@@ -10,7 +10,7 @@ export default function ProgramPartnersGroups() {
       titleInfo={{
         title:
           "Learn how you can create partner groups to segment partners by rewards, discounts, performance, location, and more.",
-        href: "https://dub.co/help/article/partner-groups",
+        href: "https://ingat.cc/help/article/partner-groups",
       }}
       controls={<CreateGroupButton />}
     >

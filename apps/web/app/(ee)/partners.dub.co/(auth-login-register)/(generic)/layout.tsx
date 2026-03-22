@@ -36,7 +36,7 @@ export async function generateMetadata(props: {
   }
 
   return constructMetadata({
-    fullTitle: "Dub Partners | Earn by partnering with world-class companies",
+    fullTitle: "Ingat Partners | Earn by partnering with world-class companies",
     description:
       "Join thousands of partners who have earned over $10,000,000 on Dub partnering with world-class companies.",
   });

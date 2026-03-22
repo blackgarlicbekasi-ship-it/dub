@@ -35,7 +35,7 @@ export function GroupDefaultLinks() {
             </h3>
             <InfoTooltip
               content={
-                "Default links are links that are automatically created for each partner in this group. [Learn more.](https://dub.co/help/article/partner-link-settings#default-referral-links)"
+                "Default links are links that are automatically created for each partner in this group. [Learn more.](https://ingat.cc/help/article/partner-link-settings#default-referral-links)"
               }
             />
           </div>

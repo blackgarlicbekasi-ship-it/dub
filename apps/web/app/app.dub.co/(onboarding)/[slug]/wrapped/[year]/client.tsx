@@ -101,12 +101,12 @@ export default function WrappedPageClient() {
 
       <Link
         className="group flex flex-col gap-4 rounded-lg border border-neutral-200 bg-white p-4 sm:flex-row"
-        href="https://dub.co/blog/2024"
+        href="https://ingat.cc/blog/2024"
         target="_blank"
       >
         <Image
           src="https://assets.dub.co/blog/2024.jpg"
-          alt="Dub logo with confetti"
+          alt="Ingat logo with confetti"
           width={1838}
           height={1172}
           className="w-1/3 rounded-md"

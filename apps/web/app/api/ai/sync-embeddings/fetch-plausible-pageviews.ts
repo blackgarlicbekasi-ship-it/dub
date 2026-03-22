@@ -17,7 +17,7 @@ export async function fetchPlausiblePageviews(): Promise<Map<string, number>> {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        site_id: "dub.co",
+        site_id: "ingat.cc",
         metrics: ["pageviews"],
         date_range: "12mo",
         dimensions: ["event:page"],

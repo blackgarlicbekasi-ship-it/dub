@@ -80,7 +80,7 @@ export default function UnsplashSearch({
                     className="underline underline-offset-2"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`${photo.user.links.html}?utm_source=dub.co&utm_medium=referral`}
+                    href={`${photo.user.links.html}?utm_source=ingat.cc&utm_medium=referral`}
                   >
                     {photo.user.name}
                   </a>

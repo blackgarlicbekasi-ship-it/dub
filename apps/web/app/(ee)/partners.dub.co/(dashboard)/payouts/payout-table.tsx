@@ -282,7 +282,7 @@ function AmountRowItem({ payout }: { payout: PartnerPayoutResponse }) {
   ) {
     return (
       <Tooltip
-        content={`This program's [minimum payout amount](https://dub.co/help/article/commissions-payouts#what-does-minimum-payout-amount-mean) is ${currencyFormatter(
+        content={`This program's [minimum payout amount](https://ingat.cc/help/article/commissions-payouts#what-does-minimum-payout-amount-mean) is ${currencyFormatter(
           payout.program.minPayoutAmount,
           { trailingZeroDisplay: "stripIfInteger" },
         )}. This payout will be accrued and processed during the next payout period.`}

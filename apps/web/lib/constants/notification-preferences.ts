@@ -1,8 +1,8 @@
 // User-level notification preferences for email communications
 export const NOTIFICATION_PREFERENCE_TYPES = [
-  "dubLinks", // Dub Links product updates on app.dub.co
-  "dubPartners", // Dub Partners product updates on app.dub.co
-  "partnerAccount", // Updates to partner accounts on partners.dub.co
+  "dubLinks", // Dub Links product updates on app.ingat.cc
+  "dubPartners", // Dub Partners product updates on app.ingat.cc
+  "partnerAccount", // Updates to partner accounts on partners.ingat.cc
 ] as const;
 
 export type NotificationPreferenceType =
@@ -34,21 +34,21 @@ export const NOTIFICATION_PREFERENCE_LABELS: Record<
   { title: string; description: string; link: string }
 > = {
   dubLinks: {
-    title: "Dub Links",
+    title: "Ingat Links",
     description:
       "New Dub Links features and guides on how to manage and track your links",
-    link: "https://dub.co/links",
+    link: "https://ingat.cc/links",
   },
   dubPartners: {
-    title: "Dub Partners",
+    title: "Ingat Partners",
     description:
       "New Dub Partners features and tips on how to grow your affiliate program",
-    link: "https://dub.co/partners",
+    link: "https://ingat.cc/partners",
   },
   partnerAccount: {
     title: "Partner Account",
     description:
       "New program launches, feature updates, and tutorials on how to succeed as a partner",
-    link: "https://partners.dub.co",
+    link: "https://partners.ingat.cc",
   },
 };

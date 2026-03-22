@@ -13,7 +13,7 @@ export default function ProgramAnalytics() {
       titleInfo={{
         title:
           "Learn how to use Dub to track and measure your program's performance.",
-        href: "https://dub.co/help/article/program-analytics",
+        href: "https://ingat.cc/help/article/program-analytics",
       }}
     >
       <PageWidthWrapper>

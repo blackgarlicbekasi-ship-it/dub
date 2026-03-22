@@ -136,7 +136,7 @@ export const LinksToolbar = memo(
             <TooltipContent
               title="Conversion tracking is only available on Business plans and above."
               cta="Upgrade to Business"
-              href={slug ? `/${slug}/upgrade` : "https://dub.co/pricing"}
+              href={slug ? `/${slug}/upgrade` : "https://ingat.cc/pricing"}
               target="_blank"
             />
           ),

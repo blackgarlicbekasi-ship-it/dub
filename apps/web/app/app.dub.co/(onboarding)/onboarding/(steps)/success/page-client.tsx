@@ -81,8 +81,8 @@ export function SuccessPageClient({
         </h1>
         <MarkdownDescription className="mt-2 text-pretty text-center text-base text-neutral-500">
           {hasProgram
-            ? "Now you can manage your [partner program](https://dub.co/partners) and [short links](https://dub.co/links) all in one place"
-            : "Now you have one central, organized place to create and [manage all your short links](https://dub.co/help/category/link-management)."}
+            ? "Now you can manage your [partner program](https://ingat.cc/partners) and [short links](https://ingat.cc/links) all in one place"
+            : "Now you have one central, organized place to create and [manage all your short links](https://ingat.cc/help/category/link-management)."}
         </MarkdownDescription>
         <div className="mt-4 w-full">
           <Button
@@ -248,21 +248,21 @@ export function SuccessPageClient({
               icon: CircleQuestion,
               title: "Help center",
               description: "Answers to your questions",
-              href: "https://dub.co/help",
+              href: "https://ingat.cc/help",
               cta: "Read",
             },
             {
               icon: Book2,
               title: "Docs",
               description: "Platform documentation",
-              href: "https://dub.co/docs",
+              href: "https://ingat.cc/docs",
               cta: "Learn",
             },
             {
               icon: Msg,
               title: "Support",
               description: "Product support or help requests",
-              href: "https://dub.co/contact/support",
+              href: "https://ingat.cc/contact/support",
               cta: "Chat",
             },
           ].map(({ icon: Icon, title, description, href, cta }) => (

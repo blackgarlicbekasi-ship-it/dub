@@ -72,7 +72,7 @@ function InvitePartnerSheetContent({ setIsOpen }: InvitePartnerSheetProps) {
     return {
       subject: `${programName} invited you to join Dub Partners`,
       title: "You've been invited",
-      body: `${programName} invited you to join their program on Dub Partners.\n\n${programName} uses [Dub Partners](https://dub.co/partners) to power their partner program and wants to work with great people like you!`,
+      body: `${programName} invited you to join their program on Dub Partners.\n\n${programName} uses [Dub Partners](https://ingat.cc/partners) to power their partner program and wants to work with great people like you!`,
     };
   }, [program?.name]);
 
@@ -273,7 +273,7 @@ function InvitePartnerSheetContent({ setIsOpen }: InvitePartnerSheetProps) {
             Invite partner{" "}
             <InfoTooltip
               content={
-                "Invite influencers, affiliates, and users to your program, or enroll them automatically. [Learn more.](https://dub.co/help/article/inviting-partners)"
+                "Invite influencers, affiliates, and users to your program, or enroll them automatically. [Learn more.](https://ingat.cc/help/article/inviting-partners)"
               }
             />
           </Sheet.Title>
@@ -622,7 +622,7 @@ function EmailPreview({
                 <strong className="font-medium text-neutral-900">From: </strong>
                 {verifiedEmailDomain
                   ? `partners@${verifiedEmailDomain.slug}`
-                  : "notifications@mail.dub.co"}
+                  : "notifications@mail.ingat.cc"}
               </p>
               <p className="text-xs text-neutral-500">
                 <strong className="font-medium text-neutral-900">

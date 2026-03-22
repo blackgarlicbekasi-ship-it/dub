@@ -7,7 +7,7 @@ import { RefreshDomain } from "./components/refresh-domain";
 import { ResetLoginAttempts } from "./components/reset-login-attempts";
 
 export const metadata = constructMetadata({
-  title: "Dub Admin",
+  title: "Ingat Admin",
   noIndex: true,
 });
 

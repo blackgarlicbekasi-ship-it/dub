@@ -9,7 +9,7 @@ export default async function ProgramOverviewPage() {
       titleInfo={{
         title:
           "Learn how you can use Dub Partners to create, manage, and scale your affiliate program.",
-        href: "https://dub.co/help/article/dub-partners",
+        href: "https://ingat.cc/help/article/dub-partners",
       }}
     >
       <PageWidthWrapper className="mb-10">

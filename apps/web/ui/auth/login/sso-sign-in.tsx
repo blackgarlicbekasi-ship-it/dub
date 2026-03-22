@@ -53,7 +53,7 @@ export const SSOSignIn = () => {
               Workspace Slug
             </h2>
             <InfoTooltip
-              content={`This is your workspace's unique identifier on ${process.env.NEXT_PUBLIC_APP_NAME}. E.g. app.dub.co/acme is "acme".`}
+              content={`This is your workspace's unique identifier on ${process.env.NEXT_PUBLIC_APP_NAME}. E.g. app.ingat.cc/acme is "acme".`}
             />
           </div>
           <input

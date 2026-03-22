@@ -151,7 +151,7 @@ export function SCIM() {
                         <TooltipContent
                           title="SCIM Directory Sync is only available on Enterprise plans. Upgrade to get started."
                           cta="Contact sales"
-                          href="https://dub.co/enterprise"
+                          href="https://ingat.cc/enterprise"
                           target="_blank"
                         />
                       ) : (
@@ -168,7 +168,7 @@ export function SCIM() {
 
         <div className="rounded-b-xl border-t border-neutral-200 bg-neutral-50 px-5 pb-4 pt-3">
           <a
-            href="https://dub.co/help/category/saml-sso"
+            href="https://ingat.cc/help/category/saml-sso"
             target="_blank"
             className="text-sm text-neutral-400 underline underline-offset-4 transition-colors hover:text-neutral-700"
           >

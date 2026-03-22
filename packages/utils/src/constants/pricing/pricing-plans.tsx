@@ -205,7 +205,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Subject to fair use policy – you will be notified if you exceed the limit, which are high enough for frequent usage.",
           cta: "Learn more.",
-          href: "https://dub.co/blog/introducing-dub-ai",
+          href: "https://ingat.cc/blog/introducing-dub-ai",
         },
       },
       {
@@ -215,7 +215,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "All our paid plans come with a free .link custom domain, which helps improve click-through rates.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/free-dot-link-domain",
+          href: "https://ingat.cc/help/article/free-dot-link-domain",
         },
       },
       {
@@ -225,7 +225,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Organize and manage access to your links on Dub using folders.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/link-folders",
+          href: "https://ingat.cc/help/article/link-folders",
         },
       },
       {
@@ -235,7 +235,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Redirect users to a specific page within your mobile application using deep links.",
           cta: "Learn more.",
-          href: "https://dub.co/docs/concepts/deep-links/quickstart",
+          href: "https://ingat.cc/docs/concepts/deep-links/quickstart",
         },
       },
     ] as PlanFeature[],
@@ -296,7 +296,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Send payouts to your partners with 1-click (or automate it completely) – all across the world.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/partner-payouts",
+          href: "https://ingat.cc/help/article/partner-payouts",
         },
       },
       {
@@ -305,11 +305,11 @@ export const PLANS: PlanDetails[] = [
       },
       {
         id: "partners",
-        text: "Dub Partners",
+        text: "Ingat Partners",
         tooltip: {
           title: "Use Dub Partners to manage and pay out your affiliates.",
           cta: "Learn more.",
-          href: "https://dub.co/partners",
+          href: "https://ingat.cc/partners",
         },
       },
       {
@@ -319,7 +319,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Get real-time insights into your customers' behavior and preferences.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/customer-insights",
+          href: "https://ingat.cc/help/article/customer-insights",
         },
       },
       {
@@ -329,7 +329,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Get more data on your link clicks and QR code scans with a detailed, real-time stream of events in your workspace",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/real-time-events-stream",
+          href: "https://ingat.cc/help/article/real-time-events-stream",
         },
       },
       {
@@ -339,7 +339,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Get real-time notifications when a link is clicked or a QR code is scanned using webhooks.",
           cta: "Learn more.",
-          href: "https://dub.co/docs/concepts/webhooks/introduction",
+          href: "https://ingat.cc/docs/concepts/webhooks/introduction",
         },
       },
       {
@@ -415,7 +415,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Send payouts to your partners with 1-click (or automate it completely) – all across the world.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/partner-payouts",
+          href: "https://ingat.cc/help/article/partner-payouts",
         },
       },
       {
@@ -429,7 +429,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Create dynamic click, lead, or sale-based rewards with country and product-specific modifiers.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/partner-rewards",
+          href: "https://ingat.cc/help/article/partner-rewards",
         },
       },
       {
@@ -439,7 +439,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Create an embedded referral dashboard directly in your app in just a few lines of code.",
           cta: "Learn more.",
-          href: "https://dub.co/docs/partners/embedded-referrals",
+          href: "https://ingat.cc/docs/partners/embedded-referrals",
         },
       },
       {
@@ -457,7 +457,7 @@ export const PLANS: PlanDetails[] = [
           title:
             "Send marketing and transactional emails to your partners to increase engagement and drive conversions.",
           cta: "Learn more.",
-          href: "https://dub.co/help/article/email-campaigns",
+          href: "https://ingat.cc/help/article/email-campaigns",
         },
       },
       {

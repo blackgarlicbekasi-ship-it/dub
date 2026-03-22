@@ -121,7 +121,7 @@ export default function IntegrationPageClient({
                   </div>
                 </Tooltip>
               ) : !integration.verified ? (
-                <Tooltip content="Dub hasn't verified this integration. Install it at your own risk.">
+                <Tooltip content="Ingat has not verified this integration. Install it at your own risk.">
                   <div>
                     <CircleWarning className="size-5 text-neutral-500" invert />
                   </div>

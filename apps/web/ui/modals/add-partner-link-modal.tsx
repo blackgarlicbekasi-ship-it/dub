@@ -140,7 +140,7 @@ const AddPartnerLinkModal = ({
                     Short Link
                   </label>
 
-                  <InfoTooltip content="This is the short link that will redirect to your destination URL. [Learn more.](https://dub.co/help/article/how-to-create-link)" />
+                  <InfoTooltip content="This is the short link that will redirect to your destination URL. [Learn more.](https://ingat.cc/help/article/how-to-create-link)" />
                 </div>
               </div>
 
@@ -177,7 +177,7 @@ const AddPartnerLinkModal = ({
                   Destination URL
                 </label>
 
-                <InfoTooltip content="The URL your users will get redirected to when they visit your short link. [Learn more.](https://dub.co/help/article/how-to-create-link)" />
+                <InfoTooltip content="The URL your users will get redirected to when they visit your short link. [Learn more.](https://ingat.cc/help/article/how-to-create-link)" />
               </div>
 
               <div className="relative flex rounded-md shadow-sm">

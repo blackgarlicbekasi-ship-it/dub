@@ -25,9 +25,9 @@ type FormData = z.input<typeof updateGroupSchema>;
 const GROUP_NAME_DESCRIPTION =
   "For internal use only, never visible to partners.";
 const GROUP_SLUG_DESCRIPTION =
-  "For [program landing page](https://dub.co/help/article/program-landing-page) and internal group page URLs";
+  "For [program landing page](https://ingat.cc/help/article/program-landing-page) and internal group page URLs";
 const GROUP_ID_DESCRIPTION =
-  "For setting up the [Embedded Referral Dashboard](https://dub.co/docs/partners/embedded-referrals) within your app.";
+  "For setting up the [Embedded Referral Dashboard](https://ingat.cc/docs/partners/embedded-referrals) within your app.";
 
 export function GroupSettings() {
   const { group, loading } = useGroup();

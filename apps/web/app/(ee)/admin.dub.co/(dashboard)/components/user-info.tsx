@@ -57,7 +57,7 @@ export default function UserInfo({ data }: { data: UserInfoProps }) {
         url={data.impersonateUrl.app}
       />
       <LoginLinkCopyButton
-        text="partners.dub.co login link"
+        text="partners.ingat.cc login link"
         url={data.impersonateUrl.partners}
       />
 

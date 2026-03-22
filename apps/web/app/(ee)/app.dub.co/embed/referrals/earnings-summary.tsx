@@ -13,7 +13,7 @@ export function ReferralsEmbedEarningsSummary() {
           <InfoTooltip content="Summary of your commission earnings from your referrals." />
         </div>
         <a
-          href={`https://partners.dub.co/${program.slug}/register${
+          href={`https://partners.ingat.cc/${program.slug}/register${
             partner.email ? `?email=${partner.email}` : ""
           }`}
           target="_blank"

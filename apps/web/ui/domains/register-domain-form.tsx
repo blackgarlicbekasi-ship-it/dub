@@ -151,7 +151,7 @@ export function RegisterDomainForm({
             </p>
 
             {workspace.plan === "free" && variant === "modal" && (
-              <ProBadgeTooltip content="Search for a free .link domain to use for your short links. [Learn more.](https://dub.co/help/article/free-dot-link-domain)" />
+              <ProBadgeTooltip content="Search for a free .link domain to use for your short links. [Learn more.](https://ingat.cc/help/article/free-dot-link-domain)" />
             )}
           </div>
 
@@ -293,7 +293,7 @@ export function RegisterDomainForm({
           <p className="-my-2 text-pretty text-center text-xs text-neutral-500">
             By claiming your .link domain, you agree to our{" "}
             <a
-              href="https://dub.co/help/article/free-dot-link-domain#terms-and-conditions"
+              href="https://ingat.cc/help/article/free-dot-link-domain#terms-and-conditions"
               target="_blank"
               rel="noopener noreferrer"
               className="underline transition-colors hover:text-neutral-700"
@@ -352,7 +352,7 @@ export function RegisterDomainForm({
         <p className="mt-4 text-pretty text-center text-xs text-neutral-500">
           By claiming your .link domain, you agree to our{" "}
           <a
-            href="https://dub.co/help/article/free-dot-link-domain#terms-and-conditions"
+            href="https://ingat.cc/help/article/free-dot-link-domain#terms-and-conditions"
             target="_blank"
             rel="noopener noreferrer"
             className="underline transition-colors hover:text-neutral-700"
@@ -385,7 +385,7 @@ function DomainSavedToast() {
       <p className="text-[13px] font-medium text-neutral-900">
         Domain saved. You'll need a paid plan to complete the registration.{" "}
         <a
-          href="https://dub.co/help/article/free-dot-link-domain"
+          href="https://ingat.cc/help/article/free-dot-link-domain"
           target="_blank"
           rel="noopener noreferrer"
           className="text-neutral-500 underline transition-colors hover:text-neutral-800"

@@ -11,7 +11,7 @@ export default function ProgramPartners() {
       titleInfo={{
         title:
           "Understand how all your partners are performing and contributing to the success of your partner program.",
-        href: "https://dub.co/help/article/managing-program-partners",
+        href: "https://ingat.cc/help/article/managing-program-partners",
       }}
       controls={
         <>

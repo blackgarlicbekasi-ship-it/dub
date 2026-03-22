@@ -25,7 +25,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
 }[] = [
   {
     category: "Links",
-    href: "https://dub.co/links",
+    href: "https://ingat.cc/links",
     features: [
       {
         text: ({ plan }) => (
@@ -51,7 +51,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
             tags
           </>
         ),
-        href: "https://dub.co/help/article/how-to-use-tags",
+        href: "https://ingat.cc/help/article/how-to-use-tags",
       },
       {
         check: {
@@ -71,11 +71,11 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
       },
       {
         text: "Custom QR codes",
-        href: "https://dub.co/help/article/custom-qr-codes",
+        href: "https://ingat.cc/help/article/custom-qr-codes",
       },
       {
         text: "UTM builder + templates",
-        href: "https://dub.co/help/article/how-to-create-utm-templates",
+        href: "https://ingat.cc/help/article/how-to-create-utm-templates",
       },
       {
         check: {
@@ -83,7 +83,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Custom link previews",
-        href: "https://dub.co/help/article/custom-link-previews",
+        href: "https://ingat.cc/help/article/custom-link-previews",
       },
       {
         check: {
@@ -91,7 +91,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Deep links",
-        href: "https://dub.co/docs/concepts/deep-links/quickstart",
+        href: "https://ingat.cc/docs/concepts/deep-links/quickstart",
       },
       {
         check: {
@@ -99,7 +99,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Link cloaking",
-        href: "https://dub.co/help/article/link-cloaking",
+        href: "https://ingat.cc/help/article/link-cloaking",
       },
 
       {
@@ -108,7 +108,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Link expiration",
-        href: "https://dub.co/help/article/link-expiration",
+        href: "https://ingat.cc/help/article/link-expiration",
       },
       {
         check: {
@@ -116,7 +116,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Password protection",
-        href: "https://dub.co/help/article/password-protected-links",
+        href: "https://ingat.cc/help/article/password-protected-links",
       },
       {
         check: {
@@ -124,7 +124,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Device targeting",
-        href: "https://dub.co/help/article/device-targeting",
+        href: "https://ingat.cc/help/article/device-targeting",
       },
       {
         check: {
@@ -132,7 +132,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           default: true,
         },
         text: "Geo targeting",
-        href: "https://dub.co/help/article/geo-targeting",
+        href: "https://ingat.cc/help/article/geo-targeting",
       },
       {
         check: {
@@ -146,7 +146,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
   },
   {
     category: "Partners",
-    href: "https://dub.co/partners",
+    href: "https://ingat.cc/partners",
     features: [
       {
         check: {
@@ -165,7 +165,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Automated global payouts",
-        href: "https://dub.co/help/article/partner-payouts",
+        href: "https://ingat.cc/help/article/partner-payouts",
       },
       {
         check: {
@@ -213,7 +213,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
               payout fees
             </>
           ),
-        href: "https://dub.co/help/article/partner-payouts#payout-fees-and-timing",
+        href: "https://ingat.cc/help/article/partner-payouts#payout-fees-and-timing",
       },
       {
         check: {
@@ -223,7 +223,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Tax compliance",
-        href: "https://dub.co/help/article/partner-payouts#tax-compliance",
+        href: "https://ingat.cc/help/article/partner-payouts#tax-compliance",
       },
       {
         check: {
@@ -241,7 +241,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
               partner rewards
             </>
           ),
-        href: "https://dub.co/help/article/partner-rewards",
+        href: "https://ingat.cc/help/article/partner-rewards",
       },
       {
         check: {
@@ -251,7 +251,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Dual-sided incentives",
-        href: "https://dub.co/help/article/dual-sided-incentives",
+        href: "https://ingat.cc/help/article/dual-sided-incentives",
       },
       {
         check: {
@@ -261,7 +261,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "AI landing page generator",
-        href: "https://dub.co/help/article/program-landing-page",
+        href: "https://ingat.cc/help/article/program-landing-page",
       },
       {
         check: {
@@ -282,7 +282,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
             partner groups
           </>
         ),
-        href: "https://dub.co/help/article/partner-groups",
+        href: "https://ingat.cc/help/article/partner-groups",
       },
       {
         check: {
@@ -291,7 +291,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Embedded referral dashboard",
-        href: "https://dub.co/docs/partners/embedded-referrals",
+        href: "https://ingat.cc/docs/partners/embedded-referrals",
       },
       {
         check: {
@@ -300,7 +300,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Partners API",
-        href: "https://dub.co/docs/api-reference/endpoint/create-a-partner",
+        href: "https://ingat.cc/docs/api-reference/endpoint/create-a-partner",
       },
       {
         check: {
@@ -337,11 +337,11 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
   },
   {
     category: "Analytics",
-    href: "https://dub.co/analytics",
+    href: "https://ingat.cc/analytics",
     features: [
       {
         text: "Advanced analytics",
-        href: "https://dub.co/help/article/dub-analytics",
+        href: "https://ingat.cc/help/article/dub-analytics",
       },
       {
         text: ({ plan }) => (
@@ -355,7 +355,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
             {plan.name === "Enterprise" ? "" : "/mo"}
           </>
         ),
-        href: "https://dub.co/help/article/dub-analytics-limits",
+        href: "https://ingat.cc/help/article/dub-analytics-limits",
       },
       {
         text: ({ plan }) => (
@@ -372,7 +372,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Conversion tracking",
-        href: "https://dub.co/help/article/dub-conversions",
+        href: "https://ingat.cc/help/article/dub-conversions",
       },
       {
         check: {
@@ -382,7 +382,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Customer insights",
-        href: "https://dub.co/help/article/customer-insights",
+        href: "https://ingat.cc/help/article/customer-insights",
       },
       {
         check: {
@@ -392,13 +392,13 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Real-time events stream",
-        href: "https://dub.co/help/article/real-time-events-stream",
+        href: "https://ingat.cc/help/article/real-time-events-stream",
       },
     ],
   },
   {
     category: "Domains",
-    href: "https://dub.co/help/category/custom-domains",
+    href: "https://ingat.cc/help/category/custom-domains",
     features: [
       {
         text: ({ plan }) => (
@@ -425,7 +425,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
             Premium <strong>dub.link</strong> domain
           </>
         ),
-        href: "https://dub.co/help/article/default-dub-domains#premium-dublink-domain",
+        href: "https://ingat.cc/help/article/default-dub-domains#premium-dublink-domain",
       },
       {
         check: {
@@ -437,21 +437,21 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
             Free <strong>.link</strong> domain
           </>
         ),
-        href: "https://dub.co/help/article/free-dot-link-domain",
+        href: "https://ingat.cc/help/article/free-dot-link-domain",
       },
     ],
   },
   {
     category: "API",
-    href: "https://dub.co/docs/api-reference/introduction",
+    href: "https://ingat.cc/docs/api-reference/introduction",
     features: [
       {
         text: "API Access",
-        href: "https://dub.co/docs/api-reference/introduction",
+        href: "https://ingat.cc/docs/api-reference/introduction",
       },
       {
         text: "Native SDKs",
-        href: "https://dub.co/docs/sdks/overview",
+        href: "https://ingat.cc/docs/sdks/overview",
       },
       {
         text: ({ id, plan }) => (
@@ -473,13 +473,13 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Event webhooks",
-        href: "https://dub.co/docs/concepts/webhooks/introduction",
+        href: "https://ingat.cc/docs/concepts/webhooks/introduction",
       },
     ],
   },
   {
     category: "Workspace",
-    href: "https://dub.co/help/category/workspaces",
+    href: "https://ingat.cc/help/category/workspaces",
     features: [
       {
         text: ({ plan }) => (
@@ -502,7 +502,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "Role-based access control",
-        href: "https://dub.co/help/article/folders-rbac",
+        href: "https://ingat.cc/help/article/folders-rbac",
       },
       {
         check: {
@@ -510,7 +510,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
           enterprise: true,
         },
         text: "SAML/SSO",
-        href: "https://dub.co/help/category/saml-sso",
+        href: "https://ingat.cc/help/category/saml-sso",
       },
       {
         check: {
@@ -523,7 +523,7 @@ export const PRICING_PLAN_COMPARE_FEATURES: {
   },
   {
     category: "Support",
-    href: "https://dub.co/contact/support",
+    href: "https://ingat.cc/contact/support",
     features: [
       {
         text: ({ id }) => (

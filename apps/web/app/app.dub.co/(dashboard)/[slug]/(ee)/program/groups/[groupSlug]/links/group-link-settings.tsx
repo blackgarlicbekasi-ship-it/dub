@@ -189,7 +189,7 @@ function GroupLinkSettingsForm({ group }: { group: GroupProps }) {
     <form className="flex flex-col divide-y divide-neutral-200">
       <GroupSettingsRow
         heading="Link structure"
-        description="Configure the [format of your partner referral links](https://dub.co/help/article/partner-link-settings#link-structure)."
+        description="Configure the [format of your partner referral links](https://ingat.cc/help/article/partner-link-settings#link-structure)."
       >
         <div className="grid grid-cols-1 gap-3">
           {program &&
@@ -240,7 +240,7 @@ function GroupLinkSettingsForm({ group }: { group: GroupProps }) {
 
       <GroupSettingsRow
         heading="UTM parameters"
-        description="Configure [UTM tracking parameters](https://dub.co/help/article/partner-link-settings#utm-parameters) for all links in this group"
+        description="Configure [UTM tracking parameters](https://ingat.cc/help/article/partner-link-settings#utm-parameters) for all links in this group"
       >
         <UTMBuilder
           values={{

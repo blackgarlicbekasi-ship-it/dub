@@ -21,7 +21,7 @@ export function BaseScriptSection() {
             <p className="text-content-subtle text-sm font-medium">
               For basic cookie-management and{" "}
               <a
-                href="https://dub.co/docs/sdks/client-side/features/click-tracking"
+                href="https://ingat.cc/docs/sdks/client-side/features/click-tracking"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-help text-neutral-800 underline decoration-dotted underline-offset-2"

@@ -66,7 +66,7 @@ export function BrandingSettingsForm() {
                 Set the style and content for this partner group.{" "}
                 <a
                   className="cursor-help font-semibold underline decoration-dotted underline-offset-2"
-                  href="https://dub.co/help/article/program-landing-page"
+                  href="https://ingat.cc/help/article/program-landing-page"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -159,7 +159,7 @@ export function PlanSelector({ product }: { product: OnboardingProduct }) {
                   </button>
                   {plan.name === "Enterprise" ? (
                     <a
-                      href="https://dub.co/contact/sales"
+                      href="https://ingat.cc/contact/sales"
                       target="_blank"
                       className="w-full"
                     >

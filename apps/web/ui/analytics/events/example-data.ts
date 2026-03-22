@@ -11,8 +11,8 @@ const dubLink = {
   id: "1",
   domain: "dub.link",
   key: "uxUrVCz",
-  shortLink: "https://dub.co/uxUrVCz",
-  url: "https://dub.co/",
+  shortLink: "https://ingat.cc/example",
+  url: "https://ingat.cc/",
 };
 
 const githubLink = {
@@ -25,19 +25,19 @@ const githubLink = {
 
 const steven = {
   name: "Steven Tey",
-  email: "steven@dub.co",
+  email: "steven@ingat.cc",
   avatar: "https://avatar.vercel.sh/s.png?text=S",
 };
 
 const tim = {
   name: "Tim Wilson",
-  email: "tim@dub.co",
+  email: "tim@ingat.cc",
   avatar: "https://avatar.vercel.sh/t.png?text=T",
 };
 
 const kiran = {
   name: "Kiran Kuriya",
-  email: "kiran@dub.co",
+  email: "kiran@ingat.cc",
   avatar: "https://avatar.vercel.sh/k.png?text=K",
 };
 

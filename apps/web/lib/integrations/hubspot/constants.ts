@@ -15,7 +15,7 @@ export const LEAD_TRIGGER_EVENT_OPTIONS = [
 
 export const HUBSPOT_DUB_CONTACT_PROPERTIES = [
   {
-    label: "Dub Click ID",
+    label: "Ingat Click ID",
     name: "dub_id",
     type: "string",
     fieldType: "text",
@@ -23,14 +23,14 @@ export const HUBSPOT_DUB_CONTACT_PROPERTIES = [
     formField: true, // Allow the property to be used in a HubSpot form.
   },
   {
-    label: "Dub Link",
+    label: "Ingat Link",
     name: "dub_link",
     type: "string",
     fieldType: "text",
     groupName: "contactinformation",
   },
   {
-    label: "Dub Partner Email",
+    label: "Ingat Partner Email",
     name: "dub_partner_email",
     type: "string",
     fieldType: "text",

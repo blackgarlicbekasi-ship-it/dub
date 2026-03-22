@@ -32,8 +32,8 @@ const resendEmailForOptions = (
     subject: `${!isProdEnv && gitBranch ? `[${gitBranch}] ` : ""}${subject}`,
     bcc,
     // if replyTo is set to "noreply@dub.co", don't set replyTo
-    // else set it to the value of replyTo or fallback to support@dub.co
-    ...(replyTo === "noreply" ? {} : { replyTo: replyTo || "support@dub.co" }),
+    // else set it to the value of replyTo or fallback to support@ingat.cc
+    ...(replyTo === "noreply" ? {} : { replyTo: replyTo || "support@ingat.cc" }),
     scheduledAt,
     tags,
     ...(variant === "marketing"

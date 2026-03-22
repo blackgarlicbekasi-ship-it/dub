@@ -136,7 +136,7 @@ export const POST = withCron(async ({ rawBody }) => {
   });
 
   console.info(
-    `Found ${programEnrollments.length} active partners that have signed up for partners.dub.co and have links with at least 1 total lead.`,
+    `Found ${programEnrollments.length} active partners that have signed up for partners.ingat.cc and have links with at least 1 total lead.`,
   );
 
   if (programEnrollments.length === 0) {

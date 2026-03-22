@@ -26,7 +26,7 @@ export const UpgradeRequiredToast = ({
     ? `Upgrade to ${capitalize(planToUpgradeTo)}`
     : "Contact support";
 
-  const defaultCtaUrl = slug ? `/${slug}/upgrade` : "https://dub.co/pricing";
+  const defaultCtaUrl = slug ? `/${slug}/upgrade` : "https://ingat.cc/pricing";
 
   return (
     <div className="flex flex-col space-y-3 rounded-lg bg-white p-6 shadow-lg">

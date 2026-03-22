@@ -91,7 +91,7 @@ export function AuditLogs() {
                 <TooltipContent
                   title="Audit log export is only available on the Enterprise Plan."
                   cta="Contact sales"
-                  href="https://dub.co/enterprise"
+                  href="https://ingat.cc/enterprise"
                   target="_blank"
                 />
               )
@@ -108,7 +108,7 @@ export function AuditLogs() {
           <span className="text-sm text-neutral-500">
             Audit logs are available on the{" "}
             <a
-              href="https://dub.co/enterprise"
+              href="https://ingat.cc/enterprise"
               target="_blank"
               className="text-neutral-700 underline"
             >
@@ -120,7 +120,7 @@ export function AuditLogs() {
             className="h-8 w-auto px-5"
             onClick={() =>
               window.open(
-                slug ? `/${slug}/upgrade` : "https://dub.co/enterprise",
+                slug ? `/${slug}/upgrade` : "https://ingat.cc/enterprise",
                 "_blank",
               )
             }

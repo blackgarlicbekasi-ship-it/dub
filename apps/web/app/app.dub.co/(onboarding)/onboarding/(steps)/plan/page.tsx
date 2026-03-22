@@ -62,7 +62,7 @@ export default function Plan() {
           </LaterButton>
         )}
         <a
-          href={`https://dub.co/pricing/${product}`}
+          href={`https://ingat.cc/pricing/${product}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center text-neutral-500 underline-offset-4 transition-colors hover:text-neutral-800 hover:underline"

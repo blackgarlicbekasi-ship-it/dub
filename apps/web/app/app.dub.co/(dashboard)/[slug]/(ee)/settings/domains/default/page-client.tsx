@@ -65,7 +65,7 @@ export function DefaultDomains() {
         <p className="text-sm text-neutral-500">
           Leverage default branded domains from Dub for specific links.{" "}
           <Link
-            href="https://dub.co/help/article/default-dub-domains"
+            href="https://ingat.cc/help/article/default-dub-domains"
             target="_blank"
             className="underline transition-colors hover:text-neutral-800"
           >

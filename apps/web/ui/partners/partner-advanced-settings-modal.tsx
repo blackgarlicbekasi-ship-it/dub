@@ -187,7 +187,7 @@ function PartnerAdvancedSettingsModal({
                   <MarkdownDescription className="text-xs text-neutral-500">
                     When enabled, this partner will remain in their current
                     group and won't be subject to [group move
-                    rules](https://dub.co/help/article/partner-groups#group-move-rules).
+                    rules](https://ingat.cc/help/article/partner-groups#group-move-rules).
                   </MarkdownDescription>
                 </div>
               </div>

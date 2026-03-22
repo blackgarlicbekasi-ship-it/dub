@@ -156,7 +156,7 @@ export function PartnerLinkCard({ link }: { link: PartnerProfileLinkProps }) {
             {link.discountCode && (
               <Tooltip
                 content={
-                  "This program supports discount code tracking. Copy the code to use it in podcasts, videos, etc. [Learn more](https://dub.co/help/article/dual-sided-incentives)"
+                  "This program supports discount code tracking. Copy the code to use it in podcasts, videos, etc. [Learn more](https://ingat.cc/help/article/dual-sided-incentives)"
                 }
               >
                 <div className="hidden items-center gap-1.5 rounded-xl border border-neutral-200 py-1 pl-2 pr-1 sm:flex">

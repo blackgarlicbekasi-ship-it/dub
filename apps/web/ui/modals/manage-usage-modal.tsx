@@ -162,7 +162,7 @@ function ManageUsageModalContent({ type }: ManageUsageModalProps) {
 
             {suggestedPlan.name === "Enterprise" ? (
               <Link
-                href="https://dub.co/contact/sales"
+                href="https://ingat.cc/contact/sales"
                 target="_blank"
                 className={cn(
                   "flex h-8 w-full items-center justify-center rounded-lg text-center text-sm transition-all duration-200 ease-in-out",

@@ -9,7 +9,7 @@ export default function TokensPage() {
       titleInfo={{
         title:
           "These API keys allow other apps to access your account. Use it with caution – do not share your API key with others, or expose it in the browser or other client-side code",
-        href: "https://dub.co/docs/api-reference/tokens",
+        href: "https://ingat.cc/docs/api-reference/tokens",
       }}
     >
       <PageWidthWrapper>

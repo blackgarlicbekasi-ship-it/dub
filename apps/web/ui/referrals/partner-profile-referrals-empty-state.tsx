@@ -70,8 +70,8 @@ export function PartnerProfileReferralsEmptyState() {
         // TODO: Add "learn more" URLs
         learnMoreHref={
           submittedReferralsEnabled
-            ? "https://dub.co/help/article/partner-rewards"
-            : "https://dub.co/help/article/partner-rewards"
+            ? "https://ingat.cc/help/article/partner-rewards"
+            : "https://ingat.cc/help/article/partner-rewards"
         }
         addButton={
           submittedReferralsEnabled ? (

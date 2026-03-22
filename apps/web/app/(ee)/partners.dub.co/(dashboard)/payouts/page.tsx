@@ -11,7 +11,7 @@ export default function PartnersPayoutsSettings() {
       titleInfo={{
         title:
           "Connect a bank account and start receiving partner payouts from the affiliate programs you're working with.",
-        href: "https://dub.co/help/article/receiving-payouts",
+        href: "https://ingat.cc/help/article/receiving-payouts",
       }}
       controls={<PartnerPayoutSettingsButton />}
     >

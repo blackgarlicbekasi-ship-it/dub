@@ -211,7 +211,7 @@ function ImportShortModal({
                 import your links.
               </p>
               <a
-                href="https://dub.co/support"
+                href="https://ingat.cc/support"
                 className={cn(
                   buttonVariants({ variant: "secondary" }),
                   "flex h-8 items-center justify-center rounded-md border px-4 text-sm",
@@ -253,7 +253,7 @@ function ImportShortModal({
                   Short.io API Key
                 </h2>
                 <InfoTooltip
-                  content={`Your Short.io API Key can be found in your Short.io account under "Integrations & API". [Read the guide.](https://dub.co/help/article/migrating-from-short)`}
+                  content={`Your Short.io API Key can be found in your Short.io account under "Integrations & API". [Read the guide.](https://ingat.cc/help/article/migrating-from-short)`}
                 />
               </div>
               <input

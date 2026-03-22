@@ -87,7 +87,7 @@ const NAV_GROUPS: SidebarNavGroups<SidebarNavData> = ({
     name: "Short Links",
     description:
       "Create, organize, and measure the performance of your short links.",
-    learnMoreHref: "https://dub.co/links",
+    learnMoreHref: "https://ingat.cc/links",
     icon: Compass,
     href: slug ? `/${slug}/links` : "/links",
     active:
@@ -100,7 +100,7 @@ const NAV_GROUPS: SidebarNavGroups<SidebarNavData> = ({
     name: "Partner Program",
     description:
       "Kickstart viral product-led growth with powerful, branded referral and affiliate programs.",
-    learnMoreHref: "https://dub.co/partners",
+    learnMoreHref: "https://ingat.cc/partners",
     icon: ConnectedDots4,
     href: slug ? `/${slug}/program` : "/program",
     active: pathname.startsWith(`/${slug}/program`),

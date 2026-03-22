@@ -95,7 +95,7 @@ export const PublishableKeyForm = ({ className }: { className?: string }) => {
           <h2 className="text-content-emphasis flex-1 text-sm font-semibold">
             Publishable key
           </h2>
-          <InfoTooltip content="For authenticating requests when tracking conversion events on the client-side. [Learn more.](https://dub.co/docs/api-reference/publishable-keys)" />
+          <InfoTooltip content="For authenticating requests when tracking conversion events on the client-side. [Learn more.](https://ingat.cc/docs/api-reference/publishable-keys)" />
         </div>
 
         {!publishableKey && (

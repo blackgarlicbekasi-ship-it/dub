@@ -54,7 +54,7 @@ function ImportFirstPromoterModal({
         </h3>
         <MarkdownDescription className="text-center text-sm text-neutral-500">
           [Migrate your existing FirstPromoter
-          campaign](https://dub.co/help/article/migrating-from-firstpromoter),
+          campaign](https://ingat.cc/help/article/migrating-from-firstpromoter),
           partners, and historical stats into Dub.
         </MarkdownDescription>
       </div>

@@ -152,7 +152,7 @@ function LinkQRModalInner({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h3 className="text-lg font-medium">QR Code</h3>
-          <ProBadgeTooltip content="Set a custom QR code design to improve click-through rates. [Learn more.](https://dub.co/help/article/custom-qr-codes)" />
+          <ProBadgeTooltip content="Set a custom QR code design to improve click-through rates. [Learn more.](https://ingat.cc/help/article/custom-qr-codes)" />
         </div>
         <div className="max-md:hidden">
           <Tooltip
@@ -178,7 +178,7 @@ function LinkQRModalInner({
             <span className="text-sm font-medium text-neutral-700">
               QR Code Preview
             </span>
-            <InfoTooltip content="Customize your QR code to fit your brand. [Learn more.](https://dub.co/help/article/custom-qr-codes)" />
+            <InfoTooltip content="Customize your QR code to fit your brand. [Learn more.](https://ingat.cc/help/article/custom-qr-codes)" />
           </div>
           {url && qrData && (
             <div className="flex items-center gap-2">
@@ -243,7 +243,7 @@ function LinkQRModalInner({
           >
             Logo
           </label>
-          <InfoTooltip content="Display your logo in the center of the QR code. [Learn more.](https://dub.co/help/article/custom-qr-codes)" />
+          <InfoTooltip content="Display your logo in the center of the QR code. [Learn more.](https://ingat.cc/help/article/custom-qr-codes)" />
         </div>
         <Switch
           id={`${id}-hide-logo`}
@@ -256,7 +256,7 @@ function LinkQRModalInner({
               <TooltipContent
                 title="You need to be on the Pro plan and above to customize your QR Code logo."
                 cta="Upgrade to Pro"
-                href={slug ? `/${slug}/upgrade` : "https://dub.co/pricing"}
+                href={slug ? `/${slug}/upgrade` : "https://ingat.cc/pricing"}
                 target="_blank"
               />
             ) : undefined

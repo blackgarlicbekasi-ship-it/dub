@@ -19,7 +19,7 @@ const data = {
 
 const CUSTOMER = {
   name: "Danielle Wilson",
-  email: "danielle@dub.co",
+  email: "danielle@ingat.cc",
   avatarIndex: 8,
   origin: "dub.sh",
   country: "US",
@@ -99,7 +99,7 @@ export function AnalyticsGraphic({ className }: { className?: string }) {
                   className="bg-bg-emphasis size-11 rounded-full"
                   style={{
                     backgroundImage:
-                      "url(https://assets.dub.co/home/people.png)",
+                      "url(https://assets.ingat.cc/home/people.png)",
                     backgroundSize: "3600%", // 36 images
                     backgroundPositionX: CUSTOMER.avatarIndex * 100 + "%",
                   }}

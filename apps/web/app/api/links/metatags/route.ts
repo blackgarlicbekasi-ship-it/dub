@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    if (origin && origin.endsWith(".dub.co")) {
+    if (origin && origin.endsWith(".ingat.cc")) {
       corsHeaders["Access-Control-Allow-Origin"] = origin;
     }
 
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         ...metatags,
-        poweredBy: "Dub - The Modern Link Attribution Platform",
+        poweredBy: "Ingat - The Modern Link Attribution Platform",
       },
       {
         headers: corsHeaders,

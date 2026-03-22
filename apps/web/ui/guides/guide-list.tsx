@@ -138,7 +138,7 @@ export function GuideList() {
                       <Shopify className="inline size-4" />
                       If you're using Shopify, you can skip this step.{" "}
                       <Link
-                        href="https://dub.co/docs/conversions/sales/shopify"
+                        href="https://ingat.cc/docs/conversions/sales/shopify"
                         className="text-neutral-500 underline underline-offset-2"
                         target="_blank"
                         rel="noreferrer"

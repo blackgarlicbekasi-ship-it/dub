@@ -119,7 +119,7 @@ export function LinksGraphic(props: SVGProps<SVGSVGElement>) {
         style={{ whiteSpace: "pre" }}
       >
         <tspan x="63.27" y="41.59">
-          dub.co
+          ingat.cc
         </tspan>
       </text>
       <path
@@ -235,7 +235,7 @@ export function LinksGraphic(props: SVGProps<SVGSVGElement>) {
         style={{ whiteSpace: "pre" }}
       >
         <tspan x="63.27" y="101.59">
-          app.dub.co/register
+          app.ingat.cc/register
         </tspan>
       </text>
       <path
@@ -343,7 +343,7 @@ export function LinksGraphic(props: SVGProps<SVGSVGElement>) {
         style={{ whiteSpace: "pre" }}
       >
         <tspan x="63.27" y="161.59">
-          app.dub.co/register
+          app.ingat.cc/register
         </tspan>
       </text>
       <path

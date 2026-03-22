@@ -229,7 +229,7 @@ export function CustomDomains() {
                   </>
                 }
                 addButton={<AddDomainButton />}
-                learnMoreHref="https://dub.co/help/article/how-to-add-custom-domain"
+                learnMoreHref="https://ingat.cc/help/article/how-to-add-custom-domain"
               />
             )
           ) : (

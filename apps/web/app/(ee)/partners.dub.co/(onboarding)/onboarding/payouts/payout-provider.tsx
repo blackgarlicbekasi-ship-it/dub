@@ -50,7 +50,7 @@ export function PayoutProvider({
           <br />
           <br />
           <a
-            href="https://dub.co/help/article/receiving-payouts"
+            href="https://ingat.cc/help/article/receiving-payouts"
             target="_blank"
             className="cursor-help text-sm text-neutral-500 underline decoration-dotted underline-offset-2 transition-colors hover:text-neutral-800"
           >

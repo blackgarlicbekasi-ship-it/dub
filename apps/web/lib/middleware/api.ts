@@ -4,9 +4,9 @@ import { parse } from "./utils/parse";
 export function ApiMiddleware(req: NextRequest) {
   const { fullPath } = parse(req);
 
-  // redirect to dub.co for /metatags
+  // redirect to ingat.cc for /metatags
   if (fullPath.startsWith("/metatags")) {
-    return NextResponse.redirect("https://dub.co", {
+    return NextResponse.redirect("https://ingat.cc", {
       status: 301,
     });
   }

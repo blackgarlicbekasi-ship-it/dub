@@ -3,7 +3,7 @@ import { CircleQuestion } from "@dub/ui";
 export async function HelpButton() {
   return (
     <a
-      href="https://dub.co/contact/support"
+      href="https://ingat.cc/contact/support"
       target="_blank"
       className="text-content-default hover:bg-bg-inverted/5 flex size-11 shrink-0 items-center justify-center rounded-lg"
     >

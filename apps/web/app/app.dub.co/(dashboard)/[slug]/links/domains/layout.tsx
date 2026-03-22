@@ -10,7 +10,7 @@ export default function DomainsLayout({ children }: { children: ReactNode }) {
       titleInfo={{
         title:
           "Learn more about how to add, configure, and verify custom domains on Dub.",
-        href: "https://dub.co/help/article/how-to-add-custom-domain",
+        href: "https://ingat.cc/help/article/how-to-add-custom-domain",
       }}
     >
       <PageWidthWrapper>

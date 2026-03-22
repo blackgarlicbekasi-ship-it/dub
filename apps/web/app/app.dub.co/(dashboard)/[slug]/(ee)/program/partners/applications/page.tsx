@@ -10,7 +10,7 @@ export default function ProgramPartnersApplications() {
       titleInfo={{
         title:
           "Learn how to manage your pending applications, and to bring the best partners to your program.",
-        href: "https://dub.co/help/article/program-applications",
+        href: "https://ingat.cc/help/article/program-applications",
       }}
       controls={<ApplicationsMenu />}
     >

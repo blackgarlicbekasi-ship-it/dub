@@ -104,7 +104,7 @@ const VerifyEmailChange = async ({ params, searchParams }: PageProps) => {
         <EmptyState
           icon={InputPassword}
           title="No Partner Profile Found"
-          description="We couldn’t find a partner profile for your account. Please make sure you’re logged in with the correct account at https://partners.dub.co"
+          description="We couldn’t find a partner profile for your account. Please make sure you’re logged in with the correct account at https://partners.ingat.cc"
         />
       );
     }

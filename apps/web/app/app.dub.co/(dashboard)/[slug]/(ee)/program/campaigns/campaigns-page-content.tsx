@@ -11,7 +11,7 @@ export function CampaignsPageContent({
       titleInfo={{
         title:
           "Send marketing and transactional emails to your partners to increase engagement and drive conversions.",
-        href: "https://dub.co/help/article/email-campaigns",
+        href: "https://ingat.cc/help/article/email-campaigns",
       }}
       controls={controls}
     >

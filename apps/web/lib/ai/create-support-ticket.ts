@@ -36,7 +36,7 @@ export function createSupportTicketTool(options: CreateSupportTicketOptions) {
             .filter((p) => p.type === "text")
             .map((p) => (p as { type: "text"; text: string }).text)
             .join("");
-          return `${msg.role === "user" ? "User" : "Dub Support"}: ${text}`;
+          return `${msg.role === "user" ? "User" : "Ingat Support"}: ${text}`;
         })
         .join("\n\n");
 
@@ -116,7 +116,7 @@ export function createSupportTicketTool(options: CreateSupportTicketOptions) {
         return {
           success: false,
           message:
-            "Failed to create support ticket. Please try again or email support@dub.co.",
+            "Failed to create support ticket. Please try again or email support@ingat.cc.",
         };
       }
     },

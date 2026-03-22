@@ -43,7 +43,7 @@ function AddWorkspaceModalHelper({
         <p className="-translate-y-2 text-balance text-center text-xs text-neutral-500">
           Set up a common space to manage your links with your team.{" "}
           <a
-            href="https://dub.co/help/article/what-is-a-workspace"
+            href="https://ingat.cc/help/article/what-is-a-workspace"
             target="_blank"
             className="cursor-help font-medium underline decoration-dotted underline-offset-2 transition-colors hover:text-neutral-700"
           >

@@ -59,7 +59,7 @@ export const syncUserPlanToPlain = async (user: PlainUser) => {
       customerId: plainCustomer.id,
       customerGroupIdentifiers: [
         {
-          customerGroupKey: "app.dub.co",
+          customerGroupKey: "app.ingat.cc",
         },
       ],
     }),
@@ -81,7 +81,7 @@ export const syncUserPlanToPlain = async (user: PlainUser) => {
     customerId: plainCustomer.id,
     customerGroupIdentifiers: [
       {
-        customerGroupKey: "app.dub.co",
+        customerGroupKey: "app.ingat.cc",
       },
     ],
   });

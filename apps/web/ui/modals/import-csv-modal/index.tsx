@@ -160,7 +160,7 @@ function ImportCsvModal({
           <br />
           Make sure your CSV file matches the{" "}
           <a
-            href="https://dub.co/help/article/how-to-import-csv"
+            href="https://ingat.cc/help/article/how-to-import-csv"
             target="_blank"
             className="cursor-help font-medium underline decoration-dotted underline-offset-2 transition-colors hover:text-neutral-800"
           >

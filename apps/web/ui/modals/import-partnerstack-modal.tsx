@@ -57,7 +57,7 @@ function ImportPartnerStackModal({
         </h3>
         <MarkdownDescription className="text-center text-sm text-neutral-500">
           [Migrate your existing PartnerStack
-          program](https://dub.co/help/article/migrating-from-partnerstack),
+          program](https://ingat.cc/help/article/migrating-from-partnerstack),
           partners, and historical stats into Dub.
         </MarkdownDescription>
       </div>

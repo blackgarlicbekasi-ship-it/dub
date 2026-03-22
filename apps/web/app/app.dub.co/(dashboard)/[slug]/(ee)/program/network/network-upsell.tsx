@@ -28,7 +28,7 @@ export function NetworkUpsell({ contactUs }: { contactUs?: boolean }) {
         </div>
         <div className="flex items-center gap-2">
           <Link
-            href="https://dub.co/contact/sales"
+            href="https://ingat.cc/contact/sales"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(

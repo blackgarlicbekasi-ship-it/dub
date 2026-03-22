@@ -8,7 +8,7 @@ import { useClaimBountyForm } from "@/ui/partners/bounties/use-claim-bounty-form
 import { useSocialContent } from "@/ui/partners/bounties/use-social-content";
 import { Button, CircleCheckFill, LoadingSpinner } from "@dub/ui";
 import { cn, formatDate } from "@dub/utils";
-import { useReferralsEmbedData } from "app/(ee)/app.dub.co/embed/referrals/page-client";
+import { useReferralsEmbedData } from "app/(ee)/app.ingat.cc/embed/referrals/page-client";
 import { AlertTriangle } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { evaluateSocialContentRequirements } from "./evaluate-social-content-requirements";
@@ -202,7 +202,7 @@ export function SocialAccountNotVerifiedWarning({
         {`A verified ${bountyInfo.socialPlatform.label} account must be connected to your Dub partner profile to claim this bounty.`}
 
         <a
-          href="https://dub.co/help/article/partner-profile#website-and-socials"
+          href="https://ingat.cc/help/article/partner-profile#website-and-socials"
           target="_blank"
           className="ml-1 underline underline-offset-2"
         >
@@ -211,7 +211,7 @@ export function SocialAccountNotVerifiedWarning({
       </div>
 
       <a
-        href={`https://partners.dub.co/${program.slug}/register?email=${partner.email}`}
+        href={`https://partners.ingat.cc/${program.slug}/register?email=${partner.email}`}
         target="_blank"
       >
         <Button text="Update profile" className="h-7 w-full px-3 sm:w-fit" />

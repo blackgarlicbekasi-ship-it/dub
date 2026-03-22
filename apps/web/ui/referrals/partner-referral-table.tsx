@@ -306,7 +306,7 @@ export function PartnerReferralTable() {
         <AnimatedEmptyState
           title="No referrals submitted"
           description="Allow partners to submit leads and track their progress through the sales process."
-          learnMoreHref="https://dub.co/help/article/partner-rewards"
+          learnMoreHref="https://ingat.cc/help/article/partner-rewards"
           cardContent={
             <>
               <div className="bg-bg-emphasis h-2.5 w-24 min-w-0 rounded-sm" />

@@ -383,7 +383,7 @@ function CommissionActivity({
                         <span className="text-sm text-neutral-700">
                           after {commission.holdingPeriodDays}-day{" "}
                           <a
-                            href="https://dub.co/help/article/partner-payouts#payout-holding-period"
+                            href="https://ingat.cc/help/article/partner-payouts#payout-holding-period"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="cursor-help underline decoration-dotted underline-offset-2"

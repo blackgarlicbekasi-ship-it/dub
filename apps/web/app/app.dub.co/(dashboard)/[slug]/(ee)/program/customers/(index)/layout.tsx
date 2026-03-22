@@ -63,7 +63,7 @@ export default function PartnerCustomersLayout({
       titleInfo={{
         title:
           "Get deeper, real-time insights about your referred customers' demographics, purchasing behavior, and lifetime value (LTV).",
-        href: "https://dub.co/help/article/customer-insights",
+        href: "https://ingat.cc/help/article/customer-insights",
       }}
       controls={<ExportCustomersButton />}
     >

@@ -4,7 +4,7 @@ import { cn } from "@dub/utils";
 export function DubPartnersLogo({ className }: { className?: string }) {
   return (
     <a
-      href="https://dub.co/partners"
+      href="https://ingat.cc/partners"
       target="_blank"
       className={cn("flex flex-col items-center", className)}
     >

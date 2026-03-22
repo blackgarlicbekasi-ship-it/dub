@@ -200,7 +200,7 @@ export async function PartnerPayoutInvoice({
     {
       title: "From",
       address: {
-        name: "Dub Technologies, Inc.",
+        name: "Ingat Technologies",
         line1: "2261 Market Street STE 5906",
         city: "San Francisco",
         state: "CA",
@@ -423,7 +423,7 @@ export async function PartnerPayoutInvoice({
 
         <Text style={tw("text-sm text-neutral-600 mt-6")}>
           If you have any questions,{" "}
-          <Link href="https://dub.co/help" style={tw("text-neutral-900")}>
+          <Link href="https://ingat.cc/help" style={tw("text-neutral-900")}>
             visit our help center
           </Link>{" "}
           or{" "}

@@ -297,7 +297,7 @@ export function AddEditDomainForm({
               </h2>
               <InfoTooltip
                 content={
-                  "Not sure which domain to use? [Check out our guide](https://dub.co/help/article/choosing-a-custom-domain)"
+                  "Not sure which domain to use? [Check out our guide](https://ingat.cc/help/article/choosing-a-custom-domain)"
                 }
               />
             </label>
@@ -457,7 +457,7 @@ export function AddEditDomainForm({
                                     }}
                                     customPreview={
                                       <QRCode
-                                        url="https://dub.co"
+                                        url="https://ingat.cc"
                                         fgColor="#000"
                                         logo={field.value || ""}
                                         scale={0.6}

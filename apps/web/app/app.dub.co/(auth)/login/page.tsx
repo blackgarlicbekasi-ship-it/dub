@@ -32,8 +32,8 @@ export default function LoginPage() {
         <div className="mt-12 w-full">
           <AuthAlternativeBanner
             text="Looking for your Dub partner account?"
-            cta="Log in at partners.dub.co"
-            href="https://partners.dub.co/login"
+            cta="Log in at partners.ingat.cc"
+            href="https://partners.ingat.cc/login"
           />
         </div>
       </div>

@@ -77,7 +77,7 @@ function ConfirmSetDefaultGroupModal({
               </div>
             </div>
             <MarkdownDescription className="text-content-subtle relative mt-3 text-center text-xs">
-              {`This will set **"${newDefaultGroup.name}"** as the new default group and update your [public landing page](https://dub.co/help/article/program-landing-page) and [application form](https://dub.co/help/article/program-application-form).`}
+              {`This will set **"${newDefaultGroup.name}"** as the new default group and update your [public landing page](https://ingat.cc/help/article/program-landing-page) and [application form](https://ingat.cc/help/article/program-application-form).`}
             </MarkdownDescription>
           </div>
         </div>

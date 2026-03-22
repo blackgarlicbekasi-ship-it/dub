@@ -63,7 +63,7 @@ function ImportToltModal({
         <h3 className="text-lg font-medium">Import your Tolt program</h3>
         <MarkdownDescription className="text-center text-sm text-neutral-500">
           [Migrate your existing Tolt
-          program](https://dub.co/help/article/migrating-from-tolt), partners,
+          program](https://ingat.cc/help/article/migrating-from-tolt), partners,
           and historical stats into Dub in just a few clicks.
         </MarkdownDescription>
       </div>

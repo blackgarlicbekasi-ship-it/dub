@@ -29,7 +29,7 @@ export async function POST(req: Request) {
           {
             partner: {
               email: {
-                endsWith: "@dub.co",
+                endsWith: "@ingat.cc",
               },
             },
           },

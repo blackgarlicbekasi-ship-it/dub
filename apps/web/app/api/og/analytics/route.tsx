@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
               <>
                 <img
                   tw="rounded-full w-10 h-10"
-                  src={`${GOOGLE_FAVICON_URL}${getApexDomain(link?.url || "dub.co")}`}
+                  src={`${GOOGLE_FAVICON_URL}${getApexDomain(link?.url || "ingat.cc")}`}
                   alt="favicon"
                 />
                 <h1 tw="text-4xl font-bold ml-4 my-0">

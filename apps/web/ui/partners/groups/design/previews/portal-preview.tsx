@@ -1996,7 +1996,7 @@ export function PortalPreview({ group }: { group: GroupWithProgramProps }) {
                       style={{ whiteSpace: "pre" }}
                     >
                       <tspan x="475.939" y="567.908">
-                        t**@dub.co
+                        t**@ingat.cc
                       </tspan>
                     </text>
                     <path
@@ -2012,7 +2012,7 @@ export function PortalPreview({ group }: { group: GroupWithProgramProps }) {
                       style={{ whiteSpace: "pre" }}
                     >
                       <tspan x="475.939" y="590.44">
-                        t**@dub.co
+                        t**@ingat.cc
                       </tspan>
                     </text>
                     <path
@@ -2028,7 +2028,7 @@ export function PortalPreview({ group }: { group: GroupWithProgramProps }) {
                       style={{ whiteSpace: "pre" }}
                     >
                       <tspan x="475.969" y="612.973">
-                        s****n@dub.co
+                        s****n@ingat.cc
                       </tspan>
                     </text>
                     <path
@@ -2044,7 +2044,7 @@ export function PortalPreview({ group }: { group: GroupWithProgramProps }) {
                       style={{ whiteSpace: "pre" }}
                     >
                       <tspan x="475.896" y="635.505">
-                        k****n@dub.co
+                        k****n@ingat.cc
                       </tspan>
                     </text>
                     <path

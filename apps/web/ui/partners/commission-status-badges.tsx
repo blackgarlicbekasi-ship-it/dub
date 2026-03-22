@@ -34,8 +34,8 @@ export const CommissionStatusBadges = {
     icon: CircleHalfDottedClock,
     tooltip: (data: CommissionTooltipDataProps) =>
       data.variant === "partner"
-        ? `This commission is pending and will be eligible for payout ${data.group?.holdingPeriodDays ? `on \`${formatDateTimeSmart(addDays(data.commission.createdAt, data.group.holdingPeriodDays))}\` (after the program's [${data.group.holdingPeriodDays}-day holding period](https://dub.co/help/article/commissions-payouts#what-does-holding-period-mean))` : "shortly"}.`
-        : `This commission is pending and will be eligible for payout ${data.group?.holdingPeriodDays ? `on \`${formatDateTimeSmart(addDays(data.commission.createdAt, data.group.holdingPeriodDays))}\` (after the [payout holding period](https://dub.co/help/article/partner-payouts#payout-holding-period) for this [partner's group](${APP_DOMAIN}/${data.workspace?.slug}/program/groups/${data.group.slug || "default"}/settings))` : "shortly"}.`,
+        ? `This commission is pending and will be eligible for payout ${data.group?.holdingPeriodDays ? `on \`${formatDateTimeSmart(addDays(data.commission.createdAt, data.group.holdingPeriodDays))}\` (after the program's [${data.group.holdingPeriodDays}-day holding period](https://ingat.cc/help/article/commissions-payouts#what-does-holding-period-mean))` : "shortly"}.`
+        : `This commission is pending and will be eligible for payout ${data.group?.holdingPeriodDays ? `on \`${formatDateTimeSmart(addDays(data.commission.createdAt, data.group.holdingPeriodDays))}\` (after the [payout holding period](https://ingat.cc/help/article/partner-payouts#payout-holding-period) for this [partner's group](${APP_DOMAIN}/${data.workspace?.slug}/program/groups/${data.group.slug || "default"}/settings))` : "shortly"}.`,
   },
   processed: {
     label: "Processed",
@@ -48,7 +48,7 @@ export const CommissionStatusBadges = {
         data.variant === "partner" ? "Learn more." : "View pending payouts.";
       const href =
         data.variant === "partner"
-          ? "https://dub.co/help/article/commissions-payouts"
+          ? "https://ingat.cc/help/article/commissions-payouts"
           : `/${data.workspace?.slug}/program/payouts?status=pending`;
       return `${title} [${cta}](${href})`;
     },

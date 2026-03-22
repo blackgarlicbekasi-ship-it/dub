@@ -12,7 +12,7 @@ export function ProgramPayoutModeSection() {
   const payoutModeOptions = [
     {
       value: ProgramPayoutMode.hybrid,
-      label: "Dub and external (Hybrid)",
+      label: "Ingat and external (Hybrid)",
       description:
         "Partners with connected bank accounts are paid directly by Dub. Those linked by tenant ID receive payouts externally through the webhook.",
     },
@@ -47,7 +47,7 @@ export function ProgramPayoutModeSection() {
             {selectedOption.label}
           </h3>
           <a
-            href="http://dub.co/docs/partners/external-payouts"
+            href="http://ingat.cc/docs/partners/external-payouts"
             target="_blank"
             className="text-content-subtle rounded-md bg-neutral-100 px-2 py-1 text-xs font-medium transition-colors hover:bg-neutral-200/75"
           >

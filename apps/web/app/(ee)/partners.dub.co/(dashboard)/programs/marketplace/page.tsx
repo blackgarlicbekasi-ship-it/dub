@@ -9,7 +9,7 @@ export default function PartnersDashboard() {
       titleInfo={{
         title:
           "Explore the Dub program marketplace to discover new programs, learn what rewards they offer, and apply to the ones that fit your content and audience.",
-        href: "https://dub.co/help/article/program-marketplace",
+        href: "https://ingat.cc/help/article/program-marketplace",
       }}
     >
       <PageWidthWrapper>

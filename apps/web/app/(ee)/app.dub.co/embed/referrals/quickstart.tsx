@@ -113,7 +113,7 @@ export function ReferralsEmbedQuickstart({
               : undefined
           }
           onClick={() =>
-            window.open("https://partners.dub.co/payouts", "_blank")
+            window.open("https://partners.ingat.cc/payouts", "_blank")
           }
           text="Connect payouts"
         />

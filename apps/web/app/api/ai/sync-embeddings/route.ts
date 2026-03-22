@@ -11,14 +11,14 @@ const schema = z.object({
         const { protocol, hostname, pathname } = new URL(val);
         return (
           protocol === "https:" &&
-          ["dub.co", "www.dub.co"].includes(hostname) &&
+          ["ingat.cc", "www.ingat.cc"].includes(hostname) &&
           ["/docs/", "/help/"].some((p) => pathname.startsWith(p))
         );
       } catch {
         return false;
       }
     },
-    { message: "URL must be a dub.co/docs or dub.co/help URL" },
+    { message: "URL must be a ingat.cc/docs or ingat.cc/help URL" },
   ),
   delay: z.number().positive().optional(),
 });

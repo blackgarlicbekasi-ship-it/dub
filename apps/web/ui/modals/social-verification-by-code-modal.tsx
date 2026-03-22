@@ -63,7 +63,7 @@ const PLATFORM_INFO: Record<
       "After creating the post, paste the post URL below and click verify.",
     getProfileUrl: (_handle, code) =>
       `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(
-        `I'm claiming my Dub profile on partners.dub.co 🤘\n\nEarn by partnering with world-class companies like Framer, Polymarket, Perplexity, and more.\n\nVerification: ${code}`,
+        `I'm claiming my Dub profile on partners.ingat.cc 🤘\n\nEarn by partnering with world-class companies like Framer, Polymarket, Perplexity, and more.\n\nVerification: ${code}`,
       )}`,
   },
 };

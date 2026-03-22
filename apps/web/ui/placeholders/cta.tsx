@@ -22,7 +22,7 @@ const RATINGS = [
     name: "Trustpilot",
     logo: "https://assets.dub.co/companies/trustpilot.svg",
     stars: 4.5,
-    href: "https://www.trustpilot.com/review/dub.co",
+    href: "https://www.trustpilot.com/review/ingat.cc",
   },
 ];
 
@@ -100,7 +100,7 @@ export function CTA({
       </div>
 
       <div className="relative mx-auto mt-10 flex max-w-fit space-x-4">
-        <ButtonLink variant="primary" href="https://app.dub.co/register">
+        <ButtonLink variant="primary" href="https://app.ingat.cc/register">
           Start for free
         </ButtonLink>
         <ButtonLink

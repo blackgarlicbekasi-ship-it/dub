@@ -10,8 +10,8 @@ export const getLinkStructureOptions = ({
   domain?: string | null;
   url?: string | null;
 }) => {
-  const shortDomain = domain || "refer.dub.co";
-  const websiteDomain = (url && getDomainWithoutWWW(url)) || "dub.co";
+  const shortDomain = domain || "refer.ingat.cc";
+  const websiteDomain = (url && getDomainWithoutWWW(url)) || "ingat.cc";
 
   return [
     {

@@ -90,8 +90,8 @@ export const AddFolderForm = ({ onSuccess, onCancel }: AddFolderFormProps) => {
 
         <MarkdownDescription>
           {step === 1
-            ? "You can use folders to [manage and organize your links](https://dub.co/help/article/link-folders)."
-            : "Set the [default folder access for the workspace](https://dub.co/help/article/folders-rbac). Individual user permissions can be set in the folder settings."}
+            ? "You can use folders to [manage and organize your links](https://ingat.cc/help/article/link-folders)."
+            : "Set the [default folder access for the workspace](https://ingat.cc/help/article/folders-rbac). Individual user permissions can be set in the folder settings."}
         </MarkdownDescription>
       </div>
 

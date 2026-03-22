@@ -47,14 +47,14 @@ const socials = [
 
 const navigation = {
   product: [
-    ...FEATURES_LIST.filter(({ title }) => title !== "Dub Integrations").map(
+    ...FEATURES_LIST.filter(({ title }) => title !== "Ingat Integrations").map(
       ({ id, title, href }) => ({
         id,
         name: title,
         href,
       }),
     ),
-    { id: null, name: "Dub Enterprise", href: "/enterprise" },
+    { id: null, name: "Ingat Enterprise", href: "/enterprise" },
   ],
   solutions: [
     { name: "Marketing attribution", href: "/analytics" },
@@ -68,7 +68,7 @@ const navigation = {
     { name: "Pricing", href: "/pricing" },
     {
       name: "Affiliates",
-      href: "https://partners.dub.co/dub",
+      href: "https://partners.ingat.cc/dub",
       target: "_blank",
     },
   ],
@@ -110,7 +110,7 @@ export function Footer({
   staticDomain?: string;
   className?: string;
 }) {
-  let { domain = "dub.co" } = useParams() as { domain: string };
+  let { domain = "ingat.cc" } = useParams() as { domain: string };
   if (staticDomain) {
     domain = staticDomain;
   }

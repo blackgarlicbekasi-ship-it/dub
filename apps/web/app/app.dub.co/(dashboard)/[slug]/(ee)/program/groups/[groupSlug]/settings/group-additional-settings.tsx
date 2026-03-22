@@ -194,7 +194,7 @@ function GroupAdditionalSettingsForm({
 
               <GroupSettingsRow
                 heading="Payout holding period"
-                description="[Set how long to hold funds](https://dub.co/help/article/partner-payouts#payout-holding-period) before they are eligible for payout."
+                description="[Set how long to hold funds](https://ingat.cc/help/article/partner-payouts#payout-holding-period) before they are eligible for payout."
               >
                 {isLoading ? (
                   <div className="h-[38px] w-full animate-pulse rounded-md bg-neutral-200" />
@@ -225,7 +225,7 @@ function GroupAdditionalSettingsForm({
 
               <GroupSettingsRow
                 heading="Auto-approve"
-                description="[Automatically approve](https://dub.co/help/article/program-applications#auto-approve) new partner applications to this group."
+                description="[Automatically approve](https://ingat.cc/help/article/program-applications#auto-approve) new partner applications to this group."
               >
                 {isLoading ? (
                   <div className="h-[38px] w-full animate-pulse rounded-md bg-neutral-200" />
@@ -249,7 +249,7 @@ function GroupAdditionalSettingsForm({
 
               <GroupSettingsRow
                 heading="Group move rules"
-                description="[Automatically move partners to this group](https://dub.co/help/article/partner-groups#group-move-rules) when they meet specific criteria."
+                description="[Automatically move partners to this group](https://ingat.cc/help/article/partner-groups#group-move-rules) when they meet specific criteria."
               >
                 {isLoading ? (
                   <div className="min-h-28 w-full animate-pulse rounded-md bg-neutral-200" />

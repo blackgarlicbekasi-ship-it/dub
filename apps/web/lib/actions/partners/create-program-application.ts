@@ -198,7 +198,7 @@ export const createProgramApplicationAction = actionClient
 
         if (!isComplete) {
           throw new Error(
-            "Please complete your partner profile to submit your application: https://partners.dub.co/profile",
+            "Please complete your partner profile to submit your application: https://partners.ingat.cc/profile",
           );
         }
       }

@@ -184,7 +184,7 @@ export function ReferralsEmbedCreateUpdateLink({
                 </label>
                 <InfoTooltip
                   content={
-                    "The URL that will be shared with your users. Keep it short and memorable! [Learn more.](https://dub.co/help/article/how-to-create-link)"
+                    "The URL that will be shared with your users. Keep it short and memorable! [Learn more.](https://ingat.cc/help/article/how-to-create-link)"
                   }
                 />
               </div>
@@ -243,7 +243,7 @@ export function ReferralsEmbedCreateUpdateLink({
                 </label>
                 <InfoTooltip
                   content={
-                    "The URL your users will get redirected to when they visit your referral link. [Learn more.](https://dub.co/help/article/how-to-create-link)"
+                    "The URL your users will get redirected to when they visit your referral link. [Learn more.](https://ingat.cc/help/article/how-to-create-link)"
                   }
                 />
               </div>

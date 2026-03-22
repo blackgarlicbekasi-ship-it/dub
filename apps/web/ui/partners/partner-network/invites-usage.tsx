@@ -14,7 +14,7 @@ export function InvitesUsage() {
           Invitation limits are reset at the start of your billing cycle. If you
           need more invites,{" "}
           <a
-            href="https://dub.co/contact/sales"
+            href="https://ingat.cc/contact/sales"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"

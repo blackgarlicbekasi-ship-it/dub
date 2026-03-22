@@ -62,9 +62,9 @@ export const analyticsQuerySchema = z.object({
     .describe(
       "The domain to filter analytics for. " +
         "Supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`). " +
-        "Examples: `dub.co`, `dub.co,google.com`, `-spam.com`.",
+        "Examples: `ingat.cc`, `ingat.cc,google.com`, `-spam.com`.",
     )
-    .meta({ example: "dub.co" }),
+    .meta({ example: "ingat.cc" }),
   key: z
     .string()
     .optional()

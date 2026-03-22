@@ -11,7 +11,7 @@ export default function ProgramFraudRiskPage() {
       titleInfo={{
         title:
           "Safeguard your partner program by automatically flagging, reviewing, and resolving suspicious activity with Fraud Detection.",
-        href: "https://dub.co/help/article/fraud-detection",
+        href: "https://ingat.cc/help/article/fraud-detection",
       }}
       controls={
         <>

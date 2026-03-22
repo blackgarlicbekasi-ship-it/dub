@@ -10,7 +10,7 @@ export default function WorkspaceUtmTemplates() {
       titleInfo={{
         title:
           "Learn how to create UTM templates on Dub to streamline UTM campaign management across your team.",
-        href: "https://dub.co/help/article/how-to-create-utm-templates",
+        href: "https://ingat.cc/help/article/how-to-create-utm-templates",
       }}
       controls={<UTMPageControls />}
     >

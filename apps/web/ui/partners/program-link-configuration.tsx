@@ -48,7 +48,7 @@ export function ProgramLinkConfiguration({
           value={url || ""}
           onChange={(e) => onUrlChange(e.target.value)}
           type="url"
-          placeholder="https://dub.co"
+          placeholder="https://ingat.cc"
           className="max-w-full"
         />
         <p className="text-xs font-normal text-neutral-500">
@@ -184,7 +184,7 @@ function DomainOnboarding({ domain, onDomainChange }: DomainProps) {
             <label className="block text-sm font-medium text-neutral-800">
               Program domain
             </label>
-            <InfoTooltip content="A connected domain or sub-domain is required to create a program. [Learn more](https://dub.co/help/article/choosing-a-custom-domain)" />
+            <InfoTooltip content="A connected domain or sub-domain is required to create a program. [Learn more](https://ingat.cc/help/article/choosing-a-custom-domain)" />
           </div>
           {state === "select" && (
             <button

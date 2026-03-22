@@ -72,7 +72,7 @@ export function PostbackDetailPageClient({
         titleInfo={{
           title:
             "Receive HTTP requests when events like leads, sales, or commissions occur in your partner programs.",
-          href: "https://dub.co/help",
+          href: "https://ingat.cc/help",
         }}
       >
         <PageWidthWrapper className="grid max-w-screen-lg gap-8 pb-10">

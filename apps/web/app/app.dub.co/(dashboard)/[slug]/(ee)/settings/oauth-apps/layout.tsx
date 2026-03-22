@@ -10,7 +10,7 @@ export default function OAuthAppsLayout({ children }: { children: ReactNode }) {
       titleInfo={{
         title:
           "Learn how to use OAuth applications to build integrations with Dub.",
-        href: "https://dub.co/docs/integrations/quickstart",
+        href: "https://ingat.cc/docs/integrations/quickstart",
       }}
       controls={<CreateOAuthAppButton />}
     >

@@ -50,7 +50,7 @@ export function EmailDomains() {
                 Upgrade
               </Link>
             }
-            learnMoreHref="https://dub.co/help/article/email-domains"
+            learnMoreHref="https://ingat.cc/help/article/email-domains"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ const NoEmailDomains = () => {
               className="h-9 rounded-lg"
             />
           }
-          learnMoreHref="https://dub.co/help/article/email-domains"
+          learnMoreHref="https://ingat.cc/help/article/email-domains"
         />
       </div>
     </>

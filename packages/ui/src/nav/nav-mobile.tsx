@@ -18,22 +18,22 @@ import {
 import { navItems, type NavTheme } from "./nav";
 
 const specialIcons: Record<string, ReactNode> = {
-  "Dub Links": (
+  "Ingat Links": (
     <div className="flex size-5 items-center justify-center rounded bg-orange-400">
       <DubLinksIcon className="size-3 text-orange-900" />
     </div>
   ),
-  "Dub Partners": (
+  "Ingat Partners": (
     <div className="flex size-5 items-center justify-center rounded bg-violet-400">
       <DubPartnersIcon className="size-3 text-violet-900" />
     </div>
   ),
-  "Dub Analytics": (
+  "Ingat Analytics": (
     <div className="flex size-5 items-center justify-center rounded bg-green-400">
       <DubAnalyticsIcon className="size-3 text-green-900" />
     </div>
   ),
-  "Dub API": (
+  "Ingat API": (
     <div className="flex size-5 items-center justify-center rounded bg-neutral-400">
       <DubApiIcon className="size-3 text-neutral-900" />
     </div>
@@ -47,7 +47,7 @@ export function NavMobile({
   theme?: NavTheme;
   staticDomain?: string;
 }) {
-  let { domain = "dub.co" } = useParams() as { domain: string };
+  let { domain = "ingat.cc" } = useParams() as { domain: string };
   if (staticDomain) {
     domain = staticDomain;
   }
@@ -63,7 +63,7 @@ export function NavMobile({
   }, [open]);
 
   const { data: session, isLoading } = useSWR(
-    domain.endsWith("dub.co") && "/api/auth/session",
+    domain.endsWith("ingat.cc") && "/api/auth/session",
     fetcher,
     {
       dedupingInterval: 60000,
@@ -167,7 +167,7 @@ const MobileNavItem = ({
   childItems?: NavItemChildren;
   setOpen: (open: boolean) => void;
 }) => {
-  const { domain = "dub.co" } = useParams() as { domain: string };
+  const { domain = "ingat.cc" } = useParams() as { domain: string };
   const [expanded, setExpanded] = useState(false);
 
   if (childItems) {
@@ -245,7 +245,7 @@ const ChildItem = ({
   setOpen: (open: boolean) => void;
   size?: "normal" | "small";
 }) => {
-  const { domain = "dub.co" } = useParams() as { domain: string };
+  const { domain = "ingat.cc" } = useParams() as { domain: string };
 
   const SpecialIcon = specialIcons?.[title];
 

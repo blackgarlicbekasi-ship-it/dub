@@ -59,7 +59,7 @@ export default async function Authorize(props: {
             )}
           </a>
           <ArrowLeftRight className="size-5 text-neutral-500" />
-          <a href="https://dub.co" target="_blank" rel="noreferrer">
+          <a href="https://ingat.cc" target="_blank" rel="noreferrer">
             <Logo className="size-12" />
           </a>
         </div>

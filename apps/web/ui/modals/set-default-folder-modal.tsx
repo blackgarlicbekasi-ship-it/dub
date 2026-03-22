@@ -64,7 +64,7 @@ function SetDefaultFolderModal({
           This will make this folder the default folder for your links
           dashboard.{" "}
           <a
-            href="https://dub.co/help/article/link-folders#setting-a-default-folder"
+            href="https://ingat.cc/help/article/link-folders#setting-a-default-folder"
             className="cursor-help text-neutral-700 underline decoration-dotted underline-offset-2 hover:text-neutral-900"
             target="_blank"
             rel="noreferrer"

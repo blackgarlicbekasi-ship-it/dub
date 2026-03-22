@@ -9,7 +9,7 @@ export default function Domain() {
         <>
           Make your links stand out and{" "}
           <a
-            href="https://dub.co/blog/custom-domains"
+            href="https://ingat.cc/blog/custom-domains"
             target="_blank"
             className="cursor-help font-medium underline decoration-dotted underline-offset-2 transition-colors hover:text-neutral-700"
           >

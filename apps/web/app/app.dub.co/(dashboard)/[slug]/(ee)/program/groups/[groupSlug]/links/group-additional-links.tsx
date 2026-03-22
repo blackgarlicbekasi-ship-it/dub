@@ -43,7 +43,7 @@ export function GroupAdditionalLinks() {
           </h3>
           <InfoTooltip
             content={
-              "Allow partners to create additional referral links. [Learn more.](https://dub.co/help/article/partner-link-settings#additional-partner-links)"
+              "Allow partners to create additional referral links. [Learn more.](https://ingat.cc/help/article/partner-link-settings#additional-partner-links)"
             }
           />
         </div>

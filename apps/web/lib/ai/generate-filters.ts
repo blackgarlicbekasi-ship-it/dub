@@ -31,8 +31,8 @@ const AI_FILTER_SCHEMA = buildAIFilterSchema();
 const SYSTEM_PROMPT = `You are an analytics filter assistant. Extract or infer filter parameters from the user's request.
 
 Output format: every filter value must use the advanced filtering syntax as a single string:
-- Single value: \`dub.co\`
-- Multiple values (comma-separated): \`dub.co,google.com\`
+- Single value: \`ingat.cc\`
+- Multiple values (comma-separated): \`ingat.cc,google.com\`
 - Exclusion (prefix with -): \`-spam.com\`
 
 Only include fields that are clearly requested or implied. Omit optional fields when not relevant. For dates use ISO 8601 (e.g. 2024-01-15).`;

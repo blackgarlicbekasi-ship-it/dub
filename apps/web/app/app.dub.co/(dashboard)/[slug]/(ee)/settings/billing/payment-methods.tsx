@@ -235,7 +235,7 @@ const RecommendedForPayoutsWrapper = ({
         <span>
           Recommended for Dub Partner payouts.{" "}
           <Link
-            href="https://dub.co/help/article/how-to-set-up-bank-account"
+            href="https://ingat.cc/help/article/how-to-set-up-bank-account"
             target="_blank"
             className="underline underline-offset-2 transition-colors duration-75 hover:text-neutral-900"
           >

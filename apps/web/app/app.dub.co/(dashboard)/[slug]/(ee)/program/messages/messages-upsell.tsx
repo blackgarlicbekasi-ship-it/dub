@@ -15,7 +15,7 @@ export function MessagesUpsell() {
       titleInfo={{
         title:
           "Chat with your partners in real time, with email notifications & read statuses built in.",
-        href: "https://dub.co/help/article/messaging-partners",
+        href: "https://ingat.cc/help/article/messaging-partners",
       }}
     >
       {partnersUpgradeModal}
@@ -44,7 +44,7 @@ export function MessagesUpsell() {
           </span>
           <p className="text-content-subtle mt-2 text-sm">
             <a
-              href="https://dub.co/help/article/messaging-partners"
+              href="https://ingat.cc/help/article/messaging-partners"
               target="_blank"
               rel="noopener noreferrer"
               className="text-content-default hover:text-content-emphasis cursor-alias underline decoration-dotted underline-offset-2"

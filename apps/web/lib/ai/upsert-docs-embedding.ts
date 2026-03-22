@@ -164,8 +164,8 @@ function chunkByHeadings(
  * This is also the source of truth for the hostname allowlist.
  */
 const HOSTNAME_TO_ORIGIN: Record<string, string> = {
-  "dub.co": "https://dub.co",
-  "www.dub.co": "https://www.dub.co",
+  "ingat.cc": "https://ingat.cc",
+  "www.ingat.cc": "https://www.ingat.cc",
 };
 const ALLOWED_HOSTNAMES = Object.keys(HOSTNAME_TO_ORIGIN);
 const ALLOWED_PATH_PREFIXES = ["/docs", "/help"];
@@ -182,7 +182,7 @@ function sanitizePathname(pathname: string): string {
 /**
  * Fetch, clean, chunk, and upsert a single article URL into Upstash Vector.
  * Uses heading-level chunks directly — no sentence-level fragmentation.
- * Validates URL to restrict fetches to dub.co docs/help (SSRF guard).
+ * Validates URL to restrict fetches to ingat.cc docs/help (SSRF guard).
  *
  * @param pageviewsMap
  *
@@ -210,7 +210,7 @@ export async function upsertDocsEmbeddings(
     return { chunks: 0, skipped: true };
   }
 
-  const origin = HOSTNAME_TO_ORIGIN[parsedUrl.hostname] ?? "https://dub.co";
+  const origin = HOSTNAME_TO_ORIGIN[parsedUrl.hostname] ?? "https://ingat.cc";
   const sanitizedPath = sanitizePathname(parsedUrl.pathname);
   const pathnameWithMd = sanitizedPath.endsWith(".md")
     ? sanitizedPath

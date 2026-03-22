@@ -32,7 +32,7 @@ export function PartnerBanner({
         </Link>{" "}
         uses{" "}
         <a
-          href="https://dub.co/partners"
+          href="https://ingat.cc/partners"
           target="_blank"
           className="font-semibold text-neutral-600 decoration-dotted underline-offset-2 transition-colors hover:underline"
         >

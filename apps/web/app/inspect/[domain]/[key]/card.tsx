@@ -41,7 +41,7 @@ export default function LinkInspectorCard({
         </div>
       </div>
       <Link
-        href={`https://dub.co/legal/abuse?link=${linkConstructor({
+        href={`https://ingat.cc/legal/abuse?link=${linkConstructor({
           domain,
           key,
         })}`}

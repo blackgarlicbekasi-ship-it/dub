@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     return programs.map((program) => ({
-      url: `https://partners.dub.co/${program.slug}`,
+      url: `https://partners.ingat.cc/${program.slug}`,
       lastModified: new Date(),
     }));
   }
