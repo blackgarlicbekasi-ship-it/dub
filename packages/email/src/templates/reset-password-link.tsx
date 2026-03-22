@@ -29,14 +29,14 @@ export default function ResetPasswordLink({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-xl font-medium text-black">
               Reset password link
             </Heading>
             <Text className="text-sm leading-6 text-black">
               You are receiving this email because we received a password reset
-              request for your account at Dub.
+              request for your account at Ingat.
             </Text>
             <Text className="text-sm leading-6 text-black">
               Please click the button below to reset your password.

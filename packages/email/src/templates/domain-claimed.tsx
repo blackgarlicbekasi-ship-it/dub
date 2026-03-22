@@ -31,7 +31,7 @@ export default function DomainClaimed({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Successfully claimed your .link domain!
@@ -39,7 +39,7 @@ export default function DomainClaimed({
             <Text className="text-sm leading-6 text-black">
               Congratulations! You have successfully claimed your free{" "}
               <code className="text-purple-600">{domain}</code> domain for your
-              Dub workspace{" "}
+              Ingat workspace{" "}
               <Link
                 href={`https://app.ingat.cc/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"

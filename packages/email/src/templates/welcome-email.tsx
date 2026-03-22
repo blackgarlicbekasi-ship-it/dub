@@ -45,18 +45,18 @@ export default function WelcomeEmail({
   return (
     <Html>
       <Head />
-      <Preview>Welcome to Dub</Preview>
+      <Preview>Welcome to Ingat</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-xl font-semibold text-black">
-              Welcome to Dub!
+              Welcome to Ingat!
             </Heading>
             <Text className="mb-8 text-sm leading-6 text-neutral-600">
-              Thank you for signing up for Dub! You can now start creating and
+              Thank you for signing up for Ingat! You can now start creating and
               managing short links and track their performance.
             </Text>
 
@@ -136,8 +136,8 @@ export default function WelcomeEmail({
 
             <Text className="mb-6 mt-0 text-sm leading-6 text-neutral-600">
               {program
-                ? "Finish setting up your program to get the most out of Dub Partners."
-                : "Get familiar with Dub by exploring the platform and features."}
+                ? "Finish setting up your program to get the most out of Ingat Partners."
+                : "Get familiar with Ingat by exploring the platform and features."}
             </Text>
 
             {program ? (
@@ -233,7 +233,7 @@ export default function WelcomeEmail({
                         href="https://app.ingat.cc/settings/tracking"
                         className="text-neutral-600 underline underline-offset-2"
                       >
-                        Install the Dub tracking script
+                        Install the Ingat tracking script
                       </Link>{" "}
                       to track your short link and partner conversions.
                     </Text>
@@ -244,7 +244,7 @@ export default function WelcomeEmail({
                         href="https://app.ingat.cc/docs/partners/quickstart"
                         className="text-neutral-600 underline underline-offset-2"
                       >
-                        Set up your Dub partner program
+                        Set up your Ingat partner program
                       </Link>{" "}
                       to grow your revenue on autopilot with advanced reward
                       structures, dual-sided incentives, and real-time
@@ -259,7 +259,7 @@ export default function WelcomeEmail({
                         href="https://app.ingat.cc/help/article/how-to-create-link"
                         className="text-neutral-600 underline underline-offset-2"
                       >
-                        Create your first Dub short link
+                        Create your first Ingat short link
                       </Link>{" "}
                       and explore the different features available.
                     </Text>

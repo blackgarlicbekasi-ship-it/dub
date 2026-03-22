@@ -29,15 +29,15 @@ export default function UpgradeEmail({
   return (
     <Html>
       <Head />
-      <Preview>Thank you for upgrading to Dub {plan}!</Preview>
+      <Preview>Thank you for upgrading to Ingat {plan}!</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-xl font-medium text-black">
-              Thank you for upgrading to Dub {plan}!
+              Thank you for upgrading to Ingat {plan}!
             </Heading>
             <Section className="my-8">
               <Img
@@ -50,12 +50,12 @@ export default function UpgradeEmail({
               Hey{name && ` ${name}`}!
             </Text>
             <Text className="text-sm leading-6 text-black">
-              My name is Steven, and I'm the founder of Dub.
+              My name is Steven, and I'm the founder of Ingat.
             </Text>
             <Text className="text-sm leading-6 text-black">
               I wanted to personally reach out to thank you for upgrading to{" "}
-              <strong>Dub {plan}</strong>! Your support means the world to us
-              and helps us continue to build and improve Dub.
+              <strong>Ingat {plan}</strong>! Your support means the world to us
+              and helps us continue to build and improve Ingat.
             </Text>
             <Text className="text-sm leading-6 text-black">
               On the {plan} plan, you now have access to:
@@ -71,11 +71,11 @@ export default function UpgradeEmail({
               </Text>
             ))}
             <Text className="text-sm leading-6 text-black">
-              If you have any questions or feedback about Dub, please don't
+              If you have any questions or feedback about Ingat, please don't
               hesitate to reach out – I'm always happy to help!
             </Text>
             <Text className="text-sm font-light leading-6 text-neutral-400">
-              Steven from Dub
+              Ingat Team
             </Text>
             <Footer email={email} marketing />
           </Container>

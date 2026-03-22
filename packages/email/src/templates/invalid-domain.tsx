@@ -33,14 +33,14 @@ export default function InvalidDomain({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Invalid Domain Configuration
             </Heading>
             <Text className="text-sm leading-6 text-black">
               Your domain <code className="text-purple-600">{domain}</code> for
-              your Dub workspace{" "}
+              your Ingat workspace{" "}
               <Link
                 href={`https://app.ingat.cc/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
@@ -51,7 +51,7 @@ export default function InvalidDomain({
             </Text>
             <Text className="text-sm leading-6 text-black">
               If your domain remains unconfigured for 30 days, it will be
-              automatically deleted from Dub. Please click the link below to
+              automatically deleted from Ingat. Please click the link below to
               configure your domain.
             </Text>
             <Section className="my-8">
@@ -63,7 +63,7 @@ export default function InvalidDomain({
               </Link>
             </Section>
             <Text className="text-sm leading-6 text-black">
-              If you do not want to keep this domain on Dub, you can{" "}
+              If you do not want to keep this domain on Ingat, you can{" "}
               <Link
                 href={`https://app.ingat.cc/${workspaceSlug}/settings/domains`}
                 className="font-medium text-blue-600 no-underline"

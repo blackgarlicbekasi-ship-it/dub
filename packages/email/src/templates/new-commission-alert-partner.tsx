@@ -57,7 +57,7 @@ export default function NewCommissionAlertPartner({
         You just earned {earningsInDollars} in commissions via{" "}
         {shortLink
           ? `your referral link ${getPrettyUrl(shortLink)}`
-          : "Dub Partners"}
+          : "Ingat Partners"}
       </Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">

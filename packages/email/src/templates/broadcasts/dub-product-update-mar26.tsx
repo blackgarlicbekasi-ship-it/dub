@@ -15,7 +15,7 @@ import {
 } from "@react-email/components";
 import { Footer } from "../../components/footer";
 
-export default function DubProductUpdateMar26({
+export default function IngatProductUpdateMar26({
   email = "panic@thedis.co",
   unsubscribeUrl = "https://app.ingat.cc/account/settings",
 }: {
@@ -46,7 +46,7 @@ export default function DubProductUpdateMar26({
                 src={DUB_WORDMARK}
                 width="65"
                 height="32"
-                alt="Dub"
+                alt="Ingat"
                 style={{
                   display: "block",
                   margin: "0 auto",
@@ -55,7 +55,7 @@ export default function DubProductUpdateMar26({
             </Section>
 
             <Heading className="mx-0 mb-2 mt-8 p-0 text-center text-2xl font-semibold text-black">
-              Dub Partners Product Updates
+              Ingat Partners Product Updates
             </Heading>
 
             <Text className="mx-auto mb-8 mt-0 max-w-sm text-center text-base leading-6 text-neutral-600">
@@ -194,7 +194,7 @@ export default function DubProductUpdateMar26({
                 groups, links, folders, tags, country, device, and more.
               </Text>
               <Text className="mx-0 mb-2 mt-0 text-sm leading-6 text-neutral-600">
-                Available for Dub Partners and Dub Links, including via API.
+                Available for Ingat Partners and Ingat Links, including via API.
               </Text>
               <Section className="mt-4 text-center">
                 <Link

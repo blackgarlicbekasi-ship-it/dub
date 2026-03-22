@@ -18,10 +18,10 @@ import {
 } from "@react-email/components";
 import { Footer } from "../../components/footer";
 
-export default function DubWrapped({
+export default function IngatWrapped({
   email = "panic@thedis.co",
   workspace = {
-    name: "Dub",
+    name: "Ingat",
     slug: "dub",
     logo: "https://assets.dub.co/wordmark.png",
   },
@@ -150,14 +150,14 @@ export default function DubWrapped({
       <Head />
       <Preview>
         In 2024, you created {nFormatter(stats["Total Links"], { full: true })}{" "}
-        links on Dub and got {nFormatter(stats["Total Clicks"], { full: true })}{" "}
+        links on Ingat and got {nFormatter(stats["Total Clicks"], { full: true })}{" "}
         clicks.
       </Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" className="my-0" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" className="my-0" />
             </Section>
             <Heading className="mx-0 mb-4 mt-8 p-0 text-xl font-semibold text-black">
               Dub Year in Review 🎊
@@ -291,7 +291,7 @@ export default function DubWrapped({
               className="max-w-[200px]"
             />
             <Text className="text-sm leading-6 text-black">
-              and the Dub team 🎄
+              and the Ingat team 🎄
             </Text>
 
             <Footer email={email} marketing />

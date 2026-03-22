@@ -14,7 +14,7 @@ import {
 } from "@react-email/components";
 import { Footer } from "../components/footer";
 
-export default function DubPartnerRewind({
+export default function IngatPartnerRewind({
   email = "panic@thedis.co",
 }: {
   email: string;
@@ -31,7 +31,7 @@ export default function DubPartnerRewind({
           }
         `}</style>
       </Head>
-      <Preview>Your Dub Partner Rewind &rsquo;25 is ready</Preview>
+      <Preview>Your Ingat Partner Rewind &rsquo;25 is ready</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="email-container mx-auto my-10 max-w-[600px] px-10 py-5">
@@ -40,7 +40,7 @@ export default function DubPartnerRewind({
                 src={DUB_WORDMARK}
                 width="65"
                 height="32"
-                alt="Dub"
+                alt="Ingat"
                 style={{
                   display: "block",
                   margin: "0 auto",
@@ -49,7 +49,7 @@ export default function DubPartnerRewind({
             </Section>
 
             <Heading className="mx-0 mb-2 mt-8 p-0 text-center text-2xl font-semibold text-black">
-              Your Dub Partner Rewind &rsquo;25 is ready
+              Your Ingat Partner Rewind &rsquo;25 is ready
             </Heading>
 
             <Text className="mb-8 mt-0 text-center text-base leading-6 text-neutral-600">
@@ -78,7 +78,7 @@ export default function DubPartnerRewind({
             </Heading>
 
             <Text className="mx-auto mb-8 mt-0 max-w-[400px] text-center text-sm leading-6 text-neutral-600">
-              Thank you for all your hard work as a Dub partner. We can&rsquo;t
+              Thank you for all your hard work as a Ingat partner. We can&rsquo;t
               wait to see what you&rsquo;ll do in 2026!
             </Text>
 

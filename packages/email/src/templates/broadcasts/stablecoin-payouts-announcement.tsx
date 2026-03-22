@@ -35,7 +35,7 @@ export default function StablecoinPayoutsAnnouncement({
         `}</style>
       </Head>
       <Preview>
-        Connect your crypto wallet and get paid in USDC. Also, Dub Program
+        Connect your crypto wallet and get paid in USDC. Also, Ingat Program
         Marketplace is now generally available.
       </Preview>
       <Tailwind>
@@ -46,7 +46,7 @@ export default function StablecoinPayoutsAnnouncement({
                 src={DUB_WORDMARK}
                 width="65"
                 height="32"
-                alt="Dub"
+                alt="Ingat"
                 style={{
                   display: "block",
                   margin: "0 auto",
@@ -147,7 +147,7 @@ export default function StablecoinPayoutsAnnouncement({
                   src="https://assets.dub.co/misc/program-marketplace-email-header.jpg"
                   width="500"
                   height="292"
-                  alt="Dub Program Marketplace"
+                  alt="Ingat Program Marketplace"
                   style={{
                     display: "block",
                     maxWidth: "100%",
@@ -159,7 +159,7 @@ export default function StablecoinPayoutsAnnouncement({
             </Section>
 
             <Heading className="mx-0 mb-3 mt-0 p-0 text-center text-lg font-semibold text-black">
-              Dub Program Marketplace is now generally available
+              Ingat Program Marketplace is now generally available
             </Heading>
 
             <Text className="mx-auto mb-8 mt-0 max-w-[420px] text-center text-sm leading-6 text-neutral-600">

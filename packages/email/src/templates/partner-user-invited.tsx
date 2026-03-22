@@ -30,15 +30,15 @@ export default function PartnerUserInvited({
   return (
     <Html>
       <Head />
-      <Preview>Join {partnerName} on Dub Partners</Preview>
+      <Preview>Join {partnerName} on Ingat Partners</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-xl font-medium text-black">
-              Join {partnerName} on Dub Partners
+              Join {partnerName} on Ingat Partners
             </Heading>
             {partnerUser && partnerUserEmail ? (
               <Text className="text-sm leading-6 text-black">
@@ -50,12 +50,12 @@ export default function PartnerUserInvited({
                   {partnerUserEmail}
                 </Link>
                 ) has invited you to join the <strong>{partnerName}</strong>{" "}
-                partner profile on Dub Partners!
+                partner profile on Ingat Partners!
               </Text>
             ) : (
               <Text className="text-sm leading-6 text-black">
                 You have been invited to join the <strong>{partnerName}</strong>{" "}
-                partner profile on Dub Partners!
+                partner profile on Ingat Partners!
               </Text>
             )}
             <Section className="mb-8 mt-8">

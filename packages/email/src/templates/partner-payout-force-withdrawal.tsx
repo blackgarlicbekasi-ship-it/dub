@@ -76,7 +76,7 @@ export default function PartnerPayoutForceWithdrawal({
               <Img
                 src="https://assets.dub.co/logo.png"
                 height="32"
-                alt="Dub logo"
+                alt="Ingat logo"
               />
             </Section>
 
@@ -86,7 +86,7 @@ export default function PartnerPayoutForceWithdrawal({
 
             <Text className="text-sm leading-6 text-neutral-600">
               A withdrawal of {payoutAmountInDollars} has been initiated from
-              your Dub account.
+              your Ingat account.
             </Text>
 
             <Text className="text-sm leading-6 text-neutral-600">

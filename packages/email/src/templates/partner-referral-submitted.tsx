@@ -71,7 +71,7 @@ export default function PartnerReferralSubmitted({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mb-8 mt-6">
-              <Img src={DUB_WORDMARK} width="61" height="32" alt="dub" />
+              <Img src={DUB_WORDMARK} width="61" height="32" alt="Ingat" />
             </Section>
 
             <Heading className="mx-0 p-0 text-lg font-medium text-neutral-800">
@@ -84,7 +84,7 @@ export default function PartnerReferralSubmitted({
                 href={referralUrl}
                 className="text-neutral-600 underline underline-offset-4"
               >
-                full details on Dub
+                full details on Ingat
               </Link>
               .
             </Text>
@@ -273,7 +273,7 @@ export default function PartnerReferralSubmitted({
                 href={referralUrl}
                 className="box-border block w-full rounded-lg bg-black px-0 py-4 text-center text-sm font-semibold leading-none text-white no-underline"
               >
-                Review on Dub
+                Review on Ingat
               </Link>
             </Section>
 

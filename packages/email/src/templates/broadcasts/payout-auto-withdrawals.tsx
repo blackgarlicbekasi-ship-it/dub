@@ -32,7 +32,7 @@ export default function PayoutAutoWithdrawals({
               <Img
                 src="https://assets.dub.co/wordmark.png"
                 height="32"
-                alt="Dub wordmark"
+                alt="Ingat wordmark"
               />
             </Section>
 
@@ -45,7 +45,7 @@ export default function PayoutAutoWithdrawals({
               <code className="rounded bg-indigo-100 px-1.5 py-0.5 text-indigo-600">
                 processed
               </code>{" "}
-              payouts in your Dub partner account.
+              payouts in your Ingat partner account.
             </Text>
 
             <Text className="text-sm leading-6 text-neutral-600">

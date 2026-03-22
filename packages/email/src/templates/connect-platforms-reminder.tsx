@@ -41,7 +41,7 @@ export default function ConnectPlatformsReminder({
                 src={DUB_WORDMARK}
                 width="65"
                 height="32"
-                alt="Dub"
+                alt="Ingat"
                 style={{
                   display: "block",
                   margin: "0 auto",
@@ -54,7 +54,7 @@ export default function ConnectPlatformsReminder({
             </Heading>
 
             <Text className="mx-auto mb-8 mt-0 max-w-[420px] text-center text-base leading-6 text-neutral-600">
-              Improve your reputation score in the Dub partner network by
+              Improve your reputation score in the Ingat partner network by
               verifying your social platforms.
             </Text>
 

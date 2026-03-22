@@ -31,13 +31,13 @@ export default function EmailUpdated({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Your email address has been changed
             </Heading>
             <Text className="mx-auto text-sm leading-6">
-              The e-mail address for your Dub{" "}
+              The e-mail address for your Ingat{" "}
               {isPartnerProfile ? "partner profile" : "account"} has been
               changed from <strong>{oldEmail}</strong> to{" "}
               <strong>{newEmail}</strong>.

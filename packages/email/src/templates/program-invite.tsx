@@ -147,7 +147,7 @@ export default function ProgramInvite({
 }) {
   const emailTitle = title || "You've been invited";
   const emailSubject =
-    subject || `${program.name} invited you to join Dub Partners`;
+    subject || `${program.name} invited you to join Ingat Partners`;
 
   return (
     <Html>
@@ -176,7 +176,7 @@ export default function ProgramInvite({
               <>
                 <Text className="text-sm leading-6 text-neutral-600">
                   {name && !name.includes("@") && <>Hi {name}, </>}
-                  {program.name} invited you to join their program on Dub
+                  {program.name} invited you to join their program on Ingat
                   Partners.
                 </Text>
 
@@ -187,7 +187,7 @@ export default function ProgramInvite({
                     target="_blank"
                     className="font-semibold text-neutral-800 underline underline-offset-2"
                   >
-                    Dub Partners
+                    Ingat Partners
                   </Link>{" "}
                   to power their partner program and wants to work with great
                   people like you!

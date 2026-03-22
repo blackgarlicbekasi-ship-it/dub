@@ -178,7 +178,7 @@ export default function PartnerPayoutProcessed({
                 target="_blank"
                 className="font-medium text-black underline decoration-dotted underline-offset-2"
               >
-                Dub Partners
+                Ingat Partners
               </Link>
               {startDate && endDate ? (
                 <>

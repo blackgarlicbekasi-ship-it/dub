@@ -18,7 +18,7 @@ import { WorkspaceProps } from "../types";
 export default function DomainTransferred({
   email = "panic@thedis.co",
   domain = "ingat.cc",
-  newWorkspace = { name: "Dub", slug: "dub" },
+  newWorkspace = { name: "Ingat", slug: "dub" },
   linksCount = 50,
 }: {
   email: string;
@@ -34,7 +34,7 @@ export default function DomainTransferred({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Dub" />
+              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Domain Transferred

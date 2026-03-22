@@ -43,7 +43,7 @@ export default function DuplicatePayoutMethod({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mb-8 mt-6">
-              <Img src={DUB_WORDMARK} width="65" height="32" alt="dub" />
+              <Img src={DUB_WORDMARK} width="65" height="32" alt="Ingat" />
             </Section>
 
             <Heading className="mx-0 p-0 text-lg font-medium text-neutral-800">
@@ -52,7 +52,7 @@ export default function DuplicatePayoutMethod({
 
             <Text className="mb-6 text-sm leading-6 text-neutral-600">
               We've detected that the payout method you're trying to connect is
-              already associated with another Dub partner account,{" "}
+              already associated with another Ingat partner account,{" "}
               <strong>
                 which is against our{" "}
                 <Link
@@ -121,7 +121,7 @@ export default function DuplicatePayoutMethod({
               </Text>
               <Text className="text-sm leading-6 text-blue-700">
                 For security reasons, each payout method can only be connected
-                to one Dub partner account at a time. This helps us prevent
+                to one Ingat partner account at a time. This helps us prevent
                 fraud and ensure payments reach the correct recipient.
               </Text>
             </Section>
@@ -133,7 +133,7 @@ export default function DuplicatePayoutMethod({
               </Text>
               <Text className="mb-3 text-sm leading-6 text-neutral-600">
                 <strong>1. Check your other accounts:</strong> This payout
-                method might already be connected to another Dub partner account
+                method might already be connected to another Ingat partner account
                 using a different email address.
               </Text>
               <Text className="mb-3 text-sm leading-6 text-neutral-600">

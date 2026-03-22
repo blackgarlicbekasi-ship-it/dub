@@ -26,7 +26,7 @@ export default function PartnerAccountMerged({
   return (
     <Html>
       <Head />
-      <Preview>Your Dub partner accounts are now merged</Preview>
+      <Preview>Your Ingat partner accounts are now merged</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] px-10 py-5">
@@ -34,13 +34,13 @@ export default function PartnerAccountMerged({
               <Img
                 src={DUB_WORDMARK}
                 height="32"
-                alt="Dub"
+                alt="Ingat"
                 className="mr-auto"
               />
             </Section>
 
             <Heading className="p-0 text-xl font-semibold text-black">
-              Your Dub partner accounts are now merged
+              Your Ingat partner accounts are now merged
             </Heading>
 
             <Text className="text-base text-neutral-600">
@@ -49,7 +49,7 @@ export default function PartnerAccountMerged({
             </Text>
 
             <Text className="text-base text-neutral-600">
-              The merged account ({sourceEmail}) has been deleted. To use Dub
+              The merged account ({sourceEmail}) has been deleted. To use Ingat
               with that email, a new account will need to be created.
             </Text>
 
