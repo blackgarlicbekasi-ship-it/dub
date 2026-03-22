@@ -50,12 +50,16 @@ export const GET = withWorkspace(
 );
 
 const updateDefaultDomainsSchema = z.object({
-  defaultDomains: z.array(z.enum(DUB_DOMAINS_ARRAY as [string, ...string[]])),
+  defaultDomains: z.array(z.string()),
 });
 
 // PATCH /api/domains/default - edit default domains
 export const PATCH = withWorkspace(
   async ({ req, workspace }) => {
+    if (DUB_DOMAINS_ARRAY.length === 0) {
+      return NextResponse.json({});
+    }
+
     const { defaultDomains } = await updateDefaultDomainsSchema.parseAsync(
       await req.json(),
     );

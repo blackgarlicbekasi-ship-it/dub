@@ -7,6 +7,7 @@ import { prisma } from "@dub/prisma";
 import { Project, WorkspaceRole } from "@dub/prisma/client";
 import {
   DUB_DOMAINS,
+  SHORT_DOMAIN,
   UTMTags,
   constructURLFromUTMParams,
   getApexDomain,
@@ -159,7 +160,7 @@ export async function processLink<T extends Record<string, any>>({
 
   // if domain is not defined, set it to the workspace's primary domain
   if (!domain) {
-    domain = domains?.find((d) => d.primary)?.slug || "dub.sh";
+    domain = domains?.find((d) => d.primary)?.slug || SHORT_DOMAIN;
   }
 
   // checks for dub.sh and dub.link links
