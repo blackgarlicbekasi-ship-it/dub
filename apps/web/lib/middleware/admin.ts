@@ -22,8 +22,8 @@ export async function AdminMiddleware(req: NextRequest) {
     });
 
     if (!isAdminUser) {
-      return NextResponse.next(); // throw 404 page
-    } else if (path === "/login") {
+      return NextResponse.next();
+    } else if (path === "/login" || path === "/workspaces") {
       return NextResponse.redirect(new URL("/", req.url));
     }
   }
