@@ -71,7 +71,7 @@ export default function PartnerPayoutWithdrawalInitiated({
               </span>
               . If there are any delays, please{" "}
               <Link
-                href="https://dub.co/contact/support"
+                href="https://ingat.cc/contact/support"
                 className="font-medium text-black underline"
               >
                 reach out to us
@@ -82,7 +82,7 @@ export default function PartnerPayoutWithdrawalInitiated({
             <Section className="mb-12 mt-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-4 py-3 text-[12px] font-semibold text-white no-underline"
-                href="https://partners.dub.co/payouts"
+                href="https://app.ingat.cc/payouts"
               >
                 View payouts
               </Link>

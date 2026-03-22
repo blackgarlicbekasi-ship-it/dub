@@ -39,8 +39,8 @@ export default function WelcomeEmail({
   unsubscribeUrl: string;
 }) {
   const workspaceUrl = workspace
-    ? `https://app.dub.co/${workspace?.slug}`
-    : "https://app.dub.co";
+    ? `https://app.ingat.cc/${workspace?.slug}`
+    : "https://app.ingat.cc";
 
   return (
     <Html>
@@ -145,7 +145,7 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   1. Set up conversion tracking:{" "}
                   <Link
-                    href="https://dub.co/docs/conversions/quickstart"
+                    href="https://app.ingat.cc/docs/conversions/quickstart"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     Follow our quickstart guide
@@ -156,7 +156,7 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   2. Create your program application form: Use our{" "}
                   <Link
-                    href="https://dub.co/help/article/program-application-form"
+                    href="https://app.ingat.cc/help/article/program-application-form"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     interactive builder
@@ -168,7 +168,7 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   3. Connect your bank account:{" "}
                   <Link
-                    href="https://dub.co/help/article/how-to-set-up-bank-account"
+                    href="https://app.ingat.cc/help/article/how-to-set-up-bank-account"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     Set up a bank account
@@ -179,14 +179,14 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   4. Invite your partners: Easily{" "}
                   <Link
-                    href="https://dub.co/help/article/inviting-partners"
+                    href="https://app.ingat.cc/help/article/inviting-partners"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     Invite influencers, affiliates, and users
                   </Link>{" "}
                   to your program, or{" "}
                   <Link
-                    href="https://dub.co/help/article/inviting-partners#enrolling-a-partner-automatically"
+                    href="https://app.ingat.cc/help/article/inviting-partners#enrolling-a-partner-automatically"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     enroll them automatically.
@@ -196,7 +196,7 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   5. Create more rewards: Set up{" "}
                   <Link
-                    href="https://dub.co/help/article/partner-rewards"
+                    href="https://app.ingat.cc/help/article/partner-rewards"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     click, lead, and sale-based rewards
@@ -210,14 +210,14 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   1. Set up your domain:{" "}
                   <Link
-                    href="https://dub.co/help/article/how-to-add-custom-domain"
+                    href="https://app.ingat.cc/help/article/how-to-add-custom-domain"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     Add a custom domain
                   </Link>{" "}
                   or{" "}
                   <Link
-                    href="https://dub.co/help/article/free-dot-link-domain"
+                    href="https://app.ingat.cc/help/article/free-dot-link-domain"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     claim a free .link domain
@@ -230,7 +230,7 @@ export default function WelcomeEmail({
                     <Text className="mb-4 text-sm leading-6 text-neutral-600">
                       2. Track conversions:{" "}
                       <Link
-                        href="https://app.dub.co/settings/tracking"
+                        href="https://app.ingat.cc/settings/tracking"
                         className="text-neutral-600 underline underline-offset-2"
                       >
                         Install the Dub tracking script
@@ -241,7 +241,7 @@ export default function WelcomeEmail({
                     <Text className="mb-4 text-sm leading-6 text-neutral-600">
                       3. Create a program:{" "}
                       <Link
-                        href="https://dub.co/docs/partners/quickstart"
+                        href="https://app.ingat.cc/docs/partners/quickstart"
                         className="text-neutral-600 underline underline-offset-2"
                       >
                         Set up your Dub partner program
@@ -256,7 +256,7 @@ export default function WelcomeEmail({
                     <Text className="mb-4 text-sm leading-6 text-neutral-600">
                       2. Create a short link:{" "}
                       <Link
-                        href="https://dub.co/help/article/how-to-create-link"
+                        href="https://app.ingat.cc/help/article/how-to-create-link"
                         className="text-neutral-600 underline underline-offset-2"
                       >
                         Create your first Dub short link
@@ -267,7 +267,7 @@ export default function WelcomeEmail({
                     <Text className="mb-4 text-sm leading-6 text-neutral-600">
                       3. Explore analytics:{" "}
                       <Link
-                        href="https://dub.co/help/article/dub-analytics"
+                        href="https://app.ingat.cc/help/article/dub-analytics"
                         className="text-neutral-600 underline underline-offset-2"
                       >
                         View the performance
@@ -280,7 +280,7 @@ export default function WelcomeEmail({
                 <Text className="mb-4 text-sm leading-6 text-neutral-600">
                   4. Explore the API:{" "}
                   <Link
-                    href="https://dub.co//docs"
+                    href="https://app.ingat.cc//docs"
                     className="text-neutral-600 underline underline-offset-2"
                   >
                     Check out our docs
@@ -294,7 +294,7 @@ export default function WelcomeEmail({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-black px-4 py-2.5 text-center text-[14px] font-medium text-white no-underline"
-                href="https://app.dub.co"
+                href="https://app.ingat.cc"
               >
                 Go to your dashboard
               </Link>

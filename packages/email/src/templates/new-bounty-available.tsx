@@ -23,7 +23,7 @@ export default function NewBountyAvailable({
     type: "performance",
     endsAt: new Date(),
     description:
-      "How **does** it work?\n\nGet a group _together_ of at least 15 other people interested in trying out [Acme](https://dub.co). Then, during the event, take a photo of the group using Acme. When submitting, provide any links to the event or photos. Once confirmed, we'll create a one-time commission for you.",
+      "How **does** it work?\n\nGet a group _together_ of at least 15 other people interested in trying out [Acme](https://ingat.cc). Then, during the event, take a photo of the group using Acme. When submitting, provide any links to the event or photos. Once confirmed, we'll create a one-time commission for you.",
   },
   program = {
     name: "Acme",
@@ -92,7 +92,7 @@ export default function NewBountyAvailable({
 
               <Section className="px-6 pb-6 text-center">
                 <Link
-                  href={`https://partners.dub.co/programs/${program.slug}/bounties/${bounty.id}`}
+                  href={`https://app.ingat.cc/programs/${program.slug}/bounties/${bounty.id}`}
                   className="box-border block w-full rounded-md bg-black px-2 py-4 text-center text-sm font-medium leading-none text-white no-underline"
                 >
                   View bounty

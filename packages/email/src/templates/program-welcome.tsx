@@ -42,7 +42,7 @@ export default function ProgramWelcome({
     logo: string | null;
   };
 }) {
-  const workspaceUrlPrefix = `https://app.dub.co/${workspace.slug}`;
+  const workspaceUrlPrefix = `https://app.ingat.cc/${workspace.slug}`;
 
   return (
     <Html>
@@ -117,7 +117,7 @@ export default function ProgramWelcome({
             <Text className="mb-4 text-sm leading-5 text-neutral-800">
               2. <span className="font-medium">Connect your bank account</span>:{" "}
               <Link
-                href="https://dub.co/help/article/how-to-set-up-bank-account"
+                href="https://ingat.cc/help/article/how-to-set-up-bank-account"
                 className="font-semibold text-neutral-800 underline underline-offset-2"
               >
                 Set up a bank account
@@ -146,7 +146,7 @@ export default function ProgramWelcome({
               </Link>{" "}
               to your program, or{" "}
               <Link
-                href="https://dub.co/docs/partners/embedded-referrals"
+                href="https://ingat.cc/docs/partners/embedded-referrals"
                 className="font-semibold text-neutral-800 underline underline-offset-2"
               >
                 enroll them automatically.

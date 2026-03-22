@@ -96,7 +96,7 @@ export default function PartnerPayoutWithdrawalCompleted({
             <Text className="text-sm leading-6 text-neutral-600">
               If you still have any questions, please{" "}
               <Link
-                href="https://dub.co/contact/support"
+                href="https://ingat.cc/contact/support"
                 className="font-medium text-black underline"
               >
                 reach out to us

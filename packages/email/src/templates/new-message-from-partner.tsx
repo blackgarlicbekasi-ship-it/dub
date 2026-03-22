@@ -66,7 +66,7 @@ export default function NewMessageFromPartner({
               </Heading>
               <Link
                 className="text-[13px] font-medium text-neutral-500 underline"
-                href={`https://app.dub.co/${workspaceSlug}/program/partners/${partner.id}`}
+                href={`https://app.ingat.cc/${workspaceSlug}/program/partners/${partner.id}`}
               >
                 View profile in Dub
               </Link>
@@ -109,7 +109,7 @@ export default function NewMessageFromPartner({
               )}
               <Link
                 className="mt-4 block rounded-lg bg-neutral-900 px-6 py-3 text-center text-[13px] font-medium text-white no-underline"
-                href={`https://app.dub.co/${workspaceSlug}/program/messages/${partner.id}`}
+                href={`https://app.ingat.cc/${workspaceSlug}/program/messages/${partner.id}`}
               >
                 View in Dub
               </Link>

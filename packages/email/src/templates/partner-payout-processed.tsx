@@ -79,7 +79,7 @@ export default function PartnerPayoutProcessed({
       <>
         Since this payout is below the{" "}
         <a
-          href="https://dub.co/help/article/receiving-payouts#what-is-the-minimum-withdrawal-amount-and-how-does-it-work"
+          href="https://ingat.cc/help/article/receiving-payouts#what-is-the-minimum-withdrawal-amount-and-how-does-it-work"
           target="_blank"
           className="font-medium text-black underline decoration-dotted underline-offset-2"
         >
@@ -94,7 +94,7 @@ export default function PartnerPayoutProcessed({
         <br />
         If you'd like to receive your payout right away, please{" "}
         <Link
-          href="https://partners.dub.co/payouts"
+          href="https://app.ingat.cc/payouts"
           target="_blank"
           className="font-medium text-black underline decoration-dotted underline-offset-2"
         >
@@ -174,7 +174,7 @@ export default function PartnerPayoutProcessed({
               <strong className="text-black">{payoutAmountInDollars}</strong>{" "}
               for affiliate commissions made via{" "}
               <Link
-                href="https://partners.dub.co"
+                href="https://app.ingat.cc"
                 target="_blank"
                 className="font-medium text-black underline decoration-dotted underline-offset-2"
               >
@@ -202,7 +202,7 @@ export default function PartnerPayoutProcessed({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-4 py-3 text-[12px] font-semibold text-white no-underline"
-                href={`https://partners.dub.co/payouts?payoutId=${payout.id}`}
+                href={`https://app.ingat.cc/payouts?payoutId=${payout.id}`}
               >
                 View payout
               </Link>

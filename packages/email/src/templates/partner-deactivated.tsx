@@ -79,7 +79,7 @@ export default function PartnerDeactivated({
                   If you have questions about the program or your payouts,
                   please{" "}
                   <Link
-                    href={`https://partners.dub.co/messages/${program.slug}`}
+                    href={`https://app.ingat.cc/messages/${program.slug}`}
                     className="font-semibold text-neutral-700 underline underline-offset-2"
                   >
                     reach out to the {program.name} team ↗
@@ -109,7 +109,7 @@ export default function PartnerDeactivated({
                 <Text className="text-sm leading-6 text-neutral-600">
                   If you have any questions, please{" "}
                   <Link
-                    href={`https://partners.dub.co/messages/${program.slug}`}
+                    href={`https://app.ingat.cc/messages/${program.slug}`}
                     className="font-semibold text-neutral-700 underline underline-offset-2"
                   >
                     reach out to the {program.name} team ↗

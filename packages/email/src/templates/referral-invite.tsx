@@ -16,7 +16,7 @@ import { Footer } from "../components/footer";
 
 export default function ReferralInvite({
   email = "panic@thedis.co",
-  url = "https://dub.co",
+  url = "https://ingat.cc",
   workspaceUser = "Brendon Urie",
   workspaceUserEmail = "panic@thedis.co",
 }: {

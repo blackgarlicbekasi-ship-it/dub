@@ -56,7 +56,7 @@ export default function DuplicatePayoutMethod({
               <strong>
                 which is against our{" "}
                 <Link
-                  href="https://dub.co/legal/partners"
+                  href="https://ingat.cc/legal/partners"
                   className="font-semibold text-black underline"
                 >
                   terms of service
@@ -141,7 +141,7 @@ export default function DuplicatePayoutMethod({
                 multiple partner accounts and need to consolidate them, we
                 recommend{" "}
                 <Link
-                  href="https://dub.co/help/article/merging-partner-accounts"
+                  href="https://ingat.cc/help/article/merging-partner-accounts"
                   className="font-semibold text-black underline"
                 >
                   merging them in your Profile Settings
@@ -153,7 +153,7 @@ export default function DuplicatePayoutMethod({
             {/* Action Buttons */}
             <Section className="mb-6">
               <Link
-                href="https://partners.dub.co/payouts"
+                href="https://app.ingat.cc/payouts"
                 className="box-border block w-full rounded-md bg-black px-0 py-3 text-center text-sm font-medium leading-none text-white no-underline"
               >
                 Update payout method

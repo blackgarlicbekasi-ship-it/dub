@@ -61,7 +61,7 @@ export default function PartnerApplicationReceived({
     slug: string;
   };
 }) {
-  const applicationUrl = `https://app.dub.co/${workspace.slug}/program/partners/applications?partnerId=${partner.id}`;
+  const applicationUrl = `https://app.ingat.cc/${workspace.slug}/program/partners/applications?partnerId=${partner.id}`;
 
   return (
     <Html>
@@ -164,7 +164,7 @@ export default function PartnerApplicationReceived({
 
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspace.slug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspace.slug}/settings/notifications`}
             />
           </Container>
         </Body>

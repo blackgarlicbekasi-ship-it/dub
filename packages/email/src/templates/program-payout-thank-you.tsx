@@ -101,7 +101,7 @@ export default function ProgramPayoutThankYou({
 
             <Section className="mb-8 mt-6 text-center">
               <Link
-                href={`https://app.dub.co/${workspace.slug}/settings/billing/invoices?type=partnerPayout`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/billing/invoices?type=partnerPayout`}
                 className="box-border inline-block rounded-lg bg-black px-6 py-4 text-center text-sm leading-none text-white no-underline"
               >
                 View your invoices

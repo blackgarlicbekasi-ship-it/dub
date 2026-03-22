@@ -70,7 +70,7 @@ export default function BountyApproved({
               If you have any questions about the program please don’t hesitate
               to{" "}
               <Link
-                href={`https://partners.dub.co/messages/${program.slug}`}
+                href={`https://app.ingat.cc/messages/${program.slug}`}
                 className="font-semibold text-neutral-700 underline underline-offset-2"
               >
                 reach out to the {program.name} team ↗
@@ -81,7 +81,7 @@ export default function BountyApproved({
             <Section className="mb-10 mt-6">
               <Link
                 className="rounded-lg bg-neutral-900 px-6 py-3 text-[13px] font-medium text-white no-underline"
-                href={`https://partners.dub.co/payouts`}
+                href={`https://app.ingat.cc/payouts`}
               >
                 Go to your payouts
               </Link>

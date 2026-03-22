@@ -156,7 +156,7 @@ export default function PartnerPayoutWithdrawalFailed({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-6 py-3 text-[13px] font-medium text-white no-underline"
-                href="https://partners.dub.co/payouts?settings=true"
+                href="https://app.ingat.cc/payouts?settings=true"
               >
                 Update bank account
               </Link>

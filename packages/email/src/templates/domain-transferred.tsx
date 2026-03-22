@@ -17,7 +17,7 @@ import { WorkspaceProps } from "../types";
 
 export default function DomainTransferred({
   email = "panic@thedis.co",
-  domain = "dub.sh",
+  domain = "ingat.cc",
   newWorkspace = { name: "Dub", slug: "dub" },
   linksCount = 50,
 }: {
@@ -46,7 +46,7 @@ export default function DomainTransferred({
               )}
               has been transferred to the workspace{" "}
               <Link
-                href={`https://app.dub.co/${newWorkspace.slug}/settings/domains`}
+                href={`https://app.ingat.cc/${newWorkspace.slug}/settings/domains`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {newWorkspace.name}↗

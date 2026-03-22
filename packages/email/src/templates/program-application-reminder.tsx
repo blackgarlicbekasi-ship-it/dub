@@ -59,7 +59,7 @@ export default function ProgramApplicationReminder({
 
             <Section className="mt-8 text-center">
               <Link
-                href={`https://partners.dub.co/${program.slug}/register`}
+                href={`https://app.ingat.cc/${program.slug}/register`}
                 className="box-border block w-full rounded-md bg-black px-0 py-4 text-center text-sm font-medium leading-none text-white no-underline"
               >
                 Create your Dub Partners account

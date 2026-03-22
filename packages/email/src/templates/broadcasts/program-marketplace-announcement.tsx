@@ -61,7 +61,7 @@ export default function ProgramMarketplaceAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/marketplace"
+                href="https://app.ingat.cc/marketplace"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -91,7 +91,7 @@ export default function ProgramMarketplaceAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/marketplace"
+                href="https://app.ingat.cc/marketplace"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",
@@ -112,7 +112,7 @@ export default function ProgramMarketplaceAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/10m-x"
+                href="https://app.ingat.cc/10m-x"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -144,7 +144,7 @@ export default function ProgramMarketplaceAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/10m-x"
+                href="https://app.ingat.cc/10m-x"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",

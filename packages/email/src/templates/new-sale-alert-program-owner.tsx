@@ -35,7 +35,7 @@ export default function NewSaleAlertProgramOwner({
   partner = {
     id: "pn_OfewI1Faaf5pV8QH3mha8L7S",
     name: "Steven",
-    email: "steven@dub.co",
+    email: "noreply@ingat.cc",
   },
   commission = {
     amount: 1330,
@@ -67,8 +67,8 @@ export default function NewSaleAlertProgramOwner({
     earnings: number;
   };
 }) {
-  const salesLink = `https://app.dub.co/${workspace.slug}/program/commissions?partnerId=${partner.id}`;
-  const notificationPreferencesLink = `https://app.dub.co/${workspace.slug}/settings/notifications`;
+  const salesLink = `https://app.ingat.cc/${workspace.slug}/program/commissions?partnerId=${partner.id}`;
+  const notificationPreferencesLink = `https://app.ingat.cc/${workspace.slug}/settings/notifications`;
 
   const saleAmountInDollars = currencyFormatter(commission.amount);
 
@@ -177,7 +177,7 @@ export default function NewSaleAlertProgramOwner({
                 Payment for this commission will be due on{" "}
                 <strong>{formattedDueDate}</strong>, as per this partner group's{" "}
                 <Link
-                  href="https://dub.co/help/article/partner-payouts#payout-holding-period"
+                  href="https://ingat.cc/help/article/partner-payouts#payout-holding-period"
                   className="font-semibold text-black underline"
                 >
                   holding period

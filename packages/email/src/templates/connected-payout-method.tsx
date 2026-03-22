@@ -143,7 +143,7 @@ export default function ConnectedPayoutMethod({
             {/* Action Buttons */}
             <Section className="mb-6">
               <Link
-                href="https://partners.dub.co/payouts"
+                href="https://app.ingat.cc/payouts"
                 className="box-border block w-full rounded-md bg-black px-0 py-3 text-center text-sm font-medium leading-none text-white no-underline"
               >
                 View payouts dashboard
@@ -161,7 +161,7 @@ export default function ConnectedPayoutMethod({
                 </strong>
                 : If you haven't already,{" "}
                 <Link
-                  href="https://ship.dub.co/partner-profile"
+                  href="https://app.ingat.cc/partner-profile"
                   className="font-semibold text-black underline underline-offset-4"
                 >
                   complete your partner profile

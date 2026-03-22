@@ -51,7 +51,7 @@ export default function ProgramImported({
             <Text className="text-sm leading-6 text-black">
               We have successfully imported your {provider} campaign{" "}
               <Link
-                href={`https://app.dub.co/${workspace.slug}/program/partners`}
+                href={`https://app.ingat.cc/${workspace.slug}/program/partners`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {program.name}↗
@@ -63,7 +63,7 @@ export default function ProgramImported({
               <Text className="mt-4 text-sm leading-6 text-black">
                 You can{" "}
                 <Link
-                  href={`https://app.dub.co/api/workspaces/${workspace.slug}/import/${importId}/download`}
+                  href={`https://app.ingat.cc/api/workspaces/${workspace.slug}/import/${importId}/download`}
                   className="font-medium text-blue-600 no-underline"
                   target="_blank"
                   rel="noopener noreferrer"

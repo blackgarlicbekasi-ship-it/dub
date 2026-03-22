@@ -58,7 +58,7 @@ export default function PartnerReferralSubmitted({
     image: string | null;
   };
 }) {
-  const referralUrl = `https://app.dub.co/${workspace.slug}/program/customers/referrals?referralId=${referral.id}`;
+  const referralUrl = `https://app.ingat.cc/${workspace.slug}/program/customers/referrals?referralId=${referral.id}`;
 
   return (
     <Html>
@@ -279,7 +279,7 @@ export default function PartnerReferralSubmitted({
 
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspace.slug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspace.slug}/settings/notifications`}
             />
           </Container>
         </Body>

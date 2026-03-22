@@ -55,7 +55,7 @@ export default function IntegrationInstalled({
             <Section className="mb-8 mt-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspace.slug}/settings/integrations/${integration.slug}`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/integrations/${integration.slug}`}
               >
                 View installed integration
               </Link>

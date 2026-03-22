@@ -54,7 +54,7 @@ export default function PartnerAccountMerged({
             </Text>
 
             <Text className="text-base text-neutral-600">
-              <Link href="https://dub.co/support">Contact support</Link> if you
+              <Link href="https://ingat.cc/support">Contact support</Link> if you
               have any questions.
             </Text>
 

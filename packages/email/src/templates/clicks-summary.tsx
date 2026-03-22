@@ -137,7 +137,7 @@ export default function ClicksSummary({
                           <Row>
                             <Column align="left">
                               <Link
-                                href={`https://app.dub.co/${workspaceSlug}/analytics?linkId=${linkId}`}
+                                href={`https://app.ingat.cc/${workspaceSlug}/analytics?linkId=${linkId}`}
                                 className="text-sm font-medium text-black underline"
                               >
                                 {smartTruncate(shortLink, 33)}↗
@@ -171,7 +171,7 @@ export default function ClicksSummary({
                 <Section className="my-8 text-center">
                   <Link
                     className="rounded-full bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                    href={`https://app.dub.co/${workspaceSlug}`}
+                    href={`https://app.ingat.cc/${workspaceSlug}`}
                   >
                     Start creating links
                   </Link>
@@ -185,7 +185,7 @@ export default function ClicksSummary({
                 <Section className="my-8">
                   <Link
                     className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                    href={`https://app.dub.co/${workspaceSlug}/analytics?interval=30d`}
+                    href={`https://app.ingat.cc/${workspaceSlug}/analytics?interval=30d`}
                   >
                     View my stats
                   </Link>
@@ -194,7 +194,7 @@ export default function ClicksSummary({
             )}
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspaceSlug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspaceSlug}/settings/notifications`}
             />
           </Container>
         </Body>

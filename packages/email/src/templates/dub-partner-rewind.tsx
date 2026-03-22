@@ -60,7 +60,7 @@ export default function DubPartnerRewind({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://partners.dub.co/rewind/2025"
+                href="https://app.ingat.cc/rewind/2025"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -84,7 +84,7 @@ export default function DubPartnerRewind({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://partners.dub.co/rewind/2025"
+                href="https://app.ingat.cc/rewind/2025"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",

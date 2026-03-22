@@ -107,7 +107,7 @@ export default function DomainExpired({
               again in the future, you can add them to your workspace anytime in
               the{" "}
               <Link
-                href={`https://app.dub.co/${workspace.slug}/links/domains`}
+                href={`https://app.ingat.cc/${workspace.slug}/links/domains`}
                 className="font-semibold text-black underline"
               >
                 domain settings page

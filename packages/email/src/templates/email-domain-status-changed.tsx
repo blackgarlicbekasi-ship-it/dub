@@ -64,7 +64,7 @@ export default function EmailDomainStatusChanged({
                 <code className="text-purple-600">{domain}</code> for your Dub
                 workspace{" "}
                 <Link
-                  href={`https://app.dub.co/${workspace.slug}`}
+                  href={`https://app.ingat.cc/${workspace.slug}`}
                   className="font-medium text-blue-600 no-underline"
                 >
                   {workspace.name}↗
@@ -79,7 +79,7 @@ export default function EmailDomainStatusChanged({
                   <code className="text-purple-600">{domain}</code> for your Dub
                   workspace{" "}
                   <Link
-                    href={`https://app.dub.co/${workspace.slug}`}
+                    href={`https://app.ingat.cc/${workspace.slug}`}
                     className="font-medium text-blue-600 no-underline"
                   >
                     {workspace.name}↗
@@ -99,7 +99,7 @@ export default function EmailDomainStatusChanged({
                 <code className="text-purple-600">{domain}</code> for your Dub
                 workspace{" "}
                 <Link
-                  href={`https://app.dub.co/${workspace.slug}`}
+                  href={`https://app.ingat.cc/${workspace.slug}`}
                   className="font-medium text-blue-600 no-underline"
                 >
                   {workspace.name}↗
@@ -120,14 +120,14 @@ export default function EmailDomainStatusChanged({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspace.slug}/links/domains/email`}
+                href={`https://app.ingat.cc/${workspace.slug}/links/domains/email`}
               >
                 View email domain
               </Link>
             </Section>
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspace.slug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspace.slug}/settings/notifications`}
             />
           </Container>
         </Body>

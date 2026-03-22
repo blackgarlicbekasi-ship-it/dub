@@ -24,12 +24,12 @@ export default function LinksImportErrors({
   provider = "CSV",
   errorLinks = [
     {
-      domain: "dub.sh",
+      domain: "ingat.cc",
       key: "123",
       error: "Invalid URL",
     },
     {
-      domain: "dub.sh",
+      domain: "ingat.cc",
       key: "456",
       error: "Invalid URL",
     },
@@ -65,7 +65,7 @@ export default function LinksImportErrors({
               {Intl.NumberFormat("en-us").format(errorLinks.length)} links from{" "}
               {provider} failed to import into your Dub workspace,{" "}
               <Link
-                href={`https://app.dub.co/${workspaceSlug}`}
+                href={`https://app.ingat.cc/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {workspaceName}↗

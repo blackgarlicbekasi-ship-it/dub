@@ -53,7 +53,7 @@ export default function WebhookAdded({
             <Section className="mb-8 mt-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspace.slug}/settings/webhooks`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/webhooks`}
               >
                 View Webhook
               </Link>
@@ -61,7 +61,7 @@ export default function WebhookAdded({
             <Text className="text-sm leading-6 text-black">
               If you did not create this webhook, you can{" "}
               <Link
-                href={`https://app.dub.co/${workspace.slug}/settings/webhooks`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/webhooks`}
                 className="text-black underline"
               >
                 <strong>delete this webhook</strong>

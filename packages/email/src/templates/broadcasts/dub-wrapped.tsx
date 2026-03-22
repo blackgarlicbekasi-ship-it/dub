@@ -31,23 +31,23 @@ export default function DubWrapped({
   },
   topLinks = [
     {
-      item: "dub.sh/link",
+      item: "ingat.cc/link",
       count: 13923,
     },
     {
-      item: "dub.sh/link",
+      item: "ingat.cc/link",
       count: 2225,
     },
     {
-      item: "dub.sh/link",
+      item: "ingat.cc/link",
       count: 423,
     },
     {
-      item: "dub.sh/link",
+      item: "ingat.cc/link",
       count: 325,
     },
     {
-      item: "dub.sh/link",
+      item: "ingat.cc/link",
       count: 233,
     },
   ],
@@ -120,7 +120,7 @@ export default function DubWrapped({
       image: "https://assets.dub.co/blog/free-dot-link.jpg",
       cta: {
         text: "Read the announcement",
-        href: "https://ship.dub.co/free-domains",
+        href: "https://app.ingat.cc/free-domains",
       },
     },
     {
@@ -130,7 +130,7 @@ export default function DubWrapped({
       image: "https://assets.dub.co/changelog/new-dashboard.jpg",
       cta: {
         text: "Read the announcement",
-        href: "https://ship.dub.co/builder",
+        href: "https://app.ingat.cc/builder",
       },
     },
     {
@@ -140,7 +140,7 @@ export default function DubWrapped({
       image: "https://assets.dub.co/blog/dub-api.jpg",
       cta: {
         text: "Read the announcement",
-        href: "https://dub.co/blog/announcing-dub-api",
+        href: "https://ingat.cc/blog/announcing-dub-api",
       },
     },
   ];
@@ -268,14 +268,14 @@ export default function DubWrapped({
             <Text className="text-sm leading-6 text-black">
               You can also check out more updates on our{" "}
               <Link
-                href="https://ship.dub.co/blog"
+                href="https://app.ingat.cc/blog"
                 className="text-black underline underline-offset-2"
               >
                 blog
               </Link>{" "}
               and{" "}
               <Link
-                href="https://ship.dub.co/changelog"
+                href="https://app.ingat.cc/changelog"
                 className="text-black underline underline-offset-2"
               >
                 changelog
@@ -350,7 +350,7 @@ const StatTable = ({
                 {title === "Top Links" ? (
                   <div className="py-2">
                     <Link
-                      href={`https://app.dub.co/${workspaceSlug}/analytics?domain=${domain}&key=${path}&interval=1y`}
+                      href={`https://app.ingat.cc/${workspaceSlug}/analytics?domain=${domain}&key=${path}&interval=1y`}
                       className="font-medium text-black underline underline-offset-2"
                     >
                       {smartTruncate(item, 33)} ↗

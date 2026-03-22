@@ -57,7 +57,7 @@ export default function LinksLimitAlert({
             <Text className="text-sm leading-6 text-black">
               Your Dub workspace,{" "}
               <Link
-                href={`https://app.dub.co/${slug}`}
+                href={`https://app.ingat.cc/${slug}`}
                 className="text-black underline"
               >
                 <strong>{name}</strong>

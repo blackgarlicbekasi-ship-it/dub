@@ -29,7 +29,7 @@ export default function NewReferralSignup({
     slug: string;
   };
 }) {
-  const referralLink = `https://refer.dub.co/${workspace.slug}`;
+  const referralLink = `https://ingat.cc/${workspace.slug}`;
   return (
     <Html>
       <Head />
@@ -58,7 +58,7 @@ export default function NewReferralSignup({
               earned an additional {REFERRAL_CLICKS_QUOTA_BONUS} clicks quota
               for your{" "}
               <a
-                href={`https://app.dub.co/${workspace.slug}`}
+                href={`https://app.ingat.cc/${workspace.slug}`}
                 className="text-semibold font-medium text-black underline"
               >
                 {workspace.name}
@@ -68,7 +68,7 @@ export default function NewReferralSignup({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspace.slug}`}
+                href={`https://app.ingat.cc/${workspace.slug}`}
               >
                 View your referral stats
               </Link>

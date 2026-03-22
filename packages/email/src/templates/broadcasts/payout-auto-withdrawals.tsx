@@ -60,7 +60,7 @@ export default function PayoutAutoWithdrawals({
             <Section className="mb-8 mt-6">
               <Link
                 className="rounded-lg bg-neutral-900 px-4 py-3 text-[12px] font-semibold text-white no-underline"
-                href="https://partners.dub.co/payouts?status=processed"
+                href="https://app.ingat.cc/payouts?status=processed"
               >
                 View your payouts
               </Link>
@@ -69,7 +69,7 @@ export default function PayoutAutoWithdrawals({
             <Text className="text-sm leading-6 text-neutral-600">
               If you'd like to receive your payout right away, please{" "}
               <Link
-                href="https://partners.dub.co/payouts?status=processed"
+                href="https://app.ingat.cc/payouts?status=processed"
                 target="_blank"
                 className="font-medium text-black underline decoration-dotted underline-offset-2"
               >
@@ -86,7 +86,7 @@ export default function PayoutAutoWithdrawals({
               </code>{" "}
               payouts total is below the{" "}
               <a
-                href="https://dub.co/help/article/receiving-payouts#what-is-the-minimum-withdrawal-amount-and-how-does-it-work"
+                href="https://ingat.cc/help/article/receiving-payouts#what-is-the-minimum-withdrawal-amount-and-how-does-it-work"
                 target="_blank"
                 className="font-medium text-black underline decoration-dotted underline-offset-2"
               >

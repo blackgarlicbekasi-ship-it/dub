@@ -17,7 +17,7 @@ import { Footer } from "../../components/footer";
 
 export default function StablecoinPayoutsAnnouncement({
   email = "panic@thedis.co",
-  unsubscribeUrl = "https://partners.dub.co/account/settings",
+  unsubscribeUrl = "https://app.ingat.cc/account/settings",
 }: {
   email: string;
   unsubscribeUrl: string;
@@ -65,7 +65,7 @@ export default function StablecoinPayoutsAnnouncement({
 
             <Section className="mb-4 text-center">
               <Link
-                href="https://ship.dub.co/stablecoins"
+                href="https://app.ingat.cc/stablecoins"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -95,7 +95,7 @@ export default function StablecoinPayoutsAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/stablecoins-connect"
+                href="https://app.ingat.cc/stablecoins-connect"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",
@@ -112,7 +112,7 @@ export default function StablecoinPayoutsAnnouncement({
               </Link>
               <Text className="mt-3 text-center text-xs text-neutral-500">
                 <Link
-                  href="https://ship.dub.co/stablecoins"
+                  href="https://app.ingat.cc/stablecoins"
                   className="mt-3 text-center text-xs text-neutral-600 underline"
                   style={{
                     color: "#525252",
@@ -128,7 +128,7 @@ export default function StablecoinPayoutsAnnouncement({
                 countries.
                 <br />
                 <Link
-                  href="https://ship.dub.co/payout-countries"
+                  href="https://app.ingat.cc/payout-countries"
                   className="text-xs text-neutral-600 underline"
                 >
                   View the list of supported countries
@@ -140,7 +140,7 @@ export default function StablecoinPayoutsAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/marketplace"
+                href="https://app.ingat.cc/marketplace"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -170,7 +170,7 @@ export default function StablecoinPayoutsAnnouncement({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/marketplace"
+                href="https://app.ingat.cc/marketplace"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",

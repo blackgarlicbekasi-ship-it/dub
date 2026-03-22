@@ -16,7 +16,7 @@ import { Footer } from "../components/footer";
 
 export default function InvalidDomain({
   email = "panic@thedis.co",
-  domain = "dub.sh",
+  domain = "ingat.cc",
   workspaceSlug = "dub",
   invalidDays = 14,
 }: {
@@ -42,7 +42,7 @@ export default function InvalidDomain({
               Your domain <code className="text-purple-600">{domain}</code> for
               your Dub workspace{" "}
               <Link
-                href={`https://app.dub.co/${workspaceSlug}`}
+                href={`https://app.ingat.cc/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {workspaceSlug}↗
@@ -57,7 +57,7 @@ export default function InvalidDomain({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspaceSlug}/settings/domains`}
+                href={`https://app.ingat.cc/${workspaceSlug}/settings/domains`}
               >
                 Configure domain
               </Link>
@@ -65,7 +65,7 @@ export default function InvalidDomain({
             <Text className="text-sm leading-6 text-black">
               If you do not want to keep this domain on Dub, you can{" "}
               <Link
-                href={`https://app.dub.co/${workspaceSlug}/settings/domains`}
+                href={`https://app.ingat.cc/${workspaceSlug}/settings/domains`}
                 className="font-medium text-blue-600 no-underline"
               >
                 delete it
@@ -79,7 +79,7 @@ export default function InvalidDomain({
             </Text>
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspaceSlug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspaceSlug}/settings/notifications`}
             />
           </Container>
         </Body>

@@ -109,14 +109,14 @@ export default function PartnerPayoutFailed({
             <Text className="text-sm leading-6 text-neutral-600">
               Please{" "}
               <Link
-                href={`https://app.dub.co/${workspace.slug}/settings/billing`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/billing`}
                 className="font-medium text-black underline"
               >
                 update your {payoutMethod} details
               </Link>{" "}
               at your earliest convenience and retry the payout from your{" "}
               <Link
-                href="https://app.dub.co/program/payouts?status=pending"
+                href="https://app.ingat.cc/program/payouts?status=pending"
                 className="font-medium text-black underline"
               >
                 payouts tab
@@ -127,7 +127,7 @@ export default function PartnerPayoutFailed({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-6 py-3 text-[13px] font-medium text-white no-underline"
-                href="https://app.dub.co/program/payouts?status=pending"
+                href="https://app.ingat.cc/program/payouts?status=pending"
               >
                 Retry payout
               </Link>

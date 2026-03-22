@@ -85,7 +85,7 @@ export default function FailedPayment({
             <Text className="text-sm leading-6 text-black">
               Please{" "}
               <Link
-                href="https://dub.co/help/article/how-to-change-billing-information"
+                href="https://ingat.cc/help/article/how-to-change-billing-information"
                 className="font-medium text-blue-600 no-underline"
               >
                 update your payment information
@@ -95,7 +95,7 @@ export default function FailedPayment({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspace.slug}/settings/billing`}
+                href={`https://app.ingat.cc/${workspace.slug}/settings/billing`}
               >
                 Update payment information
               </Link>

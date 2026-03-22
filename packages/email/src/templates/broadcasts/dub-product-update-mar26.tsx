@@ -17,7 +17,7 @@ import { Footer } from "../../components/footer";
 
 export default function DubProductUpdateMar26({
   email = "panic@thedis.co",
-  unsubscribeUrl = "https://partners.dub.co/account/settings",
+  unsubscribeUrl = "https://app.ingat.cc/account/settings",
 }: {
   email: string;
   unsubscribeUrl: string;
@@ -65,7 +65,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/FDpw3Ar"
+                href="https://app.ingat.cc/FDpw3Ar"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -95,7 +95,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/FDpw3Ar"
+                  href="https://app.ingat.cc/FDpw3Ar"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -118,7 +118,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/ekrtx8B"
+                href="https://app.ingat.cc/ekrtx8B"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -145,7 +145,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/ekrtx8B"
+                  href="https://app.ingat.cc/ekrtx8B"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -168,7 +168,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/GPtn2rL"
+                href="https://app.ingat.cc/GPtn2rL"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -198,7 +198,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/GPtn2rL"
+                  href="https://app.ingat.cc/GPtn2rL"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -221,7 +221,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/WWvS3DW"
+                href="https://app.ingat.cc/WWvS3DW"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -249,7 +249,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/WWvS3DW"
+                  href="https://app.ingat.cc/WWvS3DW"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -272,7 +272,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/iDS6QV6"
+                href="https://app.ingat.cc/iDS6QV6"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -300,7 +300,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/iDS6QV6"
+                  href="https://app.ingat.cc/iDS6QV6"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -323,7 +323,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-6">
               <Link
-                href="https://ship.dub.co/hHzqgo1"
+                href="https://app.ingat.cc/hHzqgo1"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -351,7 +351,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/hHzqgo1"
+                  href="https://app.ingat.cc/hHzqgo1"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -374,7 +374,7 @@ export default function DubProductUpdateMar26({
 
             <Section className="mb-8">
               <Link
-                href="https://ship.dub.co/Htt5kOP"
+                href="https://app.ingat.cc/Htt5kOP"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -406,7 +406,7 @@ export default function DubProductUpdateMar26({
               </Text>
               <Section className="mt-4 text-center">
                 <Link
-                  href="https://ship.dub.co/Htt5kOP"
+                  href="https://app.ingat.cc/Htt5kOP"
                   className="block w-full rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white no-underline"
                   style={{
                     backgroundColor: "#171717",
@@ -432,7 +432,7 @@ export default function DubProductUpdateMar26({
               email – I'd love to hear from you! 💪
             </Text>
             <Text className="mx-0 mb-2 mt-0 text-sm italic leading-6 text-neutral-600">
-              Steven from Dub.co
+              Steven from Ingat
             </Text>
 
             <Section className="mx-auto max-w-[400px] text-center">

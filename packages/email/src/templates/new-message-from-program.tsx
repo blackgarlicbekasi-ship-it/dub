@@ -89,7 +89,7 @@ export default function NewMessageFromProgram({
                   </Heading>
                   <Link
                     className="text-[13px] font-medium text-neutral-500 underline"
-                    href={`https://partners.dub.co/programs/${program.slug}`}
+                    href={`https://app.ingat.cc/programs/${program.slug}`}
                   >
                     View program in Dub
                   </Link>
@@ -147,7 +147,7 @@ export default function NewMessageFromProgram({
               )}
               <Link
                 className="mt-4 block rounded-lg bg-neutral-900 px-6 py-3 text-center text-[13px] font-medium text-white no-underline"
-                href={`https://partners.dub.co/messages/${program.slug}`}
+                href={`https://app.ingat.cc/messages/${program.slug}`}
               >
                 Reply in Dub
               </Link>

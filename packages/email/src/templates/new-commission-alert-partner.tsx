@@ -29,7 +29,7 @@ export default function NewCommissionAlertPartner({
     amount: 25000,
     earnings: 6900,
   },
-  shortLink = "https://refer.dub.co/steven",
+  shortLink = "https://ingat.cc/steven",
 }: {
   email: string;
   program: {
@@ -48,7 +48,7 @@ export default function NewCommissionAlertPartner({
   shortLink?: string | null;
 }) {
   const earningsInDollars = currencyFormatter(commission.earnings);
-  const linkToEarnings = `https://partners.dub.co/programs/${program.slug}/earnings`;
+  const linkToEarnings = `https://app.ingat.cc/programs/${program.slug}/earnings`;
 
   return (
     <Html>
@@ -159,7 +159,7 @@ export default function NewCommissionAlertPartner({
             </Section>
             <Footer
               email={email}
-              notificationSettingsUrl="https://partners.dub.co/profile/notifications"
+              notificationSettingsUrl="https://app.ingat.cc/profile/notifications"
             />
           </Container>
         </Body>

@@ -59,7 +59,7 @@ export default function PendingApplicationsSummary({
   date: Date;
 }) {
   const formattedDate = format(date, "MMM d, yyyy");
-  const applicationsUrl = `https://app.dub.co/${workspace.slug}/program/partners/applications`;
+  const applicationsUrl = `https://app.ingat.cc/${workspace.slug}/program/partners/applications`;
 
   return (
     <Html>
@@ -154,7 +154,7 @@ export default function PendingApplicationsSummary({
 
             <Footer
               email={email}
-              notificationSettingsUrl={`https://app.dub.co/${workspace.slug}/settings/notifications`}
+              notificationSettingsUrl={`https://app.ingat.cc/${workspace.slug}/settings/notifications`}
             />
           </Container>
         </Body>

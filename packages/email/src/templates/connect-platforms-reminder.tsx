@@ -16,7 +16,7 @@ import { Footer } from "../components/footer";
 
 export default function ConnectPlatformsReminder({
   email = "panic@thedis.co",
-  unsubscribeUrl = "https://partners.dub.co/account/settings",
+  unsubscribeUrl = "https://app.ingat.cc/account/settings",
 }) {
   return (
     <Html>
@@ -60,7 +60,7 @@ export default function ConnectPlatformsReminder({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/partner-profile"
+                href="https://app.ingat.cc/partner-profile"
                 style={{ textDecoration: "none" }}
               >
                 <Img
@@ -90,7 +90,7 @@ export default function ConnectPlatformsReminder({
 
             <Section className="mb-8 text-center">
               <Link
-                href="https://ship.dub.co/partner-profile"
+                href="https://app.ingat.cc/partner-profile"
                 className="box-border inline-block rounded-lg bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white no-underline"
                 style={{
                   backgroundColor: "#171717",

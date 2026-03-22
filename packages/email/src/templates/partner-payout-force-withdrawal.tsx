@@ -96,7 +96,7 @@ export default function PartnerPayoutForceWithdrawal({
             <Section className="my-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-4 py-3 text-[12px] font-semibold text-white no-underline"
-                href="https://partners.dub.co/payouts"
+                href="https://app.ingat.cc/payouts"
               >
                 View your payouts
               </Link>

@@ -166,7 +166,7 @@ export default function ReferralStatusUpdate({
 
             <Footer
               email={partner.email}
-              notificationSettingsUrl="https://partners.dub.co/profile/notifications"
+              notificationSettingsUrl="https://app.ingat.cc/profile/notifications"
             />
           </Container>
         </Body>

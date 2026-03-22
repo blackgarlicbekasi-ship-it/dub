@@ -62,7 +62,7 @@ export default function ConnectPayoutReminder({
             <Text className="text-sm leading-6 text-neutral-600">
               You have pending rewards on Dub Partners, but you need to{" "}
               <Link
-                href="https://dub.co/help/article/receiving-payouts"
+                href="https://ingat.cc/help/article/receiving-payouts"
                 className="font-semibold text-black underline"
               >
                 connect your payout details (bank account)
@@ -110,7 +110,7 @@ export default function ConnectPayoutReminder({
 
             <Section className="mt-8 text-center">
               <Link
-                href={`https://partners.dub.co/register?email=${email}&next=/payouts`}
+                href={`https://app.ingat.cc/register?email=${email}&next=/payouts`}
                 className="box-border block w-full rounded-md bg-black px-0 py-4 text-center text-sm font-medium leading-none text-white no-underline"
               >
                 Connect payout details
@@ -119,7 +119,7 @@ export default function ConnectPayoutReminder({
 
             <Footer
               email={email}
-              notificationSettingsUrl="https://partners.dub.co/profile/notifications"
+              notificationSettingsUrl="https://app.ingat.cc/profile/notifications"
             />
           </Container>
         </Body>

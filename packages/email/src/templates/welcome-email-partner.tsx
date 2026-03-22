@@ -54,7 +54,7 @@ export default function WelcomeEmailPartner({
               </strong>
               : Start by{" "}
               <Link
-                href="https://ship.dub.co/partner-profile"
+                href="https://app.ingat.cc/partner-profile"
                 className="font-semibold text-black underline underline-offset-4"
               >
                 filling out your partner profile and verifying your social
@@ -70,7 +70,7 @@ export default function WelcomeEmailPartner({
               </strong>
               :{" "}
               <Link
-                href="https://ship.dub.co/connect-payouts"
+                href="https://app.ingat.cc/connect-payouts"
                 className="font-semibold text-black underline underline-offset-4"
               >
                 Connect a payout method
@@ -78,7 +78,7 @@ export default function WelcomeEmailPartner({
               to get paid for your referrals. Your payout bank account must
               match your local currency for compliance reasons.{" "}
               <Link
-                href="https://ship.dub.co/payouts-guide"
+                href="https://app.ingat.cc/payouts-guide"
                 className="font-semibold text-black underline underline-offset-4"
               >
                 Learn more ↗
@@ -111,7 +111,7 @@ export default function WelcomeEmailPartner({
             <Section className="mb-8">
               <Link
                 className="rounded-lg bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href="https://ship.dub.co/partners-dashboard"
+                href="https://app.ingat.cc/partners-dashboard"
               >
                 Go to your dashboard
               </Link>

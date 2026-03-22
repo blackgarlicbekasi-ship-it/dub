@@ -107,7 +107,7 @@ export default function DomainRenewalFailed({
               {pluralize("domain", domains.length)}, turn off auto-renewal in
               your{" "}
               <Link
-                href={`https://app.dub.co/${workspace.slug}/links/domains`}
+                href={`https://app.ingat.cc/${workspace.slug}/links/domains`}
                 className="font-semibold text-black underline"
               >
                 domain settings page

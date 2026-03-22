@@ -149,7 +149,7 @@ export default function PartnerGroupChanged({
             <Section className="mb-8 mt-8">
               <Link
                 className="rounded-lg bg-neutral-900 px-6 py-3 text-[13px] font-semibold text-white no-underline"
-                href={`https://partners.dub.co/programs/${program.slug}`}
+                href={`https://app.ingat.cc/programs/${program.slug}`}
               >
                 Go to your dashboard
               </Link>
@@ -158,7 +158,7 @@ export default function PartnerGroupChanged({
             <Text className="text-sm leading-6 text-neutral-600">
               If you have any questions about your new group or rewards, please{" "}
               <Link
-                href={`https://partners.dub.co/messages/${program.slug}`}
+                href={`https://app.ingat.cc/messages/${program.slug}`}
                 className="font-semibold text-neutral-700 underline underline-offset-2"
               >
                 reach out to the {program.name} team ↗
@@ -168,7 +168,7 @@ export default function PartnerGroupChanged({
 
             <Footer
               email={partner.email}
-              notificationSettingsUrl="https://partners.dub.co/profile/notifications"
+              notificationSettingsUrl="https://app.ingat.cc/profile/notifications"
             />
           </Container>
         </Body>

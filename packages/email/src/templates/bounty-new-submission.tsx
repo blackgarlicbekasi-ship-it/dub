@@ -96,7 +96,7 @@ export default function NewBountySubmission({
 
             <Section className="mt-6 text-center">
               <Link
-                href={`https://app.dub.co/${workspace.slug}/program/bounties/${bounty.id}?submissionId=${submission.id}`}
+                href={`https://app.ingat.cc/${workspace.slug}/program/bounties/${bounty.id}?submissionId=${submission.id}`}
                 className="box-border block w-full rounded-md bg-black px-2 py-4 text-center text-sm font-medium leading-none text-white no-underline"
               >
                 Review bounty

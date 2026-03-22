@@ -3,7 +3,7 @@ import { Hr, Link, Tailwind, Text } from "@react-email/components";
 export function Footer({
   email,
   marketing,
-  unsubscribeUrl = "https://app.dub.co/account/settings",
+  unsubscribeUrl = "https://app.ingat.cc/account/settings",
   notificationSettingsUrl,
 }: {
   email: string;
@@ -20,7 +20,7 @@ export function Footer({
         are concerned about your account's safety, please{" "}
         <Link
           className="text-neutral-700 underline"
-          href="https://dub.co/support"
+          href="https://app.ingat.cc"
         >
           reach out to let us know
         </Link>
@@ -41,11 +41,7 @@ export function Footer({
         </Text>
       )}
       <Text className="text-[12px] text-neutral-500">
-        Dub Technologies, Inc.
-        <br />
-        2261 Market Street STE 5906
-        <br />
-        San Francisco, CA 941114
+        Ingat
       </Text>
     </Tailwind>
   );

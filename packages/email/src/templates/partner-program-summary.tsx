@@ -246,7 +246,7 @@ export default function PartnerProgramSummary({
 
                 <Section className="mt-8 text-center">
                   <Link
-                    href={`https://partners.dub.co/programs/${program.slug}?start=${reportingPeriod.start}&end=${reportingPeriod.end}`}
+                    href={`https://app.ingat.cc/programs/${program.slug}?start=${reportingPeriod.start}&end=${reportingPeriod.end}`}
                     className="box-border block w-full rounded-lg bg-black px-0 py-4 text-center text-sm font-semibold leading-none text-white no-underline"
                   >
                     View dashboard

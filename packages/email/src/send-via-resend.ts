@@ -31,7 +31,7 @@ const resendEmailForOptions = (
     from: from || VARIANT_TO_FROM_MAP[variant],
     subject: `${!isProdEnv && gitBranch ? `[${gitBranch}] ` : ""}${subject}`,
     bcc,
-    // if replyTo is set to "noreply@dub.co", don't set replyTo
+    // if replyTo is set to "noreply", don't set replyTo
     // else set it to the value of replyTo or fallback to support@ingat.cc
     ...(replyTo === "noreply" ? {} : { replyTo: replyTo || "support@ingat.cc" }),
     scheduledAt,
@@ -41,7 +41,7 @@ const resendEmailForOptions = (
           headers: {
             ...(headers || {}),
             "List-Unsubscribe":
-              unsubscribeUrl || "https://app.dub.co/account/settings",
+              unsubscribeUrl || "https://app.ingat.cc/account/settings",
           },
         }
       : headers && { headers }),
