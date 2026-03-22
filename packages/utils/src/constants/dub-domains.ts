@@ -8,7 +8,7 @@ export const DUB_DOMAINS = [
     primary: true,
     archived: false,
     placeholder: "https://ingat.cc/help/article/short-links",
-    allowedHostnames: [],
+    allowedHostnames: [] as string[],
     description: "The default domain for all new accounts.",
     projectId: DUB_WORKSPACE_ID,
   },
