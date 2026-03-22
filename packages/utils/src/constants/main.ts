@@ -1,7 +1,6 @@
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Dub";
 
-export const SHORT_DOMAIN =
-  process.env.NEXT_PUBLIC_APP_SHORT_DOMAIN || "dub.sh";
+export const SHORT_DOMAIN = "dub-web-eta-red.vercel.app";
 
 export const APP_HOSTNAMES = new Set([
   `app.${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
