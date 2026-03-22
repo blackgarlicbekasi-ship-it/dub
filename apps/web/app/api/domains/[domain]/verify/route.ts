@@ -7,7 +7,7 @@ import { DomainVerificationStatusProps } from "@/lib/types";
 import { prisma } from "@dub/prisma";
 import { NextResponse } from "next/server";
 
-export const maxDuration = 30;
+export const maxDuration = 300;
 
 // GET /api/domains/[domain]/verify - get domain verification status
 export const GET = withWorkspace(
