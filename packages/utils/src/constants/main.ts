@@ -1,17 +1,14 @@
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Dub";
 
-export const SHORT_DOMAIN = "dub-web-eta-red.vercel.app";
+export const SHORT_DOMAIN = "ingat.cc";
 
 export const APP_HOSTNAMES = new Set([
-  `app.${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
-  `preview.${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
+  "app.ingat.cc",
   "localhost",
   "dub-web-eta-red.vercel.app",
-  "dub-web-git-main-blackgarlicbekasi-ship-its-projects.vercel.app",
-  "dub-c1ck7cj4f-blackgarlicbekasi-ship-its-projects.vercel.app",
 ]);
 
-export const APP_DOMAIN = "https://dub-web-eta-red.vercel.app";
+export const APP_DOMAIN = "https://app.ingat.cc";
 
 export const APP_DOMAIN_WITH_NGROK =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
