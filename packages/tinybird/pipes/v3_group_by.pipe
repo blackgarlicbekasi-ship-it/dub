@@ -446,23 +446,23 @@ SQL >
 
 %
 SELECT
-    dce.groupByField as groupByField,
+    groupByField,
     clicks,
     leads,
     sales,
     saleAmount
-    {% if String(groupBy) == 'cities' %}, dce.country as country, dce.region as region{% end %}
-    {% if String(groupBy) == 'regions' %}, dce.country as country{% end %}
+    {% if String(groupBy) == 'cities' %}, country, region{% end %}
+    {% if String(groupBy) == 'regions' %}, country{% end %}
 FROM
     (
         SELECT
-            dce.groupByField,
-            dce.clicks,
+            dce.groupByField AS groupByField,
+            dce.clicks AS clicks,
             COALESCE(dle.leads, 0) AS leads,
             COALESCE(dse.sales, 0) AS sales,
             COALESCE(dse.saleAmount, 0) AS saleAmount
-            {% if String(groupBy) == 'cities' %}, dce.country, dce.region{% end %}
-            {% if String(groupBy) == 'regions' %}, dce.country{% end %}
+            {% if String(groupBy) == 'cities' %}, dce.country AS country, dce.region AS region{% end %}
+            {% if String(groupBy) == 'regions' %}, dce.country AS country{% end %}
         FROM group_by_clicks dce
         LEFT JOIN
             group_by_leads dle ON dce.groupByField = dle.groupByField
