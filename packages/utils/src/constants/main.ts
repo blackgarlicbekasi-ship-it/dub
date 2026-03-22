@@ -8,8 +8,7 @@ export const APP_HOSTNAMES = new Set([
   `preview.${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
   "localhost:8888",
   "localhost",
-  "159.65.146.107:8888",
-  "159.65.146.107",
+  "dub-web-eta-red.vercel.app",
 ]);
 
 export const APP_DOMAIN =
