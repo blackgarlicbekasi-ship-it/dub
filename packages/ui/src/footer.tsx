@@ -335,7 +335,7 @@ export function Footer({
             />
           </Link>
           <p className="text-xs text-neutral-500 sm:text-right">
-            © {new Date().getFullYear()} Dub Technologies, Inc.
+            © {new Date().getFullYear()} Ingat
           </p>
         </div>
       </footer>

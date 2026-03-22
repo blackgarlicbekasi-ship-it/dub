@@ -34,7 +34,7 @@ export default function PlaceholderContent() {
               "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:20px] [animation-duration:1s] [animation-fill-mode:both]",
             )}
           >
-            Welcome to Dub
+            Welcome to Ingat
           </h1>
           <p
             className={cn(
@@ -42,8 +42,8 @@ export default function PlaceholderContent() {
               "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:10px] [animation-delay:200ms] [animation-duration:1s] [animation-fill-mode:both]",
             )}
           >
-            This custom domain is powered by Dub &ndash; the link management
-            platform designed for modern marketing teams.
+            This custom domain is powered by Ingat &ndash; the modern link
+            management platform for short links and analytics.
           </p>
         </div>
 
@@ -53,8 +53,8 @@ export default function PlaceholderContent() {
             "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:5px] [animation-delay:300ms] [animation-duration:1s] [animation-fill-mode:both]",
           )}
         >
-          <ButtonLink variant="primary" href="https://app.dub.co/register">
-            Try Dub today
+          <ButtonLink variant="primary" href="https://app.ingat.cc/register">
+            Get Started
           </ButtonLink>
           <ButtonLink
             variant="secondary"

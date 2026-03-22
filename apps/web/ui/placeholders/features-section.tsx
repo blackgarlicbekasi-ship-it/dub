@@ -20,13 +20,13 @@ export function FeaturesSection({
     <div className="mt-20">
       <div className="mx-auto w-full max-w-xl px-4 text-center">
         <div className="mx-auto flex h-7 w-fit items-center rounded-full border border-neutral-200 bg-white px-4 text-xs text-neutral-800">
-          What is Dub?
+          What is Ingat?
         </div>
         <h2 className="font-display mt-2 text-balance text-3xl font-medium text-neutral-900">
           Powerful features for modern marketing teams
         </h2>
         <p className="mt-3 text-pretty text-lg text-neutral-500">
-          Dub is more than just a link shortener. We've built a suite of
+          Ingat is more than just a link shortener. We've built a suite of
           powerful features that gives you marketing superpowers.
         </p>
       </div>
@@ -64,14 +64,14 @@ export function FeaturesSection({
           title="Analytics that matter"
           description="Ingat provides powerful analytics for your links, including geolocation, device, browser, and referrer information."
           linkText="Explore analytics"
-          href={createHref("/help/article/dub-analytics", domain, {
+          href={createHref("/help/article/analytics", domain, {
             utm_campaign: domain,
             utm_content: "Learn more",
             ...utmParams,
           })}
         >
           <a
-            href="https://d.to/stats/try"
+            href="https://app.ingat.cc"
             target="_blank"
             className="group block size-full"
           >

@@ -30,7 +30,7 @@ export function CTA({
   domain,
   utmParams,
   title = "Supercharge your marketing efforts",
-  subtitle = "See why Dub is the link management platform of choice for modern marketing teams.",
+  subtitle = "See why Ingat is the link management platform of choice for modern marketing teams.",
   className,
 }: {
   domain: string;
