@@ -41,36 +41,12 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
   // for App
   if (APP_HOSTNAMES.has(domain)) {
-    const appRoutes = [
-      "/login",
-      "/register",
-      "/forgot-password",
-      "/auth",
-      "/onboarding",
-      "/account",
-      "/new",
-      "/workspaces",
-      "/links",
-      "/analytics",
-      "/events",
-      "/customers",
-      "/program",
-      "/programs",
-      "/settings",
-      "/upgrade",
-      "/guides",
-      "/wrapped",
-      "/embed",
-      "/share",
-      "/deeplink",
-      "/app.dub.co",
-      "/_static",
-    ];
-    const isAppRoute = path === "/" || appRoutes.some((route) => path === route || path.startsWith(route + "/"));
-    if (isAppRoute) {
-      return AppMiddleware(req);
+    const pathSegments = path.split("/").filter(Boolean);
+    const isShortlink = pathSegments.length === 1 && !["login","register","forgot-password","onboarding","account","new","workspaces","embed","_static","app.dub.co"].includes(pathSegments[0]);
+    if (isShortlink) {
+      return LinkMiddleware(req, ev);
     }
-    return LinkMiddleware(req, ev);
+    return AppMiddleware(req);
   }
 
   // for API
