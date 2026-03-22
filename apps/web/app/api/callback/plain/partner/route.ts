@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     customerId: customer.id,
     customerGroupIdentifiers: [
       {
-        customerGroupKey: "partners.ingat.cc",
+        customerGroupKey: "partners.dub.co",
       },
     ],
   });

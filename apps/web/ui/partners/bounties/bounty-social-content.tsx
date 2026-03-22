@@ -8,7 +8,7 @@ import { useClaimBountyForm } from "@/ui/partners/bounties/use-claim-bounty-form
 import { useSocialContent } from "@/ui/partners/bounties/use-social-content";
 import { Button, CircleCheckFill, LoadingSpinner } from "@dub/ui";
 import { cn, formatDate } from "@dub/utils";
-import { useReferralsEmbedData } from "app/(ee)/app.ingat.cc/embed/referrals/page-client";
+import { useReferralsEmbedData } from "app/(ee)/app.dub.co/embed/referrals/page-client";
 import { AlertTriangle } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { evaluateSocialContentRequirements } from "./evaluate-social-content-requirements";

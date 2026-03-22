@@ -122,10 +122,10 @@ export const updateGroupBrandingAction = authActionClient
         */
           ...(landerDataInput || applicationFormDataInput || unpublish
             ? [
-                revalidatePath(`/partners.ingat.cc/${program.slug}`),
-                revalidatePath(`/partners.ingat.cc/${program.slug}/apply`),
+                revalidatePath(`/partners.dub.co/${program.slug}`),
+                revalidatePath(`/partners.dub.co/${program.slug}/apply`),
                 revalidatePath(
-                  `/partners.ingat.cc/${program.slug}/apply/success`,
+                  `/partners.dub.co/${program.slug}/apply/success`,
                 ),
               ]
             : []),

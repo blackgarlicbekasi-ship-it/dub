@@ -103,5 +103,5 @@ export async function PartnersMiddleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.rewrite(new URL(`/partners.ingat.cc${fullPath}`, req.url));
+  return NextResponse.rewrite(new URL(`/partners.dub.co${fullPath}`, req.url));
 }

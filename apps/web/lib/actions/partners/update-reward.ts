@@ -132,8 +132,8 @@ export const updateRewardAction = authActionClient
         // we only cache default group pages for now so we need to invalidate them
         ...(isDefaultGroup
           ? [
-              revalidatePath(`/partners.ingat.cc/${program.slug}`),
-              revalidatePath(`/partners.ingat.cc/${program.slug}/apply`),
+              revalidatePath(`/partners.dub.co/${program.slug}`),
+              revalidatePath(`/partners.dub.co/${program.slug}/apply`),
             ]
           : []),
       ]),

@@ -97,9 +97,9 @@ export const POST = withWorkspace(
     // need to revalidate the program's cached public pages
     waitUntil(
       Promise.allSettled([
-        revalidatePath(`/partners.ingat.cc/${programSlug}`),
-        revalidatePath(`/partners.ingat.cc/${programSlug}/apply`),
-        revalidatePath(`/partners.ingat.cc/${programSlug}/apply/success`),
+        revalidatePath(`/partners.dub.co/${programSlug}`),
+        revalidatePath(`/partners.dub.co/${programSlug}/apply`),
+        revalidatePath(`/partners.dub.co/${programSlug}/apply/success`),
       ]),
     );
 
