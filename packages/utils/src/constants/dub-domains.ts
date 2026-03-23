@@ -1,4 +1,4 @@
-import { DUB_WORKSPACE_ID, SHORT_DOMAIN } from ./main;
+import { DUB_WORKSPACE_ID, SHORT_DOMAIN } from "./main";
 
 export const DUB_DOMAINS: {
   id: string;
