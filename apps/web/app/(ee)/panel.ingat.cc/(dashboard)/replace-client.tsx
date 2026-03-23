@@ -123,14 +123,14 @@ export function ReplaceClient() {
   };
 
   return (
-    <div className="px-6 py-8 lg:px-10">
+    <div className="mx-auto w-full max-w-screen-lg px-3 py-6 sm:px-6 lg:px-8">
       <div className="mb-6">
         <h1 className="text-lg font-semibold text-neutral-900">Bulk URL Replace</h1>
         <p className="mt-1 text-sm text-neutral-500">Find and replace domains in your shortlink destinations</p>
       </div>
 
       {isAdmin && (
-        <div className="mb-4 rounded-lg border border-neutral-200 bg-white p-4">
+        <div className="mb-4 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
           <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-neutral-500">Scope</label>
           <div className="flex gap-2">
             {(["my", "selected", "all"] as ReplaceMode[]).map((m) => (
@@ -172,7 +172,7 @@ export function ReplaceClient() {
         </div>
       )}
 
-      <div className="rounded-lg border border-neutral-200 bg-white p-6">
+      <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-medium text-neutral-700">Old URL / Domain</label>
@@ -195,20 +195,20 @@ export function ReplaceClient() {
         </div>
 
         <div className="mt-4 flex gap-3">
-          <Button text="Preview" onClick={handlePreview} loading={loading} variant="secondary" className="h-9" />
+          <Button text="Preview" onClick={handlePreview} loading={loading} variant="secondary" className="h-9 w-auto rounded-lg px-4" />
           {preview && previewTotal > 0 && (
             <Button
               text={`Execute Replace (${previewTotal} links)`}
               onClick={() => setShowConfirm(true)}
               loading={executing}
-              className="h-9"
+              className="h-9 w-auto rounded-lg px-4"
             />
           )}
         </div>
       </div>
 
       {preview && previewTotal > 0 && (
-        <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
           <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-3">
             <span className="text-sm font-medium text-neutral-700">
               {previewTotal} shortlink{previewTotal !== 1 ? "s" : ""} will be updated
@@ -243,7 +243,7 @@ export function ReplaceClient() {
       )}
 
       {preview && previewTotal === 0 && (
-        <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-8 text-center text-sm text-neutral-500">
+        <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-8 text-center text-sm text-neutral-500 shadow-sm">
           No matching links found
         </div>
       )}
@@ -259,8 +259,8 @@ export function ReplaceClient() {
               This will change <strong>{oldDomain.trim()}</strong> to <strong>{newDomain.trim()}</strong>
             </p>
             <div className="mt-5 flex gap-3">
-              <Button text="Cancel" variant="secondary" onClick={() => setShowConfirm(false)} className="flex-1 h-9" />
-              <Button text="Confirm Replace" onClick={handleExecute} loading={executing} className="flex-1 h-9" />
+              <Button text="Cancel" variant="secondary" onClick={() => setShowConfirm(false)} className="h-9 w-auto rounded-lg px-4" />
+              <Button text="Confirm Replace" onClick={handleExecute} loading={executing} className="h-9 w-auto rounded-lg px-4" />
             </div>
           </div>
         </div>

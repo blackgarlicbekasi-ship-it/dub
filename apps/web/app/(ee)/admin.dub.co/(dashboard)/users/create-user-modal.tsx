@@ -130,7 +130,7 @@ export function CreateUserModal({
               text="Cancel"
               variant="secondary"
               onClick={onClose}
-              className="flex-1"
+              className="h-9 w-auto rounded-lg px-4"
               type="button"
             />
             <Button
@@ -138,7 +138,7 @@ export function CreateUserModal({
               loading={loading}
               disabled={loading}
               type="submit"
-              className="flex-1"
+              className="h-9 w-auto rounded-lg px-4"
             />
           </div>
         </form>

@@ -35,9 +35,15 @@ export function TelegramClient() {
 
   if (allowed === false) {
     return (
-      <div className="px-6 py-8 lg:px-10">
-        <div className="flex h-60 items-center justify-center rounded-lg border border-neutral-200 bg-white text-sm text-neutral-500">
-          Telegram feature is not enabled for your account. Contact administrator.
+      <div className="mx-auto w-full max-w-screen-lg px-3 py-6 sm:px-6 lg:px-8">
+        <div className="flex h-60 flex-col items-center justify-center gap-3 rounded-xl border border-neutral-200 bg-white shadow-sm">
+          <div className="rounded-full bg-neutral-100 p-3">
+            <svg className="h-6 w-6 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+          </div>
+          <p className="text-sm text-neutral-500">Telegram feature is not enabled for your account.</p>
+          <p className="text-xs text-neutral-400">Contact your administrator to get access.</p>
         </div>
       </div>
     );
@@ -84,49 +90,67 @@ export function TelegramClient() {
   };
 
   return (
-    <div className="px-6 py-8 lg:px-10">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="mx-auto w-full max-w-screen-lg px-3 py-6 sm:px-6 lg:px-8">
+      {/* Header */}
+      <div className="mb-5 flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-semibold text-neutral-900">Telegram Bots</h1>
-          <p className="mt-1 text-sm text-neutral-500">Get notified after bulk replacements</p>
+          <h1 className="text-2xl font-semibold tracking-tight text-neutral-900">Telegram Bots</h1>
+          <p className="mt-0.5 text-sm text-neutral-500">Get notified after bulk replacements</p>
         </div>
         {bots && bots.length < 5 && (
-          <Button text="Add Bot" onClick={() => setShowAdd(true)} className="h-9" />
+          <Button
+            text="Add Bot"
+            onClick={() => setShowAdd(true)}
+            className="h-9 w-auto rounded-lg px-4"
+          />
         )}
       </div>
 
+      {/* Add Bot Form */}
       {showAdd && (
-        <div className="mb-4 rounded-lg border border-neutral-200 bg-white p-4">
+        <div className="mb-4 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <h3 className="mb-3 text-sm font-medium text-neutral-700">New Bot</h3>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
-              <label className="mb-1 block text-xs font-medium text-neutral-600">Name</label>
+              <label className="mb-1 block text-xs font-medium text-neutral-500">Name</label>
               <Input type="text" placeholder="My Bot" value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-neutral-600">Bot Token</label>
+              <label className="mb-1 block text-xs font-medium text-neutral-500">Bot Token</label>
               <Input type="text" placeholder="123456:ABC-DEF" value={botToken} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBotToken(e.target.value)} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-neutral-600">Chat ID</label>
+              <label className="mb-1 block text-xs font-medium text-neutral-500">Chat ID</label>
               <Input type="text" placeholder="-100123456789" value={chatId} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setChatId(e.target.value)} />
             </div>
           </div>
-          <div className="mt-3 flex gap-2">
-            <Button text="Save" onClick={handleAdd} loading={saving} className="h-8 text-xs" />
-            <Button text="Cancel" variant="secondary" onClick={() => setShowAdd(false)} className="h-8 text-xs" />
+          <div className="mt-4 flex gap-2">
+            <Button text="Save Bot" onClick={handleAdd} loading={saving} className="h-9 w-auto rounded-lg px-4" />
+            <Button text="Cancel" variant="secondary" onClick={() => setShowAdd(false)} className="h-9 w-auto rounded-lg px-4" />
           </div>
         </div>
       )}
 
-      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+      {/* Bots Table */}
+      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
         {bots === null ? (
-          <div className="flex h-40 items-center justify-center"><LoadingSpinner className="h-6 w-6" /></div>
+          <div className="flex h-48 items-center justify-center">
+            <LoadingSpinner className="h-6 w-6" />
+          </div>
         ) : bots.length === 0 ? (
-          <div className="flex h-40 items-center justify-center text-sm text-neutral-500">No Telegram bots configured</div>
+          <div className="flex h-48 flex-col items-center justify-center gap-3">
+            <div className="rounded-full bg-neutral-100 p-3">
+              <svg className="h-6 w-6 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+              </svg>
+            </div>
+            <p className="text-sm font-medium text-neutral-500">No Telegram bots configured</p>
+            <p className="text-xs text-neutral-400">Add a bot to receive notifications</p>
+          </div>
         ) : (
           <table className="w-full">
             <thead>
-              <tr className="border-b border-neutral-200 bg-neutral-50">
+              <tr className="border-b border-neutral-200 bg-neutral-50/80">
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Name</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Chat ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Status</th>
@@ -135,18 +159,24 @@ export function TelegramClient() {
             </thead>
             <tbody className="divide-y divide-neutral-100">
               {bots.map((bot) => (
-                <tr key={bot.id} className="hover:bg-neutral-50">
+                <tr key={bot.id} className="transition-colors hover:bg-neutral-50/60">
                   <td className="px-4 py-3 text-sm font-medium text-neutral-900">{bot.name}</td>
-                  <td className="px-4 py-3 text-sm text-neutral-500">{bot.chatId}</td>
+                  <td className="px-4 py-3 font-mono text-sm text-neutral-500">{bot.chatId}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${bot.isActive ? "bg-green-50 text-green-700" : "bg-neutral-100 text-neutral-500"}`}>
                       {bot.isActive ? "Active" : "Inactive"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-3">
-                      <button onClick={() => handleTest(bot.id)} className="text-xs text-blue-600 hover:underline">Test</button>
-                      <button onClick={() => handleDelete(bot.id)} className="text-xs text-red-600 hover:underline">Delete</button>
+                    <div className="flex items-center justify-end gap-2">
+                      <button onClick={() => handleTest(bot.id)}
+                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
+                        Test
+                      </button>
+                      <button onClick={() => handleDelete(bot.id)}
+                        className="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50">
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </tr>

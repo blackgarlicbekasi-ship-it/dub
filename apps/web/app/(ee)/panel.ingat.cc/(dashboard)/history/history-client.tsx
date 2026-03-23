@@ -53,13 +53,13 @@ export function HistoryClient() {
   };
 
   return (
-    <div className="px-6 py-8 lg:px-10">
+    <div className="mx-auto w-full max-w-screen-lg px-3 py-6 sm:px-6 lg:px-8">
       <div className="mb-6">
         <h1 className="text-lg font-semibold text-neutral-900">Replace History</h1>
         <p className="mt-1 text-sm text-neutral-500">Log of all URL replacements</p>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
         {logs === null ? (
           <div className="flex h-40 items-center justify-center"><LoadingSpinner className="h-6 w-6" /></div>
         ) : logs.length === 0 ? (
@@ -96,7 +96,7 @@ export function HistoryClient() {
                       <Button
                         text={undoing === log.id ? "Undoing..." : "Undo"}
                         variant="secondary"
-                        className="h-7 text-xs"
+                        className="h-7 w-auto rounded-lg px-3 text-xs"
                         loading={undoing === log.id}
                         onClick={() => handleUndo(log)}
                       />

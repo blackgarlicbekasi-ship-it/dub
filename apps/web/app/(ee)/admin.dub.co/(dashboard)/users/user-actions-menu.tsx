@@ -209,8 +209,8 @@ function ChangePasswordModal({ user, onClose, onSubmit }: { user: UserRow; onClo
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             placeholder="New password (min 8 chars)" required minLength={8} />
           <div className="mt-4 flex gap-3">
-            <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="flex-1" />
-            <Button text="Update" type="submit" className="flex-1" />
+            <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="h-9 w-auto rounded-lg px-4" />
+            <Button text="Update" type="submit" className="h-9 w-auto rounded-lg px-4" />
           </div>
         </form>
       </div>
@@ -233,8 +233,8 @@ function ChangePlanModal({ user, onClose, onSubmit }: { user: UserRow; onClose: 
           <option value="enterprise">Enterprise</option>
         </select>
         <div className="mt-4 flex gap-3">
-          <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="flex-1" />
-          <Button text="Update Plan" onClick={() => onSubmit(plan)} className="flex-1" />
+          <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="h-9 w-auto rounded-lg px-4" />
+          <Button text="Update Plan" onClick={() => onSubmit(plan)} className="h-9 w-auto rounded-lg px-4" />
         </div>
       </div>
     </ModalOverlay>
@@ -255,8 +255,8 @@ function DeleteConfirmModal({ user, onClose, onConfirm }: { user: UserRow; onClo
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value)}
           placeholder={'Type "delete"'} />
         <div className="mt-4 flex gap-3">
-          <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="flex-1" />
-          <Button text="Delete User" variant="danger" disabled={confirmText !== "delete"} onClick={onConfirm} className="flex-1" />
+          <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="h-9 w-auto rounded-lg px-4" />
+          <Button text="Delete User" variant="danger" disabled={confirmText !== "delete"} onClick={onConfirm} className="h-9 w-auto rounded-lg px-4" />
         </div>
       </div>
     </ModalOverlay>
@@ -278,7 +278,7 @@ function WorkspaceInfoModal({ user, onClose }: { user: UserRow; onClose: () => v
           <InfoRow label="Owner" value={user.email} />
         </div>
         <div className="mt-5">
-          <Button text="Close" variant="secondary" onClick={onClose} className="w-full" />
+          <Button text="Close" variant="secondary" onClick={onClose} className="h-9 w-auto rounded-lg px-4" />
         </div>
       </div>
     </ModalOverlay>
