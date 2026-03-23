@@ -1,16 +1,16 @@
 import { constructMetadata } from "@dub/utils";
 import { Suspense } from "react";
-import { AdminDashboardClient } from "./dashboard-client";
+import { TelegramClient } from "./telegram-client";
 
 export const metadata = constructMetadata({
-  title: "Ingat Admin",
+  title: "Telegram - Ingat Panel",
   noIndex: true,
 });
 
-export default function AdminPage() {
+export default function TelegramPage() {
   return (
     <Suspense>
-      <AdminDashboardClient />
+      <TelegramClient />
     </Suspense>
   );
 }

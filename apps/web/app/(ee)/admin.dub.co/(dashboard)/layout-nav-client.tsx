@@ -16,24 +16,16 @@ const tabs = [
     label: "Users",
   },
   {
+    href: "/domains",
+    label: "Domains",
+  },
+  {
     href: "/links",
     label: "Links",
   },
   {
     href: "/analytics",
     label: "Analytics",
-  },
-  {
-    href: "/commissions",
-    label: "Commissions",
-  },
-  {
-    href: "/payouts",
-    label: "Payouts",
-  },
-  {
-    href: "/revenue",
-    label: "Revenue",
   },
 ];
 

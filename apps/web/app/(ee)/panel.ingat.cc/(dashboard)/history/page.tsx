@@ -1,16 +1,16 @@
 import { constructMetadata } from "@dub/utils";
 import { Suspense } from "react";
-import { AdminDashboardClient } from "./dashboard-client";
+import { HistoryClient } from "./history-client";
 
 export const metadata = constructMetadata({
-  title: "Ingat Admin",
+  title: "History - Ingat Panel",
   noIndex: true,
 });
 
-export default function AdminPage() {
+export default function HistoryPage() {
   return (
     <Suspense>
-      <AdminDashboardClient />
+      <HistoryClient />
     </Suspense>
   );
 }

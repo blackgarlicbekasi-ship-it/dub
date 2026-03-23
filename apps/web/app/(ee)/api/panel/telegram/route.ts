@@ -1,0 +1,78 @@
+import { getSession } from "@/lib/auth";
+import { prisma } from "@dub/prisma";
+import { NextRequest, NextResponse } from "next/server";
+
+export const GET = async () => {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const bots = await prisma.$queryRawUnsafe(
+      `SELECT id, name, chatId, isActive FROM TelegramBot WHERE userId = ? ORDER BY createdAt DESC`,
+      session.user.id,
+    );
+    return NextResponse.json({ bots });
+  } catch {
+    return NextResponse.json({ bots: [] });
+  }
+};
+
+export const POST = async (req: NextRequest) => {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { name, botToken, chatId } = await req.json();
+  if (!name || !botToken || !chatId) {
+    return NextResponse.json({ error: "All fields required" }, { status: 400 });
+  }
+
+  try {
+    const existing = await prisma.$queryRawUnsafe(
+      `SELECT COUNT(*) as cnt FROM TelegramBot WHERE userId = ?`,
+      session.user.id,
+    ) as { cnt: number }[];
+
+    if (existing[0] && Number(existing[0].cnt) >= 5) {
+      return NextResponse.json({ error: "Maximum 5 bots allowed" }, { status: 400 });
+    }
+
+    const id = "tg_" + Math.random().toString(36).substring(2, 22);
+    await prisma.$executeRawUnsafe(
+      `INSERT INTO TelegramBot (id, userId, botToken, chatId, name, isActive, createdAt) VALUES (?, ?, ?, ?, ?, 1, NOW())`,
+      id,
+      session.user.id,
+      botToken,
+      chatId,
+      name,
+    );
+
+    return NextResponse.json({ success: true });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : "Failed to add bot";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+};
+
+export const DELETE = async (req: NextRequest) => {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await req.json();
+  if (!id) {
+    return NextResponse.json({ error: "Bot ID required" }, { status: 400 });
+  }
+
+  await prisma.$executeRawUnsafe(
+    `DELETE FROM TelegramBot WHERE id = ? AND userId = ?`,
+    id,
+    session.user.id,
+  );
+
+  return NextResponse.json({ success: true });
+};

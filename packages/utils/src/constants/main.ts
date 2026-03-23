@@ -73,3 +73,10 @@ export const LEGAL_WORKSPACE_ID = "clrflia0j0000vs7sqfhz9c7q";
 export const LEGAL_USER_ID = "clqei1lgc0000vsnzi01pbf47";
 
 export const R2_URL = process.env.STORAGE_BASE_URL || "https://dubassets.com";
+
+export const PANEL_HOSTNAMES = new Set([
+  `panel.${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
+  "panel.ingat.cc",
+  "panel.localhost:8888",
+  "panel.localhost",
+]);

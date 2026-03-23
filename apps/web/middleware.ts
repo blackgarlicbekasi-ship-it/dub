@@ -5,6 +5,7 @@ import {
   API_HOSTNAMES,
   APP_HOSTNAMES,
   DEFAULT_REDIRECTS,
+  PANEL_HOSTNAMES,
   SHORT_DOMAIN,
   isValidUrl,
 } from "@dub/utils";
@@ -15,6 +16,7 @@ import { ApiMiddleware } from "./lib/middleware/api";
 import { AppMiddleware } from "./lib/middleware/app";
 import { CreateLinkMiddleware } from "./lib/middleware/create-link";
 import { LinkMiddleware } from "./lib/middleware/link";
+import { PanelMiddleware } from "./lib/middleware/panel";
 import { PartnersMiddleware } from "./lib/middleware/partners";
 import { parse } from "./lib/middleware/utils/parse";
 import { supportedWellKnownFiles } from "./lib/well-known";
@@ -96,6 +98,10 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
   if (ADMIN_HOSTNAMES.has(domain)) {
     return AdminMiddleware(req);
+  }
+
+  if (PANEL_HOSTNAMES.has(domain)) {
+    return PanelMiddleware(req);
   }
 
   if (PARTNERS_HOSTNAMES.has(domain)) {

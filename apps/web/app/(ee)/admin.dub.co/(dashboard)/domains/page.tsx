@@ -1,16 +1,16 @@
 import { constructMetadata } from "@dub/utils";
 import { Suspense } from "react";
-import { AdminDashboardClient } from "./dashboard-client";
+import { DomainsClient } from "./domains-client";
 
 export const metadata = constructMetadata({
-  title: "Ingat Admin",
+  title: "Domains - Ingat Admin",
   noIndex: true,
 });
 
-export default function AdminPage() {
+export default function DomainsPage() {
   return (
     <Suspense>
-      <AdminDashboardClient />
+      <DomainsClient />
     </Suspense>
   );
 }
