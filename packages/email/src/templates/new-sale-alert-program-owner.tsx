@@ -1,4 +1,5 @@
-import { capitalize, currencyFormatter, DUB_WORDMARK } from "@dub/utils";
+import { capitalize, currencyFormatter,
+  DUB_WORDMARK} from "@dub/utils";
 import {
   Body,
   Column,
@@ -106,7 +107,7 @@ export default function NewSaleAlertProgramOwner({
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
               <Img
-                src={program.logo || "https://assets.dub.co/wordmark.png"}
+                src={program.logo || ""}
                 height="32"
                 alt={program.name}
               />

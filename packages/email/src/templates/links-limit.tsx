@@ -1,4 +1,4 @@
-import { APP_DOMAIN, DUB_WORDMARK, capitalize, nFormatter } from "@dub/utils";
+import { APP_DOMAIN,  capitalize, nFormatter } from "@dub/utils";
 import {
   Body,
   Container,
@@ -49,7 +49,7 @@ export default function LinksLimitAlert({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Ingat Links Limit Alert

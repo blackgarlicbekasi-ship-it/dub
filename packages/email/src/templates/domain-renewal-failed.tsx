@@ -1,4 +1,4 @@
-import { DUB_WORDMARK, formatDate, pluralize } from "@dub/utils";
+import { formatDate, pluralize } from "@dub/utils";
 import {
   Body,
   Column,
@@ -50,7 +50,7 @@ export default function DomainRenewalFailed({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] px-5 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="mx-0 mb-5 mt-10 p-0 text-lg font-semibold text-neutral-800">

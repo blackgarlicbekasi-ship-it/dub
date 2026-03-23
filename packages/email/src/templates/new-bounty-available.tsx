@@ -1,4 +1,4 @@
-import { DUB_WORDMARK, formatDate } from "@dub/utils";
+import { formatDate } from "@dub/utils";
 import {
   Body,
   Container,
@@ -52,7 +52,7 @@ export default function NewBountyAvailable({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-8 max-w-[600px] px-8 py-8">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="bt-5 mx-0 mt-10 p-0 text-lg font-medium text-black">

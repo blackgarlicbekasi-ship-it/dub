@@ -1,5 +1,5 @@
-import { DUB_WORDMARK } from "@dub/utils";
 import {
+import { DUB_WORDMARK } from "@dub/utils";
   Body,
   Column,
   Container,
@@ -64,7 +64,7 @@ export default function ProgramNetworkInvite({
           <Container className="mx-auto my-8 max-w-[600px] px-8 py-8">
             <Section className="mb-8 mt-6">
               <Img
-                src={program.logo || "https://assets.dub.co/wordmark.png"}
+                src={program.logo || ""}
                 height="32"
                 alt={program.name}
               />

@@ -1,4 +1,3 @@
-import { DUB_WORDMARK } from "@dub/utils";
 import {
   Body,
   Container,
@@ -30,12 +29,7 @@ export default function VerifyEmailForAccountMerge({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] px-10 py-5">
             <Section className="mb-8 flex items-center">
-              <Img
-                src={DUB_WORDMARK}
-                height="32"
-                alt="Ingat"
-                className="mr-auto"
-              />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="mx-0 my-7 p-0 text-xl font-semibold text-black">

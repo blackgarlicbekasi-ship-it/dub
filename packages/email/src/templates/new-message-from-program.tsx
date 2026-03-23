@@ -1,4 +1,4 @@
-import { DUB_WORDMARK, OG_AVATAR_URL } from "@dub/utils";
+import { OG_AVATAR_URL } from "@dub/utils";
 import {
   Body,
   Column,
@@ -68,13 +68,13 @@ export default function NewMessageFromProgram({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-8 max-w-[600px] px-8 py-8">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Section className="my-8">
               <div className="flex items-center">
                 <Img
-                  src={program.logo || "https://assets.dub.co/wordmark.png"}
+                  src={program.logo || ""}
                   width="32"
                   height="32"
                   alt={program.name}

@@ -1,4 +1,3 @@
-import { DUB_WORDMARK } from "@dub/utils";
 import {
   Body,
   Container,
@@ -43,7 +42,7 @@ export default function ProgramImported({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mb-8 mt-6">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
             <Heading className="mx-0 my-7 p-0 text-lg font-medium text-black">
               Your {provider} campaign has been imported
@@ -56,7 +55,7 @@ export default function ProgramImported({
               >
                 {program.name}↗
               </Link>{" "}
-              into Dub.
+              into Ingat.
             </Text>
 
             {importId && (

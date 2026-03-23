@@ -1,4 +1,4 @@
-import { COUNTRIES, DUB_WORDMARK, smartTruncate } from "@dub/utils";
+import { COUNTRIES,  smartTruncate } from "@dub/utils";
 import { nFormatter } from "@dub/utils/src/functions";
 import {
   Body,
@@ -23,7 +23,7 @@ export default function IngatWrapped({
   workspace = {
     name: "Ingat",
     slug: "dub",
-    logo: "https://assets.dub.co/wordmark.png",
+    logo: "",
   },
   stats = {
     "Total Links": 1429,
@@ -136,7 +136,7 @@ export default function IngatWrapped({
     {
       title: "Dub API General Availability",
       description:
-        "Our Dub API went GA, allowing you to build your powerful integrations with Dub. We also launched <b>native SDKs in 5 different languages</b>: TypeScript, Python, Ruby, PHP, and Go.",
+        "Our Dub API went GA, allowing you to build your powerful integrations with Ingat. We also launched <b>native SDKs in 5 different languages</b>: TypeScript, Python, Ruby, PHP, and Go.",
       image: "https://assets.dub.co/blog/dub-api.jpg",
       cta: {
         text: "Read the announcement",
@@ -157,7 +157,7 @@ export default function IngatWrapped({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded border border-solid border-neutral-200 px-10 py-5">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" className="my-0" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
             <Heading className="mx-0 mb-4 mt-8 p-0 text-xl font-semibold text-black">
               Dub Year in Review 🎊

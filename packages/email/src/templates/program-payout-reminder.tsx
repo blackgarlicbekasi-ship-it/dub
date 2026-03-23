@@ -1,4 +1,4 @@
-import { currencyFormatter, DUB_WORDMARK, pluralize } from "@dub/utils";
+import { currencyFormatter,  pluralize } from "@dub/utils";
 import {
   Body,
   Column,
@@ -53,7 +53,7 @@ export default function ProgramPayoutReminder({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] px-10 py-5">
             <Section className="mb-8 mt-6">
-              <Img src={DUB_WORDMARK} width="61" height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="mx-0 p-0 text-lg font-medium text-neutral-800">

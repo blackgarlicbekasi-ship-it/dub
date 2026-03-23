@@ -1,4 +1,4 @@
-import { DUB_WORDMARK, OG_AVATAR_URL, pluralize } from "@dub/utils";
+import { OG_AVATAR_URL, pluralize } from "@dub/utils";
 import { nFormatter } from "@dub/utils/src";
 import {
   Body,
@@ -71,7 +71,7 @@ export default function PendingApplicationsSummary({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[600px] px-10 py-8">
             <Section className="mt-8">
-              <Img src={DUB_WORDMARK} height="32" alt="Ingat" />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="mx-0 mb-5 mt-10 p-0 text-lg font-medium text-black">

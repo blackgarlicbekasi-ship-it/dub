@@ -1,4 +1,3 @@
-import { DUB_WORDMARK } from "@dub/utils";
 import {
   Body,
   Container,
@@ -36,16 +35,7 @@ export default function IngatPartnerRewind({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="email-container mx-auto my-10 max-w-[600px] px-10 py-5">
             <Section className="mt-2 text-center">
-              <Img
-                src={DUB_WORDMARK}
-                width="65"
-                height="32"
-                alt="Ingat"
-                style={{
-                  display: "block",
-                  margin: "0 auto",
-                }}
-              />
+              <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>Ingat</Text>
             </Section>
 
             <Heading className="mx-0 mb-2 mt-8 p-0 text-center text-2xl font-semibold text-black">
