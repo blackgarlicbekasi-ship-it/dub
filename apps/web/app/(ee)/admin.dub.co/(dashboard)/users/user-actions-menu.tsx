@@ -233,7 +233,7 @@ function DeleteConfirmModal({ user, onClose, onConfirm }: { user: UserRow; onClo
         <p className="mb-3 text-sm text-neutral-500">Type <strong>delete</strong> to confirm:</p>
         <Input type="text" value={confirmText}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value)}
-          placeholder="Type \"delete\"" />
+          placeholder={'Type "delete"'} />
         <div className="mt-4 flex gap-3">
           <Button text="Cancel" variant="secondary" onClick={onClose} type="button" className="flex-1" />
           <Button text="Delete User" variant="danger" disabled={confirmText !== "delete"} onClick={onConfirm} className="flex-1" />
