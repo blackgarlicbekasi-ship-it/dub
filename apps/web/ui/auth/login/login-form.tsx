@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatedSizeContainer, Button, useLocalStorage } from "@dub/ui";
+import { AnimatedSizeContainer, useLocalStorage } from "@dub/ui";
 import { useSearchParams } from "next/navigation";
 import {
   ComponentType,
@@ -8,11 +8,9 @@ import {
   SetStateAction,
   createContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { toast } from "sonner";
-import { AuthMethodsSeparator } from "../auth-methods-separator";
 import { EmailSignIn } from "./email-sign-in";
 import { GitHubButton } from "./github-button";
 import { GoogleButton } from "./google-button";
@@ -28,7 +26,7 @@ export const authMethods = [
 
 export type AuthMethod = (typeof authMethods)[number];
 
-export const errorCodes = {
+export const errorCodes: Record<string, string> = {
   "no-credentials": "Please provide an email and password.",
   "invalid-credentials": "Email or password is incorrect.",
   "exceeded-login-attempts":
@@ -85,16 +83,12 @@ export default function LoginForm({
     undefined,
   );
 
-  const [lastUsedAuthMethodLive, setLastUsedAuthMethod] = useLocalStorage<
-    AuthMethod | undefined
-  >("last-used-auth-method", undefined);
-  const { current: lastUsedAuthMethod } = useRef<AuthMethod | undefined>(
-    lastUsedAuthMethodLive,
+  const [, setLastUsedAuthMethod] = useLocalStorage<AuthMethod | undefined>(
+    "last-used-auth-method",
+    undefined,
   );
 
-  const [authMethod, setAuthMethod] = useState<AuthMethod | undefined>(
-    authMethods.find((m) => m === lastUsedAuthMethodLive) ?? "email",
-  );
+  const [authMethod, setAuthMethod] = useState<AuthMethod | undefined>("email");
 
   useEffect(() => {
     const error = searchParams?.get("error");
@@ -106,7 +100,6 @@ export default function LoginForm({
     }
   }, [searchParams]);
 
-  // Reset the state when leaving the page
   useEffect(() => () => setClickedMethod(undefined), []);
 
   const authProviders: {
@@ -140,8 +133,6 @@ export default function LoginForm({
 
   const AuthMethodComponent = currentAuthProvider?.component;
 
-  const showEmailPasswordOnly = authMethod === "email" && showPasswordField;
-
   return (
     <LoginFormContext.Provider
       value={{
@@ -159,47 +150,8 @@ export default function LoginForm({
       <div className="flex flex-col gap-3">
         <AnimatedSizeContainer height>
           <div className="flex flex-col gap-3 p-1">
-            {authMethod && (
-              <div className="flex flex-col gap-3">
-                {AuthMethodComponent && (
-                  <AuthMethodComponent {...currentAuthProvider?.props} />
-                )}
-
-                {!showEmailPasswordOnly &&
-                  authMethod === lastUsedAuthMethod && (
-                    <div className="text-center text-xs">
-                      <span className="text-neutral-500">
-                        You signed in with{" "}
-                        {lastUsedAuthMethod.charAt(0).toUpperCase() +
-                          lastUsedAuthMethod.slice(1)}{" "}
-                        last time
-                      </span>
-                    </div>
-                  )}
-                <AuthMethodsSeparator />
-              </div>
-            )}
-
-            {showEmailPasswordOnly ? (
-              <div className="mt-2">
-                <Button
-                  variant="secondary"
-                  onClick={() => setShowPasswordField(false)}
-                  text="Continue with another method"
-                />
-              </div>
-            ) : (
-              authProviders
-                .filter(
-                  (provider) =>
-                    provider.method !== authMethod &&
-                    methods.includes(provider.method),
-                )
-                .map((provider) => (
-                  <div key={provider.method}>
-                    <provider.component />
-                  </div>
-                ))
+            {authMethod && AuthMethodComponent && (
+              <AuthMethodComponent {...currentAuthProvider?.props} />
             )}
           </div>
         </AnimatedSizeContainer>

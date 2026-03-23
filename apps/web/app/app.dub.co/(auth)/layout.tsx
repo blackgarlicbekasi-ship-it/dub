@@ -1,5 +1,5 @@
 import Toolbar from "@/ui/layout/toolbar/toolbar";
-import { Grid, Wordmark } from "@dub/ui";
+import { Grid } from "@dub/ui";
 import { cn } from "@dub/utils";
 import { ReactNode } from "react";
 import { SidePanel } from "./side-panel";
@@ -56,7 +56,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               rel="noopener noreferrer"
               className="absolute left-1/2 top-4 z-10 -translate-x-1/2"
             >
-              <Wordmark className="h-8" />
+              <span className="text-2xl font-bold text-neutral-900">Ingat</span>
             </a>
             {children}
           </div>

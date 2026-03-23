@@ -14,7 +14,6 @@ const schema = z.object({
   email: emailSchema,
 });
 
-// Check if account exists
 export const checkAccountExistsAction = actionClient
   .inputSchema(schema)
   .use(throwIfAuthenticated)
@@ -38,6 +37,7 @@ export const checkAccountExistsAction = actionClient
         },
         select: {
           passwordHash: true,
+          lockedAt: true,
         },
       }),
 
@@ -48,5 +48,6 @@ export const checkAccountExistsAction = actionClient
       accountExists: !!user,
       hasPassword: !!user?.passwordHash,
       requireSAML: isSamlEnforced,
+      isSuspended: !!user?.lockedAt,
     };
   });
