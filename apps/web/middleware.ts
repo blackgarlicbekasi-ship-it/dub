@@ -64,6 +64,12 @@ function isMarketingPath(path: string): boolean {
   return false;
 }
 
+// Add X-Robots-Tag: noindex to any response
+function withNoIndex(response: NextResponse): NextResponse {
+  response.headers.set("X-Robots-Tag", "noindex, nofollow, nosnippet");
+  return response;
+}
+
 export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { domain, path, key, fullKey } = parse(req);
 
@@ -74,9 +80,9 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
     const pathSegments = path.split("/").filter(Boolean);
     const isShortlink = pathSegments.length === 1 && !["login","register","forgot-password","onboarding","account","new","workspaces","embed","_static","app.dub.co"].includes(pathSegments[0]);
     if (isShortlink) {
-      return LinkMiddleware(req, ev);
+      return withNoIndex(await LinkMiddleware(req, ev));
     }
-    return AppMiddleware(req);
+    return withNoIndex(await AppMiddleware(req));
   }
 
   if (API_HOSTNAMES.has(domain)) {
@@ -84,7 +90,7 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
   }
 
   if (path.startsWith("/stats/")) {
-    return NextResponse.rewrite(new URL(`/${domain}${path}`, req.url));
+    return withNoIndex(NextResponse.rewrite(new URL(`/${domain}${path}`, req.url)));
   }
 
   if (path.startsWith("/.well-known/")) {
@@ -97,32 +103,32 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
   }
 
   if (ADMIN_HOSTNAMES.has(domain)) {
-    return AdminMiddleware(req);
+    return withNoIndex(await AdminMiddleware(req));
   }
 
   if (PANEL_HOSTNAMES.has(domain)) {
-    return PanelMiddleware(req);
+    return withNoIndex(await PanelMiddleware(req));
   }
 
   if (PARTNERS_HOSTNAMES.has(domain)) {
-    return PartnersMiddleware(req);
+    return withNoIndex(await PartnersMiddleware(req));
   }
 
   if (domain === SHORT_DOMAIN) {
     if (DEFAULT_REDIRECTS[key]) {
-      return NextResponse.redirect(DEFAULT_REDIRECTS[key]);
+      return withNoIndex(NextResponse.redirect(DEFAULT_REDIRECTS[key]));
     }
 
     if (isMarketingPath(path)) {
-      return NextResponse.rewrite(new URL(`/${domain}${path}`, req.url));
+      return withNoIndex(NextResponse.rewrite(new URL(`/${domain}${path}`, req.url)));
     }
 
-    return LinkMiddleware(req, ev);
+    return withNoIndex(await LinkMiddleware(req, ev));
   }
 
   if (isValidUrl(fullKey)) {
-    return CreateLinkMiddleware(req);
+    return withNoIndex(await CreateLinkMiddleware(req));
   }
 
-  return LinkMiddleware(req, ev);
+  return withNoIndex(await LinkMiddleware(req, ev));
 }
