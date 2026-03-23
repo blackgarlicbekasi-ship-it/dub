@@ -68,7 +68,7 @@ export function DefaultDomains() {
 
                   setDefaultDomains(newDefaultDomains);
                   setSubmitting(true);
-                  fetch(\`/api/domains/default?workspaceId=\${id}\`, {
+                  fetch(`/api/domains/default?workspaceId=${id}`, {
                     method: "PATCH",
                     body: JSON.stringify({
                       defaultDomains: newDefaultDomains.filter(
@@ -79,7 +79,7 @@ export function DefaultDomains() {
                     .then(async (res) => {
                       if (res.ok) {
                         toast.success(
-                          \`\${slug} \${newDefaultDomains.includes(slug) ? "added to" : "removed from"} default domains.\`,
+                          `${slug} ${newDefaultDomains.includes(slug) ? "added to" : "removed from"} default domains.`,
                         );
                         await mutate();
                       } else {

@@ -8,7 +8,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 export function DomainsHeader({
   baseUrl = "/settings/domains",
 }: {
-  baseUrl?: \`/\${string}\`;
+  baseUrl?: `/${string}`;
 }) {
   const { slug, plan, defaultProgramId } = useWorkspace();
   const { canSendEmailCampaigns } = getPlanCapabilities(plan);
@@ -22,19 +22,19 @@ export function DomainsHeader({
           {
             id: "",
             label: "Custom domains",
-            href: \`/\${slug}\${baseUrl}\`,
+            href: `/${slug}${baseUrl}`,
           },
           {
             id: "default",
             label: "Default domains",
-            href: \`/\${slug}\${baseUrl}/default\`,
+            href: `/${slug}${baseUrl}/default`,
           },
           ...(canSendEmailCampaigns && defaultProgramId
             ? [
                 {
                   id: "email",
                   label: "Email domains",
-                  href: \`/\${slug}\${baseUrl}/email\`,
+                  href: `/${slug}${baseUrl}/email`,
                 },
               ]
             : []),
