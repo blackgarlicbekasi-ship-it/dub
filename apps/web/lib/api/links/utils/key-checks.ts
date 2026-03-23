@@ -7,7 +7,45 @@ import {
   isDubDomain,
   isReservedKeyGlobal,
   RESERVED_SLUGS,
+  SHORT_DOMAIN,
 } from "@dub/utils";
+
+const RESERVED_SHORT_DOMAIN_KEYS = new Set([
+  "home",
+  "pricing",
+  "blog",
+  "enterprise",
+  "customers",
+  "legal",
+  "tools",
+  "help",
+  "links",
+  "analytics",
+  "partners",
+  "docs",
+  "integrations",
+  "about",
+  "careers",
+  "brand",
+  "changelog",
+  "contact",
+  "privacy",
+  "sdks",
+  "solutions",
+  "compare",
+  "features",
+  "not-found",
+  "login",
+  "register",
+  "forgot-password",
+  "onboarding",
+  "account",
+  "workspaces",
+  "embed",
+  "api",
+  "_next",
+  "_proxy",
+]);
 
 export async function keyChecks({
   domain,
@@ -29,6 +67,13 @@ export async function keyChecks({
   if (isReservedKeyGlobal(key)) {
     return {
       error: `${key} is a reserved path and cannot be used as a short link.`,
+      code: "forbidden",
+    };
+  }
+
+  if (domain === SHORT_DOMAIN && RESERVED_SHORT_DOMAIN_KEYS.has(key)) {
+    return {
+      error: "This slug is reserved and cannot be used",
       code: "forbidden",
     };
   }
