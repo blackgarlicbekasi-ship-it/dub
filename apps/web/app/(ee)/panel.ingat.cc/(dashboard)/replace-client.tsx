@@ -33,6 +33,8 @@ export function ReplaceClient() {
   const [users, setUsers] = useState<UserOption[]>([]);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [previewPage, setPreviewPage] = useState(1);
+  const previewPerPage = 10;
 
   useEffect(() => {
     fetch("/api/panel/role").then((r) => r.json()).then((d) => {
@@ -80,6 +82,7 @@ export function ReplaceClient() {
       if (res.ok) {
         const data = await res.json();
         setPreview(data.links);
+        setPreviewPage(1);
         setPreviewTotal(data.total);
         if (data.total === 0) toast.info("No matching links found");
       } else {
@@ -207,40 +210,65 @@ export function ReplaceClient() {
         </div>
       </div>
 
-      {preview && previewTotal > 0 && (
-        <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
-          <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-3">
-            <span className="text-sm font-medium text-neutral-700">
-              {previewTotal} shortlink{previewTotal !== 1 ? "s" : ""} will be updated
-            </span>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-neutral-100">
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Short Link</th>
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Current URL</th>
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">New URL</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-100">
-                {preview.slice(0, 100).map((link) => (
-                  <tr key={link.id}>
-                    <td className="whitespace-nowrap px-4 py-2 text-sm font-medium text-neutral-900">{link.shortLink}</td>
-                    <td className="max-w-[200px] truncate px-4 py-2 text-sm text-neutral-500">{link.currentUrl}</td>
-                    <td className="max-w-[200px] truncate px-4 py-2 text-sm text-emerald-700">{link.newUrl}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {previewTotal > 100 && (
-            <div className="border-t border-neutral-100 px-4 py-2 text-center text-xs text-neutral-400">
-              Showing 100 of {previewTotal} links
+      {preview && previewTotal > 0 && (() => {
+        const totalPreviewPages = Math.ceil(preview.length / previewPerPage);
+        const startIdx = (previewPage - 1) * previewPerPage;
+        const endIdx = Math.min(startIdx + previewPerPage, preview.length);
+        const pageLinks = preview.slice(startIdx, endIdx);
+
+        return (
+          <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
+            <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-50 px-4 py-3">
+              <span className="text-sm font-medium text-neutral-700">
+                Showing {startIdx + 1}-{endIdx} of {previewTotal} shortlinks
+              </span>
             </div>
-          )}
-        </div>
-      )}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-neutral-100">
+                    <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Short Link</th>
+                    <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Current URL</th>
+                    <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">New URL</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-100">
+                  {pageLinks.map((link) => (
+                    <tr key={link.id} className="transition-colors hover:bg-neutral-50/60">
+                      <td className="whitespace-nowrap px-4 py-2.5 text-sm font-medium text-neutral-900">{link.shortLink}</td>
+                      <td className="max-w-[200px] truncate px-4 py-2.5 text-sm text-neutral-500">{link.currentUrl}</td>
+                      <td className="max-w-[200px] truncate px-4 py-2.5 text-sm text-emerald-700">{link.newUrl}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {totalPreviewPages > 1 && (
+              <div className="flex items-center justify-between border-t border-neutral-200 px-4 py-3">
+                <p className="text-sm text-neutral-500">
+                  Page {previewPage} of {totalPreviewPages}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    disabled={previewPage <= 1}
+                    onClick={() => setPreviewPage((p) => Math.max(1, p - 1))}
+                    className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    disabled={previewPage >= totalPreviewPages}
+                    onClick={() => setPreviewPage((p) => p + 1)}
+                    className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {preview && previewTotal === 0 && (
         <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-8 text-center text-sm text-neutral-500 shadow-sm">

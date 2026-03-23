@@ -20,7 +20,7 @@ export default function PanelLoginPage() {
           </p>
           <div className="mt-8">
             <Suspense>
-              <LoginForm methods={["email", "password"]} />
+              <LoginForm methods={["email", "password"]} next="/" />
             </Suspense>
           </div>
         </div>

@@ -17,6 +17,11 @@ export const PanelMiddleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
+  // Redirect /workspaces to / — panel has no workspaces page
+  if (path === "/workspaces" || path.startsWith("/workspaces/")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   return NextResponse.rewrite(
     new URL(`/panel.ingat.cc${path === "/" ? "" : path}`, req.url),
   );

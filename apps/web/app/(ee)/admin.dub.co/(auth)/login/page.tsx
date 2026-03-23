@@ -4,7 +4,7 @@ import { constructMetadata } from "@dub/utils";
 import { Suspense } from "react";
 
 export const metadata = constructMetadata({
-  title: "Admin Login - Ingat",
+  title: "Ingat Admin",
   noIndex: true,
 });
 
@@ -15,9 +15,12 @@ export default function AdminLoginPage() {
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center">
         <div className="w-full max-w-sm px-4">
           <h3 className="text-center text-xl font-semibold">Ingat Admin</h3>
+          <p className="mt-2 text-center text-sm text-neutral-500">
+            Admin dashboard
+          </p>
           <div className="mt-8">
             <Suspense>
-              <LoginForm methods={["email", "password"]} />
+              <LoginForm methods={["email", "password"]} next="/" />
             </Suspense>
           </div>
         </div>
