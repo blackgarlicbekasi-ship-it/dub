@@ -12,6 +12,10 @@ import { useState } from "react";
 
 const tabs = [
   {
+    href: "/users",
+    label: "Users",
+  },
+  {
     href: "/links",
     label: "Links",
   },
