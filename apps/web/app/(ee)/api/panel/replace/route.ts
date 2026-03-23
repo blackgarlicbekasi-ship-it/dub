@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { isDubAdmin } from "@/lib/auth/admin";
 import { linkCache } from "@/lib/api/links/cache";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,40 +10,54 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { oldDomain, newDomain, preview } = await req.json();
+  const { oldDomain, newDomain, preview, mode, selectedUserIds } = await req.json();
 
-  if (!oldDomain || !newDomain) {
-    return NextResponse.json(
-      { error: "oldDomain and newDomain are required" },
-      { status: 400 },
-    );
+  const od = (oldDomain || "").trim();
+  const nd = (newDomain || "").trim();
+
+  if (!od || od.length < 3) {
+    return NextResponse.json({ error: "Old domain must be at least 3 characters" }, { status: 400 });
+  }
+  if (!nd || nd.length < 3) {
+    return NextResponse.json({ error: "New domain must be at least 3 characters" }, { status: 400 });
+  }
+  if (od === nd) {
+    return NextResponse.json({ error: "Old and new domain cannot be the same" }, { status: 400 });
   }
 
   const userId = session.user.id;
+  const admin = await isDubAdmin(userId);
+  const effectiveMode = admin ? (mode || "my") : "my";
 
-  const ownedWorkspaces = await prisma.projectUsers.findMany({
-    where: { userId, role: "owner" },
-    select: { projectId: true },
-  });
+  let projectIds: string[] = [];
 
-  const projectIds = ownedWorkspaces.map((w) => w.projectId);
+  if (effectiveMode === "my") {
+    const ws = await prisma.projectUsers.findMany({
+      where: { userId, role: "owner" },
+      select: { projectId: true },
+    });
+    projectIds = ws.map((w) => w.projectId);
+  } else if (effectiveMode === "selected" && Array.isArray(selectedUserIds)) {
+    const ws = await prisma.projectUsers.findMany({
+      where: { userId: { in: selectedUserIds }, role: "owner" },
+      select: { projectId: true },
+    });
+    projectIds = ws.map((w) => w.projectId);
+  }
 
-  if (projectIds.length === 0) {
-    return NextResponse.json({ links: [], total: 0 });
+  const whereClause: Record<string, unknown> = {
+    url: { contains: od },
+  };
+  if (effectiveMode !== "all") {
+    if (projectIds.length === 0) {
+      return NextResponse.json({ links: [], total: 0 });
+    }
+    whereClause.projectId = { in: projectIds };
   }
 
   const matchingLinks = await prisma.link.findMany({
-    where: {
-      projectId: { in: projectIds },
-      url: { contains: oldDomain },
-    },
-    select: {
-      id: true,
-      domain: true,
-      key: true,
-      shortLink: true,
-      url: true,
-    },
+    where: whereClause,
+    select: { id: true, domain: true, key: true, shortLink: true, url: true },
     take: 500,
   });
 
@@ -54,7 +69,7 @@ export const POST = async (req: NextRequest) => {
         id: link.id,
         shortLink: link.shortLink || `https://${link.domain}/${link.key}`,
         currentUrl: link.url,
-        newUrl: link.url.replace(new RegExp(escapeRegex(oldDomain), "g"), newDomain),
+        newUrl: link.url.replace(new RegExp(escapeRegex(od), "g"), nd),
       })),
       total,
     });
@@ -64,15 +79,9 @@ export const POST = async (req: NextRequest) => {
   const cacheKeys: { domain: string; key: string }[] = [];
 
   for (const link of matchingLinks) {
-    const newUrl = link.url.replace(
-      new RegExp(escapeRegex(oldDomain), "g"),
-      newDomain,
-    );
+    const newUrl = link.url.replace(new RegExp(escapeRegex(od), "g"), nd);
     if (newUrl !== link.url) {
-      await prisma.link.update({
-        where: { id: link.id },
-        data: { url: newUrl },
-      });
+      await prisma.link.update({ where: { id: link.id }, data: { url: newUrl } });
       cacheKeys.push({ domain: link.domain, key: link.key });
       updated++;
     }
@@ -83,12 +92,8 @@ export const POST = async (req: NextRequest) => {
   }
 
   await prisma.$executeRawUnsafe(
-    `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, createdAt) VALUES (?, ?, ?, ?, ?, NOW())`,
-    generateId(),
-    userId,
-    oldDomain,
-    newDomain,
-    updated,
+    `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, isUndo, createdAt) VALUES (?, ?, ?, ?, ?, 0, NOW())`,
+    genId("rpl_"), userId, od, nd, updated,
   );
 
   return NextResponse.json({ updated });
@@ -98,11 +103,9 @@ function escapeRegex(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function generateId() {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "rpl_";
-  for (let i = 0; i < 20; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+function genId(prefix: string) {
+  const c = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let r = prefix;
+  for (let i = 0; i < 20; i++) r += c.charAt(Math.floor(Math.random() * c.length));
+  return r;
 }

@@ -13,8 +13,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const bots = await prisma.$queryRawUnsafe(
       `SELECT botToken, chatId FROM TelegramBot WHERE id = ? AND userId = ?`,
-      id,
-      session.user.id,
+      id, session.user.id,
     ) as { botToken: string; chatId: string }[];
 
     if (!bots.length) {
@@ -22,8 +21,6 @@ export const POST = async (req: NextRequest) => {
     }
 
     const bot = bots[0];
-    const message = "Ingat Panel test notification - your bot is configured correctly!";
-
     const tgRes = await fetch(
       `https://api.telegram.org/bot${bot.botToken}/sendMessage`,
       {
@@ -31,7 +28,7 @@ export const POST = async (req: NextRequest) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: bot.chatId,
-          text: message,
+          text: "Ingat Panel test notification - your bot is configured correctly!",
           parse_mode: "HTML",
         }),
       },
@@ -39,10 +36,7 @@ export const POST = async (req: NextRequest) => {
 
     if (!tgRes.ok) {
       const err = await tgRes.json();
-      return NextResponse.json(
-        { error: err.description || "Telegram API error" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: err.description || "Telegram API error" }, { status: 400 });
     }
 
     return NextResponse.json({ success: true });

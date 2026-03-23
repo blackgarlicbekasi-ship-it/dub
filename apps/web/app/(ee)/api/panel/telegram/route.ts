@@ -2,10 +2,28 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+async function checkTelegramAccess(userId: string): Promise<boolean> {
+  try {
+    const rows = await prisma.$queryRawUnsafe(
+      `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
+      userId,
+    ) as { enabled: number }[];
+    if (rows.length === 0) return false;
+    return rows[0].enabled === 1;
+  } catch {
+    return false;
+  }
+}
+
 export const GET = async () => {
   const session = await getSession();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const hasAccess = await checkTelegramAccess(session.user.id);
+  if (!hasAccess) {
+    return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
   }
 
   try {
@@ -23,6 +41,11 @@ export const POST = async (req: NextRequest) => {
   const session = await getSession();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const hasAccess = await checkTelegramAccess(session.user.id);
+  if (!hasAccess) {
+    return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
   }
 
   const { name, botToken, chatId } = await req.json();
@@ -43,11 +66,7 @@ export const POST = async (req: NextRequest) => {
     const id = "tg_" + Math.random().toString(36).substring(2, 22);
     await prisma.$executeRawUnsafe(
       `INSERT INTO TelegramBot (id, userId, botToken, chatId, name, isActive, createdAt) VALUES (?, ?, ?, ?, ?, 1, NOW())`,
-      id,
-      session.user.id,
-      botToken,
-      chatId,
-      name,
+      id, session.user.id, botToken, chatId, name,
     );
 
     return NextResponse.json({ success: true });
@@ -63,6 +82,11 @@ export const DELETE = async (req: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const hasAccess = await checkTelegramAccess(session.user.id);
+  if (!hasAccess) {
+    return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
+  }
+
   const { id } = await req.json();
   if (!id) {
     return NextResponse.json({ error: "Bot ID required" }, { status: 400 });
@@ -70,8 +94,7 @@ export const DELETE = async (req: NextRequest) => {
 
   await prisma.$executeRawUnsafe(
     `DELETE FROM TelegramBot WHERE id = ? AND userId = ?`,
-    id,
-    session.user.id,
+    id, session.user.id,
   );
 
   return NextResponse.json({ success: true });

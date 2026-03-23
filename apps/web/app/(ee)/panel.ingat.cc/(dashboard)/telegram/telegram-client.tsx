@@ -8,7 +8,7 @@ interface TelegramBot {
   id: string;
   name: string;
   chatId: string;
-  isActive: boolean;
+  isActive: number;
 }
 
 export function TelegramClient() {
@@ -18,23 +18,33 @@ export function TelegramClient() {
   const [botToken, setBotToken] = useState("");
   const [chatId, setChatId] = useState("");
   const [saving, setSaving] = useState(false);
+  const [allowed, setAllowed] = useState<boolean | null>(null);
 
   const fetchBots = () => {
     fetch("/api/panel/telegram")
-      .then((r) => r.json())
+      .then((r) => {
+        if (r.status === 403) { setAllowed(false); return { bots: [] }; }
+        setAllowed(true);
+        return r.json();
+      })
       .then((data) => setBots(data.bots || []))
       .catch(() => setBots([]));
   };
 
-  useEffect(() => {
-    fetchBots();
-  }, []);
+  useEffect(() => { fetchBots(); }, []);
+
+  if (allowed === false) {
+    return (
+      <div className="px-6 py-8 lg:px-10">
+        <div className="flex h-60 items-center justify-center rounded-lg border border-neutral-200 bg-white text-sm text-neutral-500">
+          Telegram feature is not enabled for your account. Contact administrator.
+        </div>
+      </div>
+    );
+  }
 
   const handleAdd = async () => {
-    if (!name || !botToken || !chatId) {
-      toast.error("All fields are required");
-      return;
-    }
+    if (!name || !botToken || !chatId) { toast.error("All fields are required"); return; }
     setSaving(true);
     try {
       const res = await fetch("/api/panel/telegram", {
@@ -44,18 +54,13 @@ export function TelegramClient() {
       });
       if (res.ok) {
         toast.success("Bot added");
-        setShowAdd(false);
-        setName("");
-        setBotToken("");
-        setChatId("");
+        setShowAdd(false); setName(""); setBotToken(""); setChatId("");
         fetchBots();
       } else {
         const err = await res.json();
         toast.error(err.error || "Failed to add bot");
       }
-    } finally {
-      setSaving(false);
-    }
+    } finally { setSaving(false); }
   };
 
   const handleDelete = async (id: string) => {
@@ -65,10 +70,7 @@ export function TelegramClient() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
-    if (res.ok) {
-      toast.success("Bot deleted");
-      fetchBots();
-    }
+    if (res.ok) { toast.success("Bot deleted"); fetchBots(); }
   };
 
   const handleTest = async (id: string) => {
@@ -77,34 +79,24 @@ export function TelegramClient() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
-    if (res.ok) {
-      toast.success("Test message sent");
-    } else {
-      const err = await res.json();
-      toast.error(err.error || "Test failed");
-    }
+    if (res.ok) toast.success("Test message sent");
+    else { const err = await res.json(); toast.error(err.error || "Test failed"); }
   };
 
   return (
-    <div className="mx-auto w-full max-w-screen-lg px-4 py-8 sm:px-6">
-      <div className="flex items-center justify-between">
+    <div className="px-6 py-8 lg:px-10">
+      <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-neutral-900">Telegram Bots</h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Get notified after bulk replacements
-          </p>
+          <h1 className="text-lg font-semibold text-neutral-900">Telegram Bots</h1>
+          <p className="mt-1 text-sm text-neutral-500">Get notified after bulk replacements</p>
         </div>
         {bots && bots.length < 5 && (
-          <Button
-            text="Add Bot"
-            onClick={() => setShowAdd(true)}
-            className="h-9"
-          />
+          <Button text="Add Bot" onClick={() => setShowAdd(true)} className="h-9" />
         )}
       </div>
 
       {showAdd && (
-        <div className="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
+        <div className="mb-4 rounded-lg border border-neutral-200 bg-white p-4">
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
               <label className="mb-1 block text-xs font-medium text-neutral-600">Name</label>
@@ -126,15 +118,11 @@ export function TelegramClient() {
         </div>
       )}
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200 bg-white">
+      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white">
         {bots === null ? (
-          <div className="flex h-40 items-center justify-center">
-            <LoadingSpinner className="h-6 w-6" />
-          </div>
+          <div className="flex h-40 items-center justify-center"><LoadingSpinner className="h-6 w-6" /></div>
         ) : bots.length === 0 ? (
-          <div className="flex h-40 items-center justify-center text-sm text-neutral-500">
-            No Telegram bots configured
-          </div>
+          <div className="flex h-40 items-center justify-center text-sm text-neutral-500">No Telegram bots configured</div>
         ) : (
           <table className="w-full">
             <thead>
@@ -145,7 +133,7 @@ export function TelegramClient() {
                 <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-200">
+            <tbody className="divide-y divide-neutral-100">
               {bots.map((bot) => (
                 <tr key={bot.id} className="hover:bg-neutral-50">
                   <td className="px-4 py-3 text-sm font-medium text-neutral-900">{bot.name}</td>
@@ -156,7 +144,7 @@ export function TelegramClient() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center justify-end gap-3">
                       <button onClick={() => handleTest(bot.id)} className="text-xs text-blue-600 hover:underline">Test</button>
                       <button onClick={() => handleDelete(bot.id)} className="text-xs text-red-600 hover:underline">Delete</button>
                     </div>
