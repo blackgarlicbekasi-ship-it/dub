@@ -58,7 +58,7 @@ export const GET = withAdmin(async ({ req, searchParams }) => {
   const userIds = users.map((u) => u.id);
   const telegramFeatures = userIds.length > 0
     ? await prisma.$queryRawUnsafe(
-        \`SELECT userId, enabled FROM UserFeature WHERE feature = 'telegram' AND userId IN (\${userIds.map(() => "?").join(",")})\`,
+        `SELECT userId, enabled FROM UserFeature WHERE feature = 'telegram' AND userId IN (${userIds.map(() => "?").join(",")})`,
         ...userIds,
       ) as { userId: string; enabled: number }[]
     : [];

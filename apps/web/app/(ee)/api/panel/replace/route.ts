@@ -130,14 +130,14 @@ async function sendTelegramNotifications(userId: string, oldDomain: string, newD
   const message = [
     "Bulk URL Replace completed",
     "",
-    \`Old: \${oldDomain}\`,
-    \`New: \${newDomain}\`,
-    \`Links updated: \${linksUpdated}\`,
+    `Old: ${oldDomain}`,
+    `New: ${newDomain}`,
+    `Links updated: ${linksUpdated}`,
   ].join("\n");
 
   for (const bot of bots) {
     try {
-      await fetch(\`https://api.telegram.org/bot\${bot.botToken}/sendMessage\`, {
+      await fetch(`https://api.telegram.org/bot${bot.botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
