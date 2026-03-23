@@ -5,6 +5,7 @@ import {
   API_HOSTNAMES,
   APP_HOSTNAMES,
   DEFAULT_REDIRECTS,
+  SHORT_DOMAIN,
   isValidUrl,
 } from "@dub/utils";
 import { PARTNERS_HOSTNAMES } from "@dub/utils/src/constants";
@@ -21,25 +22,52 @@ import { supportedWellKnownFiles } from "./lib/well-known";
 export const config = {
   runtime: "nodejs",
   matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api/ routes
-     * 2. /_next/ (Next.js internals)
-     * 3. /_proxy/ (proxies for third-party services)
-     * 4. Metadata files: favicon.ico, sitemap.xml, robots.txt, manifest.webmanifest
-     */
     "/((?!api/|_next/|_proxy/|favicon.ico|sitemap.xml|robots.txt|manifest.webmanifest).*)",
   ],
 };
 
+const MARKETING_PATHS = new Set([
+  "/",
+  "/home",
+  "/pricing",
+  "/blog",
+  "/enterprise",
+  "/customers",
+  "/legal",
+  "/tools",
+  "/help",
+  "/links",
+  "/analytics",
+  "/partners",
+  "/docs",
+  "/integrations",
+  "/about",
+  "/careers",
+  "/brand",
+  "/changelog",
+  "/contact",
+  "/privacy",
+  "/sdks",
+  "/solutions",
+  "/compare",
+  "/features",
+  "/not-found",
+]);
+
+function isMarketingPath(path: string): boolean {
+  if (MARKETING_PATHS.has(path)) return true;
+  for (const prefix of MARKETING_PATHS) {
+    if (prefix !== "/" && path.startsWith(prefix + "/")) return true;
+  }
+  return false;
+}
+
 export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { domain, path, key, fullKey } = parse(req);
 
-  // Axiom logging
   logger.info(...transformMiddlewareRequest(req));
   ev.waitUntil(logger.flush());
 
-  // for App
   if (APP_HOSTNAMES.has(domain)) {
     const pathSegments = path.split("/").filter(Boolean);
     const isShortlink = pathSegments.length === 1 && !["login","register","forgot-password","onboarding","account","new","workspaces","embed","_static","app.dub.co"].includes(pathSegments[0]);
@@ -49,17 +77,14 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
     return AppMiddleware(req);
   }
 
-  // for API
   if (API_HOSTNAMES.has(domain)) {
     return ApiMiddleware(req);
   }
 
-  // for public stats pages (e.g. d.to/stats/try)
   if (path.startsWith("/stats/")) {
     return NextResponse.rewrite(new URL(`/${domain}${path}`, req.url));
   }
 
-  // for .well-known routes
   if (path.startsWith("/.well-known/")) {
     const file = path.split("/.well-known/").pop();
     if (file && supportedWellKnownFiles.includes(file)) {
@@ -69,17 +94,24 @@ export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
     }
   }
 
-  // default redirects for dub.sh
-  if (domain === "ingat.cc" && DEFAULT_REDIRECTS[key]) {
-    return NextResponse.redirect(DEFAULT_REDIRECTS[key]);
-  }
-
   if (ADMIN_HOSTNAMES.has(domain)) {
     return AdminMiddleware(req);
   }
 
   if (PARTNERS_HOSTNAMES.has(domain)) {
     return PartnersMiddleware(req);
+  }
+
+  if (domain === SHORT_DOMAIN) {
+    if (DEFAULT_REDIRECTS[key]) {
+      return NextResponse.redirect(DEFAULT_REDIRECTS[key]);
+    }
+
+    if (isMarketingPath(path)) {
+      return NextResponse.rewrite(new URL(`/${domain}${path}`, req.url));
+    }
+
+    return LinkMiddleware(req, ev);
   }
 
   if (isValidUrl(fullKey)) {

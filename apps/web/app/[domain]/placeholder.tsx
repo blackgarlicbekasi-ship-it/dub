@@ -5,7 +5,7 @@ import { CTA } from "@/ui/placeholders/cta";
 import { FeaturesSection } from "@/ui/placeholders/features-section";
 import { Hero } from "@/ui/placeholders/hero";
 import { Logo } from "@dub/ui";
-import { cn, createHref } from "@dub/utils";
+import { cn, createHref, SHORT_DOMAIN } from "@dub/utils";
 import { useParams } from "next/navigation";
 import { BubbleIcon } from "../../ui/placeholders/bubble-icon";
 import { BrowserGraphic } from "./browser-graphic";
@@ -17,6 +17,7 @@ const UTM_PARAMS = {
 
 export default function PlaceholderContent() {
   const { domain } = useParams() as { domain: string };
+  const isMain = domain === SHORT_DOMAIN;
 
   return (
     <div>
@@ -25,16 +26,21 @@ export default function PlaceholderContent() {
           <BubbleIcon>
             <Logo className="size-10" />
           </BubbleIcon>
-          <div className="mt-16 w-full">
-            <BrowserGraphic domain={domain} />
-          </div>
+          {!isMain && (
+            <div className="mt-16 w-full">
+              <BrowserGraphic domain={domain} />
+            </div>
+          )}
           <h1
             className={cn(
               "font-display mt-2 text-center text-4xl font-medium text-neutral-900 sm:text-5xl sm:leading-[1.15]",
               "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:20px] [animation-duration:1s] [animation-fill-mode:both]",
+              isMain && "mt-10",
             )}
           >
-            Welcome to Ingat
+            {isMain
+              ? "Shorten, share, and track your links"
+              : "Welcome to Ingat"}
           </h1>
           <p
             className={cn(
@@ -42,8 +48,9 @@ export default function PlaceholderContent() {
               "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:10px] [animation-delay:200ms] [animation-duration:1s] [animation-fill-mode:both]",
             )}
           >
-            This custom domain is powered by Ingat &ndash; the modern link
-            management platform for short links and analytics.
+            {isMain
+              ? "Ingat is a modern link management platform. Create branded short links, QR codes, and track analytics \u2014 all in one place."
+              : "This custom domain is powered by Ingat \u2013 the modern link management platform for short links and analytics."}
           </p>
         </div>
 

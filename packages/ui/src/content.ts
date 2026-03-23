@@ -9,19 +9,15 @@ import {
   DubPartnersIcon,
   EnvelopeFill,
   FeatherFill,
-  Github,
   Go,
   LifeRingFill,
-  LinkedIn,
   MicrophoneFill,
   Php,
   Python,
   Ruby,
   Toggle2Fill,
-  Twitter,
   Typescript,
   UsersFill,
-  YouTube,
 } from "./icons";
 import { DubApiIcon } from "./icons/dub-api";
 import { Logo } from "./logo";
@@ -70,7 +66,7 @@ export const FEATURES_LIST = [
   },
   {
     title: "Ingat Integrations",
-    description: "Connect Dub with your favorite tools",
+    description: "Connect Ingat with your favorite tools",
     icon: Toggle2Fill,
     href: "/integrations",
   },
@@ -153,13 +149,13 @@ export const RESOURCES = [
   {
     icon: UsersFill,
     title: "About",
-    description: "Company, values, and team",
+    description: "About Ingat",
     href: "/about",
   },
   {
     icon: BriefcaseFill,
     title: "Careers",
-    description: "Join our global, remote team",
+    description: "Join our team",
     href: "/careers",
   },
   {
@@ -196,31 +192,9 @@ export const COMPARE_PAGES = [
 ];
 
 export const LEGAL_PAGES = [
-  { name: "Affiliate Program Terms", slug: "affiliates" },
-  { name: "DPA", slug: "dpa" },
-  { name: "Partner Terms", slug: "partners" },
   { name: "Privacy Policy", slug: "privacy" },
-  { name: "Report Abuse", slug: "abuse" },
-  { name: "SLA", slug: "sla" },
-  { name: "Subprocessors", slug: "subprocessors" },
   { name: "Terms of Service", slug: "terms" },
+  { name: "Report Abuse", slug: "abuse" },
 ];
 
-export const SOCIAL_LINKS = [
-  { name: "X (Twitter)", icon: Twitter, href: "https://x.com/dubdotco" },
-  {
-    name: "LinkedIn",
-    icon: LinkedIn,
-    href: "https://www.linkedin.com/company/dubinc",
-  },
-  {
-    name: "GitHub",
-    icon: Github,
-    href: "https://github.com/dubinc/dub",
-  },
-  {
-    name: "YouTube",
-    icon: YouTube,
-    href: "https://www.youtube.com/@dubdotco",
-  },
-];
+export const SOCIAL_LINKS: { name: string; icon: ElementType; href: string }[] = [];

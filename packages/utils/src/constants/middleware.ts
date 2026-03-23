@@ -1,6 +1,5 @@
-export const DEFAULT_REDIRECTS = {
+export const DEFAULT_REDIRECTS: Record<string, string> = {
   home: "https://ingat.cc",
-  dub: "https://ingat.cc",
   signin: "https://app.ingat.cc/login",
   login: "https://app.ingat.cc/login",
   register: "https://app.ingat.cc/register",
@@ -10,7 +9,6 @@ export const DEFAULT_REDIRECTS = {
   links: "https://app.ingat.cc/links",
   settings: "https://app.ingat.cc/settings",
   welcome: "https://app.ingat.cc/onboarding/welcome",
-  discord: "https://twitter.com/dubdotco", // placeholder for now
 };
 
 export const DUB_HEADERS = {

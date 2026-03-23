@@ -58,16 +58,6 @@ export const navItems = [
     ],
   },
   {
-    name: "Enterprise",
-    href: "/enterprise",
-    segments: ["/enterprise"],
-  },
-  {
-    name: "Customers",
-    href: "/customers",
-    segments: ["/customers"],
-  },
-  {
     name: "Pricing",
     href: "/pricing",
     segments: ["/pricing"],
@@ -79,8 +69,6 @@ const navItemClassName = cn(
   "dark:text-white/90 dark:hover:text-white",
   "hover:bg-neutral-900/5 dark:hover:bg-white/10",
   "data-[active=true]:bg-neutral-900/5 dark:data-[active=true]:bg-white/10",
-
-  // Hide active state when another item is hovered
   "group-has-[:hover]:data-[active=true]:[&:not(:hover)]:bg-transparent",
 );
 
@@ -119,7 +107,6 @@ export function Nav({
             theme === "dark" && "dark",
           )}
         >
-          {/* Scrolled background */}
           <div
             className={cn(
               "absolute inset-0 block border-b border-transparent transition-all",

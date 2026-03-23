@@ -6,13 +6,12 @@ import { Hero } from "@/ui/placeholders/hero";
 import { GlobeSearch } from "@dub/ui";
 import { cn, constructMetadata, createHref } from "@dub/utils";
 
-export const revalidate = false; // cache indefinitely
+export const revalidate = false;
 
 export const metadata = constructMetadata({
   title: "Link Not Found",
   description:
-    "This link does not exist on Ingat. Please check the URL and try again.",
-  image: "https://assets.dub.co/misc/notfoundlink.jpg",
+    "This link does not exist. Please check the URL and try again.",
   noIndex: true,
 });
 
@@ -46,7 +45,7 @@ export default async function NotFoundLinkPage(props: {
               "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:10px] [animation-delay:200ms] [animation-duration:1s] [animation-fill-mode:both]",
             )}
           >
-            This link does not exist on Ingat. Please check the URL and try again.
+            This link does not exist. Please check the URL and try again.
           </p>
         </div>
 
@@ -56,7 +55,7 @@ export default async function NotFoundLinkPage(props: {
             "animate-slide-up-fade motion-reduce:animate-fade-in [--offset:5px] [animation-delay:300ms] [animation-duration:1s] [animation-fill-mode:both]",
           )}
         >
-          <ButtonLink variant="primary" href="https://app.ingat.cc/register">
+          <ButtonLink variant="primary" href="https://app.ingat.cc">
             Go to Ingat
           </ButtonLink>
           <ButtonLink
