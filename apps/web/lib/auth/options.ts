@@ -36,15 +36,11 @@ const CustomPrismaAdapter = (p: PrismaClient) => {
   return {
     ...PrismaAdapter(p),
     createUser: async (data: any) => {
-      return p.user.create({
-        data: {
-          ...data,
-          id: createId({ prefix: "user_" }),
-          notificationPreferences: {
-            create: {},
-          },
-        },
+      const existing = await p.user.findUnique({
+        where: { email: data.email },
       });
+      if (existing) return existing;
+      throw new Error("Registration is disabled. Contact your administrator.");
     },
   };
 };
@@ -99,20 +95,8 @@ export const authOptions: NextAuthOptions = {
           where: { email: profile.email },
         });
 
-        // user is authorized but doesn't have a Dub account, create one for them
         if (!existingUser) {
-          existingUser = await prisma.user.create({
-            data: {
-              id: createId({ prefix: "user_" }),
-              email: profile.email,
-              name: `${profile.firstName || ""} ${
-                profile.lastName || ""
-              }`.trim(),
-              notificationPreferences: {
-                create: {},
-              },
-            },
-          });
+          throw new Error("Registration is disabled. Contact your administrator.");
         }
 
         const { id, name, email, image } = existingUser;
