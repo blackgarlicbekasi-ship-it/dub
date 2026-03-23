@@ -2,7 +2,7 @@ import { constructMetadata } from "@dub/utils";
 import { ReactNode } from "react";
 import { AdminNav } from "./layout-nav-client";
 
-export const metadata = constructMetadata({ noIndex: true, robots: { index: false, follow: false } });
+export const metadata = constructMetadata({ noIndex: true });
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
