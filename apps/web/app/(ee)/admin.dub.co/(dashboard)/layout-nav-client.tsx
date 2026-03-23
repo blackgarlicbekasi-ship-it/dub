@@ -3,7 +3,6 @@
 import {
   ClientOnly,
   MaxWidthWrapper,
-  NavWordmark,
   Popover,
   useMediaQuery,
 } from "@dub/ui";
@@ -64,8 +63,8 @@ export function AdminNav() {
     <div className="sticky left-0 right-0 top-0 z-20 border-b border-neutral-200 bg-white">
       <MaxWidthWrapper>
         <div className="flex h-16 w-full items-center justify-between sm:justify-start sm:gap-12">
-          <Link href="/">
-            <NavWordmark className="h-6" />
+          <Link href="/" className="text-xl font-bold text-black">
+            Ingat
           </Link>
           <ClientOnly>
             {isMobile ? (
