@@ -15,7 +15,7 @@ import {
 } from "@/lib/zod/schemas/domains";
 import { prisma } from "@dub/prisma";
 import { Link, Prisma } from "@dub/prisma/client";
-import { combineWords, DEFAULT_LINK_PROPS, nanoid } from "@dub/utils";
+import { combineWords, DEFAULT_LINK_PROPS, DUB_DOMAINS_ARRAY, nanoid } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 // GET /api/domains – get all domains for a workspace
@@ -33,11 +33,10 @@ export const GET = withWorkspace(
       where: {
         projectId: workspace.id,
         archived,
-        ...(search && {
-          slug: {
-            contains: search,
-          },
-        }),
+        slug: {
+          ...(search && { contains: search }),
+          ...(DUB_DOMAINS_ARRAY.length > 0 && { notIn: DUB_DOMAINS_ARRAY }),
+        },
       },
       include: {
         registeredDomain: true,
