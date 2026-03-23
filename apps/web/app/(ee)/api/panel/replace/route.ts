@@ -96,8 +96,61 @@ export const POST = async (req: NextRequest) => {
     genId("rpl_"), userId, od, nd, updated,
   );
 
+  // Send telegram notifications (skip if user deactivated or telegram disabled)
+  if (updated > 0) {
+    sendTelegramNotifications(userId, od, nd, updated).catch(() => {});
+  }
+
   return NextResponse.json({ updated });
 };
+
+async function sendTelegramNotifications(userId: string, oldDomain: string, newDomain: string, linksUpdated: number) {
+  // Check if user is active
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { lockedAt: true },
+  });
+  if (user?.lockedAt) return;
+
+  // Check if telegram feature is enabled
+  const featureRows = await prisma.$queryRawUnsafe(
+    `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
+    userId,
+  ) as { enabled: number }[];
+  if (featureRows.length > 0 && featureRows[0].enabled !== 1) return;
+
+  // Get active bots
+  const bots = await prisma.$queryRawUnsafe(
+    `SELECT botToken, chatId FROM TelegramBot WHERE userId = ? AND isActive = 1`,
+    userId,
+  ) as { botToken: string; chatId: string }[];
+
+  if (bots.length === 0) return;
+
+  const message = [
+    "Bulk URL Replace completed",
+    "",
+    \`Old: \${oldDomain}\`,
+    \`New: \${newDomain}\`,
+    \`Links updated: \${linksUpdated}\`,
+  ].join("\n");
+
+  for (const bot of bots) {
+    try {
+      await fetch(\`https://api.telegram.org/bot\${bot.botToken}/sendMessage\`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: bot.chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch {
+      // Silently skip failed notifications
+    }
+  }
+}
 
 function escapeRegex(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

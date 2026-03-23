@@ -54,6 +54,16 @@ export const GET = withAdmin(async ({ req, searchParams }) => {
     prisma.user.count({ where }),
   ]);
 
+  // Fetch telegram feature status for all users
+  const userIds = users.map((u) => u.id);
+  const telegramFeatures = userIds.length > 0
+    ? await prisma.$queryRawUnsafe(
+        \`SELECT userId, enabled FROM UserFeature WHERE feature = 'telegram' AND userId IN (\${userIds.map(() => "?").join(",")})\`,
+        ...userIds,
+      ) as { userId: string; enabled: number }[]
+    : [];
+  const telegramMap = new Map(telegramFeatures.map((f) => [f.userId, f.enabled === 1]));
+
   const formatted = users.map((u) => {
     const workspace = u.projects[0]?.project || null;
     return {
@@ -64,6 +74,7 @@ export const GET = withAdmin(async ({ req, searchParams }) => {
       createdAt: u.createdAt,
       lockedAt: u.lockedAt,
       invalidLoginAttempts: u.invalidLoginAttempts,
+      telegramEnabled: telegramMap.get(u.id) || false,
       workspace: workspace
         ? {
             id: workspace.id,

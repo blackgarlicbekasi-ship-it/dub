@@ -24,6 +24,7 @@ export interface UserRow {
   createdAt: string;
   lockedAt: string | null;
   invalidLoginAttempts: number;
+  telegramEnabled: boolean;
   workspace: Workspace | null;
 }
 

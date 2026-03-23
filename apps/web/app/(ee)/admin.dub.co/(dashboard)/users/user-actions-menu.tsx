@@ -103,7 +103,7 @@ export function UserActionsMenu({
               }}
             />
             <MenuButton
-              label="Toggle Telegram"
+              label={user.telegramEnabled ? "Disable Telegram" : "Enable Telegram"}
               onClick={() => {
                 setOpen(false);
                 handleAction("toggle_telegram");
