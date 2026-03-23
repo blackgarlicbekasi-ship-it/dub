@@ -1,14 +1,15 @@
 "use client";
 
 import { LoadingSpinner } from "@dub/ui";
+import { timeAgo } from "@dub/utils";
 import { useEffect, useState } from "react";
 
 interface DomainInfo {
   slug: string;
   verified: boolean;
   primary: boolean;
-  target: string | null;
-  type: string;
+  archived: boolean;
+  createdAt: string;
 }
 
 export function DomainsClient() {
@@ -47,13 +48,10 @@ export function DomainsClient() {
                   Domain
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
-                  Type
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
                   Status
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
-                  Target
+                  Created
                 </th>
               </tr>
             </thead>
@@ -67,8 +65,12 @@ export function DomainsClient() {
                         Primary
                       </span>
                     )}
+                    {d.archived && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-500">
+                        Archived
+                      </span>
+                    )}
                   </td>
-                  <td className="px-4 py-3 text-sm text-neutral-500">{d.type}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -80,8 +82,8 @@ export function DomainsClient() {
                       {d.verified ? "Verified" : "Pending"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-neutral-500">
-                    {d.target || "\u2014"}
+                  <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-500">
+                    {timeAgo(new Date(d.createdAt))}
                   </td>
                 </tr>
               ))}
