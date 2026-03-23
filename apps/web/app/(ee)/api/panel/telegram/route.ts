@@ -1,8 +1,13 @@
 import { getSession } from "@/lib/auth";
+import { isDubAdmin } from "@/lib/auth/admin";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 async function checkTelegramAccess(userId: string): Promise<boolean> {
+  // Admin always has access
+  const isAdmin = await isDubAdmin(userId);
+  if (isAdmin) return true;
+
   try {
     const rows = await prisma.$queryRawUnsafe(
       `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,

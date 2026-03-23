@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { CreateUserModal } from "./create-user-modal";
 import { UserActionsMenu } from "./user-actions-menu";
-import { UserLinksPanel } from "./user-links-panel";
+
 
 interface Workspace {
   id: string;
@@ -42,7 +42,7 @@ export function UsersPageClient() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [linksUser, setLinksUser] = useState<UserRow | null>(null);
+  
   const { isMobile } = useMediaQuery();
 
   const fetchUsers = useCallback(async () => {
@@ -75,15 +75,6 @@ export function UsersPageClient() {
     setPage(1);
     fetchUsers();
   };
-
-  if (linksUser) {
-    return (
-      <UserLinksPanel
-        user={linksUser}
-        onBack={() => setLinksUser(null)}
-      />
-    );
-  }
 
   return (
     <div className="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6">
@@ -214,12 +205,9 @@ export function UsersPageClient() {
                           </td>
                           <td className="px-4 py-3 text-sm tabular-nums text-neutral-700">
                             {user.workspace ? (
-                              <button
-                                onClick={() => setLinksUser(user)}
-                                className="text-blue-600 hover:underline"
-                              >
+                              <span className="tabular-nums">
                                 {user.workspace.totalLinks}
-                              </button>
+                              </span>
                             ) : (
                               0
                             )}
@@ -233,7 +221,7 @@ export function UsersPageClient() {
                         <UserActionsMenu
                           user={user}
                           onUpdate={fetchUsers}
-                          onViewLinks={(u) => setLinksUser(u)}
+                          onViewLinks={() => {}}
                         />
                       </td>
                     </tr>

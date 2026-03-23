@@ -40,7 +40,7 @@ export function CreateUserModal({
 
       if (res.ok) {
         toast.success(
-          `User created: ${data.email} (${data.plan}) — workspace: ${data.workspaceSlug}`,
+          `User created: ${data.email} (${data.plan}). Workspace will be created on first login.`,
         );
         onCreated();
       } else {
@@ -121,6 +121,9 @@ export function CreateUserModal({
               <option value="business">Business</option>
               <option value="enterprise">Enterprise</option>
             </select>
+            <p className="mt-1 text-xs text-neutral-400">
+              User will create their own workspace on first login via onboarding.
+            </p>
           </div>
           <div className="mt-2 flex gap-3">
             <Button

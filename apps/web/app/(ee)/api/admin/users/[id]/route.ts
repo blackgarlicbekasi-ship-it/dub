@@ -74,6 +74,38 @@ export const PATCH = withAdmin(async ({ req, params }) => {
     return NextResponse.json({ success: true, message: "User unsuspended" });
   }
 
+  if (action === "toggle_telegram") {
+    try {
+      const rows = await prisma.$queryRawUnsafe(
+        `SELECT id, enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
+        userId,
+      ) as { id: string; enabled: number }[];
+
+      if (rows.length === 0) {
+        // Create enabled
+        await prisma.$executeRawUnsafe(
+          `INSERT INTO UserFeature (id, userId, feature, enabled) VALUES (UUID(), ?, 'telegram', 1)`,
+          userId,
+        );
+        return NextResponse.json({ success: true, message: "Telegram access enabled", enabled: true });
+      } else {
+        const newVal = rows[0].enabled === 1 ? 0 : 1;
+        await prisma.$executeRawUnsafe(
+          `UPDATE UserFeature SET enabled = ? WHERE id = ?`,
+          newVal, rows[0].id,
+        );
+        return NextResponse.json({
+          success: true,
+          message: newVal === 1 ? "Telegram access enabled" : "Telegram access disabled",
+          enabled: newVal === 1,
+        });
+      }
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Failed to toggle telegram";
+      return NextResponse.json({ error: message }, { status: 500 });
+    }
+  }
+
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
 });
 
@@ -128,6 +160,10 @@ export const DELETE = withAdmin(async ({ params }) => {
   await prisma.account.deleteMany({
     where: { userId },
   });
+
+  // Clean up UserFeature and TelegramBot
+  await prisma.$executeRawUnsafe(`DELETE FROM UserFeature WHERE userId = ?`, userId);
+  await prisma.$executeRawUnsafe(`DELETE FROM TelegramBot WHERE userId = ?`, userId);
 
   await prisma.user.delete({
     where: { id: userId },

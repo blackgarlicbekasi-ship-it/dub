@@ -1,19 +1,8 @@
 import { withAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/auth/password";
 import { createId } from "@/lib/api/create-id";
-import { createWorkspaceId } from "@/lib/api/workspaces/create-workspace-id";
 import { prisma } from "@dub/prisma";
-import { nanoid } from "@dub/utils";
 import { NextResponse } from "next/server";
-
-function generateRandomString(length: number) {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return result;
-}
 
 export const GET = withAdmin(async ({ req, searchParams }) => {
   const page = parseInt(searchParams.page || "1");
@@ -139,48 +128,8 @@ export const POST = withAdmin(async ({ req }) => {
       email,
       passwordHash,
       emailVerified: new Date(),
+      source: `admin:${plan}`,
       notificationPreferences: {
-        create: {},
-      },
-    },
-  });
-
-  const slug =
-    email
-      .split("@")[0]
-      .replace(/[^a-z0-9]/gi, "")
-      .toLowerCase()
-      .slice(0, 20) || "user";
-
-  let workspaceSlug = slug;
-  const existingWorkspace = await prisma.project.findUnique({
-    where: { slug: workspaceSlug },
-  });
-  if (existingWorkspace) {
-    workspaceSlug = `${slug}-${generateRandomString(4)}`;
-  }
-
-  const workspaceId = createWorkspaceId();
-
-  await prisma.project.create({
-    data: {
-      id: workspaceId,
-      name: workspaceSlug,
-      slug: workspaceSlug,
-      plan,
-      users: {
-        create: {
-          userId: user.id,
-          role: "owner",
-          notificationPreference: {
-            create: {},
-          },
-        },
-      },
-      billingCycleStart: new Date().getDate(),
-      invoicePrefix: generateRandomString(8),
-      inviteCode: nanoid(24),
-      defaultDomains: {
         create: {},
       },
     },
@@ -189,7 +138,7 @@ export const POST = withAdmin(async ({ req }) => {
   return NextResponse.json({
     userId: user.id,
     email: user.email,
-    workspaceSlug,
     plan,
+    message: "User created. They will set up their workspace on first login.",
   });
 });
