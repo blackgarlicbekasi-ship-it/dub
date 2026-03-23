@@ -1,7 +1,6 @@
 import { constructMetadata } from "@dub/utils";
 import { BanLink } from "./components/ban-link";
 import { CreateUser } from "./components/create-user";
-import { DeletePartnerAccount } from "./components/delete-partner-account";
 import { ImpersonateUser } from "./components/impersonate-user";
 import { ImpersonateWorkspace } from "./components/impersonate-workspace";
 import { RefreshDomain } from "./components/refresh-domain";
@@ -18,7 +17,7 @@ export default function AdminPage() {
       <div className="flex flex-col space-y-4 px-5 py-10">
         <h2 className="text-xl font-semibold">Create User</h2>
         <p className="text-sm text-neutral-500">
-          Create a new user account with a workspace and default domain
+          Create a new user account with workspace and default domain
         </p>
         <CreateUser />
       </div>
@@ -49,7 +48,7 @@ export default function AdminPage() {
       <div className="flex flex-col space-y-4 px-5 py-10">
         <h2 className="text-xl font-semibold">Reset Login Attempts</h2>
         <p className="text-sm text-neutral-500">
-          Reset a user&#39;s invalidLoginAttempts and lockedAt fields
+          Reset invalidLoginAttempts and lockedAt fields
         </p>
         <ResetLoginAttempts />
       </div>

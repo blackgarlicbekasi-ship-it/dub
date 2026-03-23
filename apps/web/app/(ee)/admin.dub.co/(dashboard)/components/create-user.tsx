@@ -6,12 +6,11 @@ import { useState } from "react";
 export function CreateUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [plan, setPlan] = useState("free");
+  const [plan, setPlan] = useState("pro");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
     success?: boolean;
     message?: string;
-    workspaceSlug?: string;
   } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,15 +30,17 @@ export function CreateUser() {
       if (res.ok) {
         setResult({
           success: true,
-          message: `User created: ${email} (${plan} plan, workspace: ${data.workspaceSlug})`,
-          workspaceSlug: data.workspaceSlug,
+          message: `User created successfully!\nEmail: ${data.email}\nPlan: ${data.plan}\nWorkspace: ${data.workspaceSlug}`,
         });
         setEmail("");
         setPassword("");
       } else {
-        setResult({ success: false, message: data.error || "Failed to create user" });
+        setResult({
+          success: false,
+          message: data.error || "Failed to create user",
+        });
       }
-    } catch (err) {
+    } catch {
       setResult({ success: false, message: "Network error" });
     } finally {
       setLoading(false);
@@ -55,7 +56,9 @@ export function CreateUser() {
         <Input
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           placeholder="user@example.com"
           required
         />
@@ -67,7 +70,9 @@ export function CreateUser() {
         <Input
           type="text"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           placeholder="Minimum 8 characters"
           required
           minLength={8}
@@ -96,7 +101,7 @@ export function CreateUser() {
       />
       {result && (
         <div
-          className={`rounded-md p-3 text-sm ${
+          className={`whitespace-pre-line rounded-md p-3 text-sm ${
             result.success
               ? "bg-green-50 text-green-700"
               : "bg-red-50 text-red-700"

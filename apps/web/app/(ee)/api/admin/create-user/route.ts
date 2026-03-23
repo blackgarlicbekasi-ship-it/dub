@@ -1,15 +1,10 @@
+import { withAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/auth/password";
-import { prisma } from "@dub/prisma";
-import { SHORT_DOMAIN } from "@dub/utils";
-import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth/utils";
 import { createId } from "@/lib/api/create-id";
 import { createWorkspaceId } from "@/lib/api/workspaces/create-workspace-id";
+import { prisma } from "@dub/prisma";
 import { nanoid } from "@dub/utils";
-
-const ADMIN_USER_IDS = new Set([
-  "user_1KMA04Z7J9TCYSHRRA2764Z1T",
-]);
+import { NextResponse } from "next/server";
 
 function generateRandomString(length: number) {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,13 +15,7 @@ function generateRandomString(length: number) {
   return result;
 }
 
-export async function POST(req: Request) {
-  const session = await getSession();
-
-  if (!session?.user?.id || !ADMIN_USER_IDS.has(session.user.id)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
-
+export const POST = withAdmin(async ({ req }) => {
   const { email, password, plan } = await req.json();
 
   if (!email || !password) {
@@ -74,7 +63,12 @@ export async function POST(req: Request) {
     },
   });
 
-  const slug = email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 20) || "user";
+  const slug =
+    email
+      .split("@")[0]
+      .replace(/[^a-z0-9]/gi, "")
+      .toLowerCase()
+      .slice(0, 20) || "user";
 
   let workspaceSlug = slug;
   const existingWorkspace = await prisma.project.findUnique({
@@ -116,4 +110,4 @@ export async function POST(req: Request) {
     workspaceSlug,
     plan,
   });
-}
+});
