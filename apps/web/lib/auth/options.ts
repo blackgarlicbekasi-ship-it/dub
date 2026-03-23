@@ -321,7 +321,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: "lax",
         path: "/",
         // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
-        domain: false && VERCEL_DEPLOYMENT
+        domain: VERCEL_DEPLOYMENT
           ? `.${process.env.NEXT_PUBLIC_APP_DOMAIN}`
           : undefined,
         secure: VERCEL_DEPLOYMENT,
@@ -341,7 +341,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (user?.lockedAt) {
-        return false;
+        throw new Error("account-suspended");
       }
 
       // If the user is not using SAML, we need to check if SAML is enforced for the email domain
@@ -527,6 +527,16 @@ export const authOptions: NextAuthOptions = {
         if (refreshedUser) {
           token.user = refreshedUser;
         } else {
+          return {};
+        }
+      }
+
+      if (token.sub) {
+        const lockedUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { lockedAt: true },
+        });
+        if (lockedUser?.lockedAt) {
           return {};
         }
       }

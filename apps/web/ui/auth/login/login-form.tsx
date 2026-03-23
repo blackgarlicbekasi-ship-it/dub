@@ -39,6 +39,8 @@ export const errorCodes = {
     "It looks like you already have an account with us. Please sign in with your Framer account email instead.",
   "require-saml-sso":
     "Your organization requires authentication through your company's identity provider.",
+  "account-suspended":
+    "Your account has been suspended. Please contact your administrator.",
   Callback:
     "We encountered an issue processing your request. Please try again or contact support if the problem persists.",
   OAuthSignin:

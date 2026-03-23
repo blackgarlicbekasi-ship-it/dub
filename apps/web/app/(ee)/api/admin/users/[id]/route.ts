@@ -60,7 +60,10 @@ export const PATCH = withAdmin(async ({ req, params }) => {
       where: { id: userId },
       data: { lockedAt: new Date() },
     });
-    return NextResponse.json({ success: true, message: "User suspended" });
+    await prisma.session.deleteMany({
+      where: { userId },
+    });
+    return NextResponse.json({ success: true, message: "User suspended and sessions cleared" });
   }
 
   if (action === "unsuspend") {

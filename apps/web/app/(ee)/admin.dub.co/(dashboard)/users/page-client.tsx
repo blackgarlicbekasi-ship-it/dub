@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { CreateUserModal } from "./create-user-modal";
 import { UserActionsMenu } from "./user-actions-menu";
+import { UserLinksPanel } from "./user-links-panel";
 
 interface Workspace {
   id: string;
@@ -41,6 +42,7 @@ export function UsersPageClient() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [linksUser, setLinksUser] = useState<UserRow | null>(null);
   const { isMobile } = useMediaQuery();
 
   const fetchUsers = useCallback(async () => {
@@ -73,6 +75,15 @@ export function UsersPageClient() {
     setPage(1);
     fetchUsers();
   };
+
+  if (linksUser) {
+    return (
+      <UserLinksPanel
+        user={linksUser}
+        onBack={() => setLinksUser(null)}
+      />
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6">
@@ -184,30 +195,34 @@ export function UsersPageClient() {
                         <>
                           <td className="px-4 py-3 text-sm text-neutral-700">
                             {user.workspace ? (
-                              <a
-                                href={`https://app.ingat.cc/${user.workspace.slug}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-medium text-neutral-900 hover:underline"
-                              >
+                              <span className="font-medium text-neutral-900">
                                 {user.workspace.slug}
-                              </a>
+                              </span>
                             ) : (
-                              <span className="text-neutral-400">—</span>
+                              <span className="text-neutral-400">&mdash;</span>
                             )}
                           </td>
                           <td className="px-4 py-3">
                             {user.workspace ? (
                               <PlanBadge plan={user.workspace.plan} />
                             ) : (
-                              <span className="text-sm text-neutral-400">—</span>
+                              <span className="text-sm text-neutral-400">&mdash;</span>
                             )}
                           </td>
                           <td className="px-4 py-3">
                             <StatusBadge lockedAt={user.lockedAt} />
                           </td>
                           <td className="px-4 py-3 text-sm tabular-nums text-neutral-700">
-                            {user.workspace?.totalLinks ?? 0}
+                            {user.workspace ? (
+                              <button
+                                onClick={() => setLinksUser(user)}
+                                className="text-blue-600 hover:underline"
+                              >
+                                {user.workspace.totalLinks}
+                              </button>
+                            ) : (
+                              0
+                            )}
                           </td>
                           <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-500">
                             {timeAgo(new Date(user.createdAt))}
@@ -215,7 +230,11 @@ export function UsersPageClient() {
                         </>
                       )}
                       <td className="px-4 py-3 text-right">
-                        <UserActionsMenu user={user} onUpdate={fetchUsers} />
+                        <UserActionsMenu
+                          user={user}
+                          onUpdate={fetchUsers}
+                          onViewLinks={(u) => setLinksUser(u)}
+                        />
                       </td>
                     </tr>
                   ))}
