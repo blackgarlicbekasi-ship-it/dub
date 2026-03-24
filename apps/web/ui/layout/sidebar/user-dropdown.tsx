@@ -77,9 +77,6 @@ export function UserDropdown() {
       icon: LogOut,
       onClick: () => {
         doLogout("/login");
-        // was: signOut({
-          // callbackUrl: "/login",
-        });
       },
     });
 
