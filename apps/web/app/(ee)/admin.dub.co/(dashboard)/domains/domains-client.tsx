@@ -1,8 +1,9 @@
 "use client";
 
-import { LoadingSpinner } from "@dub/ui";
+import { Button, Input, LoadingSpinner } from "@dub/ui";
 import { timeAgo } from "@dub/utils";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface DomainInfo {
   slug: string;
@@ -14,22 +15,132 @@ interface DomainInfo {
 
 export function DomainsClient() {
   const [domains, setDomains] = useState<DomainInfo[] | null>(null);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newDomain, setNewDomain] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [adding, setAdding] = useState(false);
 
-  useEffect(() => {
+  const fetchDomains = useCallback(() => {
     fetch("/api/admin/domains")
       .then((r) => r.json())
       .then((data) => setDomains(data.domains || []))
       .catch(() => setDomains([]));
   }, []);
 
+  useEffect(() => {
+    fetchDomains();
+  }, [fetchDomains]);
+
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newDomain.trim()) {
+      toast.error("Domain name is required");
+      return;
+    }
+
+    setAdding(true);
+    try {
+      const res = await fetch("/api/admin/domains", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          slug: newDomain.trim(),
+          description: newDescription.trim() || undefined,
+        }),
+      });
+
+      if (res.ok) {
+        toast.success(`Domain ${newDomain.trim()} added`);
+        setNewDomain("");
+        setNewDescription("");
+        setShowAddForm(false);
+        fetchDomains();
+      } else {
+        const data = await res.json();
+        toast.error(data.error || "Failed to add domain");
+      }
+    } catch {
+      toast.error("Network error");
+    } finally {
+      setAdding(false);
+    }
+  };
+
   return (
     <div className="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-neutral-900">Domains</h1>
-        <p className="mt-1 text-sm text-neutral-500">
-          Default domains for shortlink creation
-        </p>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-neutral-900">Domains</h1>
+          <p className="mt-1 text-sm text-neutral-500">
+            Default domains for shortlink creation
+          </p>
+        </div>
+        <Button
+          text="Add Domain"
+          className="h-9 w-auto"
+          onClick={() => setShowAddForm(!showAddForm)}
+        />
       </div>
+
+      {showAddForm && (
+        <div className="mb-6 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-sm font-semibold text-neutral-900">
+            Add New Domain
+          </h2>
+          <form onSubmit={handleAdd} className="flex flex-col gap-4">
+            <label>
+              <span className="mb-1.5 block text-sm font-medium text-neutral-700">
+                Domain Name
+              </span>
+              <Input
+                type="text"
+                placeholder="e.g. pendek.id"
+                value={newDomain}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setNewDomain(e.target.value)
+                }
+                required
+              />
+            </label>
+            <label>
+              <span className="mb-1.5 block text-sm font-medium text-neutral-700">
+                Description
+              </span>
+              <Input
+                type="text"
+                placeholder="e.g. Short domain for Indonesian links"
+                value={newDescription}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setNewDescription(e.target.value)
+                }
+              />
+            </label>
+            <div className="flex items-center gap-2">
+              <Button
+                type="submit"
+                text="Add Domain"
+                loading={adding}
+                className="h-9 w-auto"
+              />
+              <Button
+                type="button"
+                text="Cancel"
+                variant="secondary"
+                className="h-9 w-auto"
+                onClick={() => {
+                  setShowAddForm(false);
+                  setNewDomain("");
+                  setNewDescription("");
+                }}
+              />
+            </div>
+            <p className="text-xs text-neutral-400">
+              Domain will be added as verified. DNS and Vercel configuration must
+              be done manually.
+            </p>
+          </form>
+        </div>
+      )}
 
       <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white">
         {domains === null ? (
