@@ -7,7 +7,7 @@ export async function doLogout(callbackUrl: string = "/login") {
     await fetch(`/api/auth/logout?callbackUrl=${encodeURIComponent(callbackUrl)}`, {
       method: "POST",
     });
-  } catch {
+  } catch (e) {
     // Continue to redirect even if the API call fails
   }
   window.location.href = callbackUrl;
