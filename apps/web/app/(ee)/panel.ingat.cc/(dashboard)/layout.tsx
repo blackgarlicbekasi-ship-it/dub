@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
@@ -15,7 +15,7 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
   const pathname = usePathname();
 
   const handleLogout = () => {
-    signOut({ callbackUrl: "/login" });
+    doLogout("/login");
   };
 
   return (

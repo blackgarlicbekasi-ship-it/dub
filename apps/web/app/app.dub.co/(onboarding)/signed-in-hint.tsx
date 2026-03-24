@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@dub/ui";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import { useState } from "react";
 
 export function SignedInHint() {
@@ -23,9 +24,7 @@ export function SignedInHint() {
         text="Sign in as a different user"
         onClick={() => {
           setIsLoading(true);
-          signOut({
-            callbackUrl: "/login",
-          });
+          doLogout("/login");
         }}
         loading={isLoading}
         className="h-8 w-fit rounded-lg px-3 text-xs shadow-sm"

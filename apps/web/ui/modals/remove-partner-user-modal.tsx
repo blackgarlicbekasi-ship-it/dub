@@ -3,7 +3,8 @@ import usePartnerProfile from "@/lib/swr/use-partner-profile";
 import { PartnerUserProps } from "@/lib/types";
 import { UserAvatar } from "@/ui/users/user-avatar";
 import { Button, Modal, useMediaQuery } from "@dub/ui";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import { useSearchParams } from "next/navigation";
 
 import {
@@ -55,7 +56,7 @@ function RemovePartnerUserModal({
 
       if (self) {
         toast.success("You have left the partner profile!");
-        await signOut({ callbackUrl: "/" });
+        await doLogout("/");
         return;
       }
 

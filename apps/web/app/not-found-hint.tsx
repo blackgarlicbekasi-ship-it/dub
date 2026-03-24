@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@dub/ui";
-import { SessionProvider, signOut, useSession } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -39,7 +40,7 @@ function NotFoundHintChild() {
         text="Sign in as a different user"
         onClick={() => {
           setIsLoading(true);
-          signOut();
+          doLogout();
         }}
         loading={isLoading}
         className="w-fit"

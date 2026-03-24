@@ -6,7 +6,7 @@ import {
   Popover,
   useMediaQuery,
 } from "@dub/ui";
-import { signOut } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -25,7 +25,7 @@ export function AdminNav() {
   const pathname = usePathname();
 
   const handleLogout = () => {
-    signOut({ callbackUrl: "/login" });
+    doLogout("/login");
   };
 
   const NavContent = () => (

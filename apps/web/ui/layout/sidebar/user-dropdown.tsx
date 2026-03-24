@@ -12,7 +12,8 @@ import {
 } from "@dub/ui";
 import { APP_DOMAIN, cn, PARTNERS_DOMAIN } from "@dub/utils";
 import { LogOut } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { doLogout } from "@/lib/auth/logout";
 import Link from "next/link";
 import {
   ComponentPropsWithoutRef,
@@ -75,8 +76,9 @@ export function UserDropdown() {
       label: "Log out",
       icon: LogOut,
       onClick: () => {
-        signOut({
-          callbackUrl: "/login",
+        doLogout("/login");
+        // was: signOut({
+          // callbackUrl: "/login",
         });
       },
     });
