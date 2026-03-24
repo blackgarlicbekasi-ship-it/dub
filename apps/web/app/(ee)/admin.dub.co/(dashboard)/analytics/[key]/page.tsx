@@ -1,5 +1,5 @@
 import { prisma } from "@dub/prisma";
-import { DUB_WORKSPACE_ID } from "@dub/utils";
+import { SHORT_DOMAIN } from "@dub/utils";
 import { notFound } from "next/navigation";
 import { AdminLinkAnalytics } from "./client";
 
@@ -15,7 +15,7 @@ export default async function AdminLinkAnalyticsPage({
   const link = await prisma.link.findFirst({
     where: {
       key: decodedKey,
-      projectId: DUB_WORKSPACE_ID,
+      domain: SHORT_DOMAIN,
     },
     select: {
       id: true,
