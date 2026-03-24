@@ -19,8 +19,8 @@ export const GET = withAdmin(async () => {
   return NextResponse.json({ domains });
 });
 
-export const POST = withAdmin(async (_req: Request) => {
-  const body = await _req.json();
+export const POST = withAdmin(async ({ req }) => {
+  const body = await req.json();
   const { slug, description } = body as {
     slug: string;
     description?: string;
