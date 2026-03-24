@@ -21,7 +21,22 @@ export async function WorkspacesMiddleware(req: NextRequest, user: UserProps) {
     return NextResponse.redirect(new URL(searchParamsObj.next, req.url));
   }
 
-  const defaultWorkspace = await getDefaultWorkspace(user);
+  // Parallelize independent lookups: default workspace and pending invite
+  const [defaultWorkspace, projectInvite] = await Promise.all([
+    getDefaultWorkspace(user),
+    prismaEdge.projectInvite.findFirst({
+      where: {
+        email: user.email,
+      },
+      select: {
+        project: {
+          select: {
+            slug: true,
+          },
+        },
+      },
+    }),
+  ]);
 
   // If user has a default workspace, redirect them to it
   if (defaultWorkspace) {
@@ -46,19 +61,6 @@ export async function WorkspacesMiddleware(req: NextRequest, user: UserProps) {
   }
 
   // Redirect user to the accept invite page if they have a pending invite
-  const projectInvite = await prismaEdge.projectInvite.findFirst({
-    where: {
-      email: user.email,
-    },
-    select: {
-      project: {
-        select: {
-          slug: true,
-        },
-      },
-    },
-  });
-
   if (projectInvite) {
     return NextResponse.redirect(
       new URL(`/${projectInvite.project.slug}/invite`, req.url),

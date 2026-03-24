@@ -57,32 +57,36 @@ export async function AppMiddleware(req: NextRequest) {
     } else if (
       new Date(user.createdAt).getTime() >
         Date.now() - ONBOARDING_WINDOW_SECONDS * 1000 &&
-      !["/onboarding", "/account"].some((p) => path.startsWith(p)) &&
-      !(await getDefaultWorkspace(user)) &&
-      !(await hasPendingInvites({ req, user })) &&
-      (await onboardingStepCache.get({ userId: user.id })) !== "completed"
+      !["/onboarding", "/account"].some((p) => path.startsWith(p))
     ) {
-      let step = await onboardingStepCache.get({ userId: user.id });
-      if (!step) {
-        return NextResponse.redirect(new URL("/onboarding", req.url));
-      } else if (step === "completed") {
-        return WorkspacesMiddleware(req, user);
+      // Parallelize independent checks instead of running them sequentially
+      const [defaultWorkspace, pendingInvites, onboardingStep] =
+        await Promise.all([
+          getDefaultWorkspace(user),
+          hasPendingInvites({ req, user }),
+          onboardingStepCache.get({ userId: user.id }),
+        ]);
+
+      if (!defaultWorkspace && !pendingInvites && onboardingStep !== "completed") {
+        if (!onboardingStep) {
+          return NextResponse.redirect(new URL("/onboarding", req.url));
+        } else if (onboardingStep === "completed") {
+          return WorkspacesMiddleware(req, user);
+        }
+
+        if (defaultWorkspace) {
+          const step = onboardingStep === "workspace" ? "link" : onboardingStep;
+          return NextResponse.redirect(
+            new URL(`/onboarding/${step}?workspace=${defaultWorkspace}`, req.url),
+          );
+        } else {
+          return NextResponse.redirect(new URL("/onboarding", req.url));
+        }
       }
+      // Fall through if user has workspace, pending invites, or completed onboarding
+    }
 
-      const defaultWorkspace = await getDefaultWorkspace(user);
-
-      if (defaultWorkspace) {
-        // Skip workspace step if user already has a workspace
-        step = step === "workspace" ? "link" : step;
-        return NextResponse.redirect(
-          new URL(`/onboarding/${step}?workspace=${defaultWorkspace}`, req.url),
-        );
-      } else {
-        return NextResponse.redirect(new URL("/onboarding", req.url));
-      }
-
-      // if the path is / or /login or /register, redirect to the default workspace
-    } else if (
+    if (
       [
         "/",
         "/login",
