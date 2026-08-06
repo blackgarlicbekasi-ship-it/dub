@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { CreateUserModal } from "./create-user-modal";
 import { UserActionsMenu } from "./user-actions-menu";
+import { UserLinksPanel } from "./user-links-panel";
 
 interface Workspace {
   id: string;
@@ -42,6 +43,7 @@ export function UsersPageClient() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [viewingLinksFor, setViewingLinksFor] = useState<UserRow | null>(null);
   const { isMobile } = useMediaQuery();
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -77,6 +79,18 @@ export function UsersPageClient() {
       setPage(1);
     }, 400);
   };
+
+  if (viewingLinksFor) {
+    return (
+      <UserLinksPanel
+        user={viewingLinksFor}
+        onBack={() => {
+          setViewingLinksFor(null);
+          fetchUsers();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-screen-xl px-3 py-6 sm:px-6 lg:px-8">
@@ -226,7 +240,7 @@ export function UsersPageClient() {
                         <UserActionsMenu
                           user={user}
                           onUpdate={fetchUsers}
-                          onViewLinks={() => {}}
+                          onViewLinks={setViewingLinksFor}
                         />
                       </td>
                     </tr>

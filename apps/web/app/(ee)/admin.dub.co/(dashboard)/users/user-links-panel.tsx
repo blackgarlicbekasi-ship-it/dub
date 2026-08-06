@@ -116,8 +116,9 @@ export function UserLinksPanel({
     <div className="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6">
       <div className="mb-6">
         <button
+          type="button"
           onClick={onBack}
-          className="mb-4 text-sm text-neutral-500 hover:text-neutral-700"
+          className="mb-4 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
         >
           &larr; Back to Users
         </button>
@@ -258,11 +259,12 @@ export function UserLinksPanel({
                         <div className="flex items-center justify-end gap-2">
                           {editingLink !== link.id && (
                             <button
+                              type="button"
                               onClick={() => {
                                 setEditingLink(link.id);
                                 setEditUrl(link.url);
                               }}
-                              className="text-xs text-blue-600 hover:underline"
+                              className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
                             >
                               Edit
                             </button>
@@ -270,22 +272,25 @@ export function UserLinksPanel({
                           {deletingLink === link.id ? (
                             <div className="flex items-center gap-1">
                               <button
+                                type="button"
                                 onClick={() => handleDelete(link.id)}
-                                className="text-xs font-medium text-red-600 hover:underline"
+                                className="rounded-md border border-transparent bg-red-600 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700"
                               >
                                 Confirm
                               </button>
                               <button
+                                type="button"
                                 onClick={() => setDeletingLink(null)}
-                                className="text-xs text-neutral-500 hover:underline"
+                                className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
                               >
                                 Cancel
                               </button>
                             </div>
                           ) : (
                             <button
+                              type="button"
                               onClick={() => setDeletingLink(link.id)}
-                              className="text-xs text-red-600 hover:underline"
+                              className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
                             >
                               Delete
                             </button>

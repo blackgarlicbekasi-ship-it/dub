@@ -1,21 +1,9 @@
 "use client";
 
-import { Button, Input, LoadingSpinner, Popover } from "@dub/ui";
-import { timeAgo } from "@dub/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Input, Popover } from "@dub/ui";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { UserRow } from "./page-client";
-
-interface LinkRow {
-  id: string;
-  domain: string;
-  key: string;
-  shortLink: string;
-  url: string;
-  clicks: number;
-  createdAt: string;
-  archived: boolean;
-}
 
 export function UserActionsMenu({
   user,
@@ -28,7 +16,7 @@ export function UserActionsMenu({
 }) {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState<
-    "password" | "plan" | "delete" | "workspace" | "links" | null
+    "password" | "plan" | "delete" | "workspace" | null
   >(null);
 
   const handleAction = async (action: string, body?: Record<string, string>) => {
@@ -76,7 +64,7 @@ export function UserActionsMenu({
               label="View Links"
               onClick={() => {
                 setOpen(false);
-                setModal("links");
+                onViewLinks(user);
               }}
             />
             {user.workspace && (
@@ -165,9 +153,6 @@ export function UserActionsMenu({
       )}
       {modal === "workspace" && user.workspace && (
         <WorkspaceInfoModal user={user} onClose={() => setModal(null)} />
-      )}
-      {modal === "links" && (
-        <ViewLinksModal user={user} onClose={() => setModal(null)} />
       )}
     </>
   );
@@ -280,204 +265,6 @@ function WorkspaceInfoModal({ user, onClose }: { user: UserRow; onClose: () => v
         <div className="mt-5">
           <Button text="Close" variant="secondary" onClick={onClose} className="h-9 w-auto rounded-lg px-4" />
         </div>
-      </div>
-    </ModalOverlay>
-  );
-}
-
-// ===== TASK 5: View Links Modal (replaces redirect to app.ingat.cc) =====
-function ViewLinksModal({ user, onClose }: { user: UserRow; onClose: () => void }) {
-  const [links, setLinks] = useState<LinkRow[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [editingLink, setEditingLink] = useState<string | null>(null);
-  const [editUrl, setEditUrl] = useState("");
-
-  const fetchLinks = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/admin/users/${user.id}/links?page=${page}&perPage=20`);
-      if (res.ok) {
-        const data = await res.json();
-        setLinks(data.links);
-        setTotal(data.total);
-        setTotalPages(data.totalPages);
-      }
-    } catch {
-      toast.error("Failed to load links");
-    } finally {
-      setLoading(false);
-    }
-  }, [user.id, page]);
-
-  useEffect(() => {
-    fetchLinks();
-  }, [fetchLinks]);
-
-  const handleEditSave = async (linkId: string) => {
-    try {
-      const res = await fetch(`/api/admin/users/${user.id}/links`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ linkId, url: editUrl }),
-      });
-      if (res.ok) {
-        toast.success("Link updated");
-        setEditingLink(null);
-        fetchLinks();
-      } else {
-        const d = await res.json();
-        toast.error(d.error || "Failed to update");
-      }
-    } catch {
-      toast.error("Network error");
-    }
-  };
-
-  const handleDeleteLink = async (linkId: string) => {
-    if (!window.confirm("Delete this link?")) return;
-    try {
-      const res = await fetch(`/api/admin/users/${user.id}/links`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ linkId }),
-      });
-      if (res.ok) {
-        toast.success("Link deleted");
-        fetchLinks();
-      } else {
-        const d = await res.json();
-        toast.error(d.error || "Failed to delete");
-      }
-    } catch {
-      toast.error("Network error");
-    }
-  };
-
-  return (
-    <ModalOverlay onClose={onClose}>
-      <div className="w-full max-w-2xl rounded-xl bg-white shadow-xl" onClick={(e) => e.stopPropagation()}>
-        <div className="border-b border-neutral-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">
-                {user.name || user.email}
-              </h3>
-              <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500">
-                {user.workspace && (
-                  <>
-                    <span>Workspace: <strong>{user.workspace.name}</strong></span>
-                    <span>Slug: <strong>{user.workspace.slug}</strong></span>
-                    <span>Plan: <strong>{user.workspace.plan}</strong></span>
-                    <span>Links: <strong>{user.workspace.totalLinks}</strong></span>
-                    <span>Created: <strong>{timeAgo(new Date(user.createdAt))}</strong></span>
-                  </>
-                )}
-                {!user.workspace && <span>No workspace yet</span>}
-              </div>
-            </div>
-            <button type="button" aria-label="Close" onClick={onClose} className="text-neutral-400 hover:text-neutral-600">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div className="max-h-[60vh] overflow-y-auto">
-          {loading ? (
-            <div className="flex h-40 items-center justify-center">
-              <LoadingSpinner className="h-6 w-6" />
-            </div>
-          ) : links.length === 0 ? (
-            <div className="flex h-40 items-center justify-center text-sm text-neutral-500">
-              No links found
-            </div>
-          ) : (
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-neutral-200 bg-neutral-50">
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Short Link</th>
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Destination</th>
-                  <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Clicks</th>
-                  <th className="px-4 py-2.5 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200">
-                {links.map((link) => (
-                  <tr key={link.id} className="hover:bg-neutral-50">
-                    <td className="px-4 py-2.5 text-sm font-medium text-neutral-900">
-                      {link.shortLink}
-                    </td>
-                    <td className="max-w-[200px] px-4 py-2.5">
-                      {editingLink === link.id ? (
-                        <div className="flex items-center gap-1">
-                          <input
-                            type="url"
-                            value={editUrl}
-                            onChange={(e) => setEditUrl(e.target.value)}
-                            className="h-7 w-full rounded border border-neutral-300 px-2 text-xs"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => handleEditSave(link.id)}
-                            className="shrink-0 rounded-md border border-transparent bg-neutral-900 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-neutral-700"
-                          >
-                            Save
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setEditingLink(null)}
-                            className="shrink-0 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="truncate text-sm text-neutral-500" title={link.url}>{link.url}</div>
-                      )}
-                    </td>
-                    <td className="px-4 py-2.5 text-sm tabular-nums text-neutral-700">{link.clicks}</td>
-                    <td className="px-4 py-2.5 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        {editingLink !== link.id && (
-                          <button
-                            type="button"
-                            onClick={() => { setEditingLink(link.id); setEditUrl(link.url); }}
-                            className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
-                          >
-                            Edit
-                          </button>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteLink(link.id)}
-                          className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-neutral-200 px-4 py-3">
-            <span className="text-xs text-neutral-500">Page {page} of {totalPages} ({total} links)</span>
-            <div className="flex gap-2">
-              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)}
-                className="rounded border border-neutral-200 px-3 py-1 text-xs disabled:opacity-40 hover:bg-neutral-50">Prev</button>
-              <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)}
-                className="rounded border border-neutral-200 px-3 py-1 text-xs disabled:opacity-40 hover:bg-neutral-50">Next</button>
-            </div>
-          </div>
-        )}
       </div>
     </ModalOverlay>
   );
