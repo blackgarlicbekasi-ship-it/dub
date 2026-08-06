@@ -112,6 +112,8 @@ export function UsersPageClient() {
           />
           {search && (
             <button
+              type="button"
+              aria-label="Clear search"
               onClick={() => { setSearch(""); setPage(1); }}
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >

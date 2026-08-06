@@ -65,6 +65,8 @@ export function CreateUserModal({
         <div className="mb-5 flex items-center justify-between">
           <h2 className="text-lg font-semibold">Create User</h2>
           <button
+            type="button"
+            aria-label="Close"
             onClick={onClose}
             className="text-neutral-400 hover:text-neutral-600"
           >

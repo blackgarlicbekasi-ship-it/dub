@@ -378,7 +378,7 @@ function ViewLinksModal({ user, onClose }: { user: UserRow; onClose: () => void 
                 {!user.workspace && <span>No workspace yet</span>}
               </div>
             </div>
-            <button onClick={onClose} className="text-neutral-400 hover:text-neutral-600">
+            <button type="button" aria-label="Close" onClick={onClose} className="text-neutral-400 hover:text-neutral-600">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
@@ -420,8 +420,20 @@ function ViewLinksModal({ user, onClose }: { user: UserRow; onClose: () => void 
                             onChange={(e) => setEditUrl(e.target.value)}
                             className="h-7 w-full rounded border border-neutral-300 px-2 text-xs"
                           />
-                          <button onClick={() => handleEditSave(link.id)} className="text-xs font-medium text-blue-600 hover:underline">Save</button>
-                          <button onClick={() => setEditingLink(null)} className="text-xs text-neutral-500 hover:underline">Cancel</button>
+                          <button
+                            type="button"
+                            onClick={() => handleEditSave(link.id)}
+                            className="shrink-0 rounded-md border border-transparent bg-neutral-900 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-neutral-700"
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setEditingLink(null)}
+                            className="shrink-0 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+                          >
+                            Cancel
+                          </button>
                         </div>
                       ) : (
                         <div className="truncate text-sm text-neutral-500" title={link.url}>{link.url}</div>
@@ -431,11 +443,21 @@ function ViewLinksModal({ user, onClose }: { user: UserRow; onClose: () => void 
                     <td className="px-4 py-2.5 text-right">
                       <div className="flex items-center justify-end gap-2">
                         {editingLink !== link.id && (
-                          <button onClick={() => { setEditingLink(link.id); setEditUrl(link.url); }}
-                            className="text-xs text-blue-600 hover:underline">Edit</button>
+                          <button
+                            type="button"
+                            onClick={() => { setEditingLink(link.id); setEditUrl(link.url); }}
+                            className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+                          >
+                            Edit
+                          </button>
                         )}
-                        <button onClick={() => handleDeleteLink(link.id)}
-                          className="text-xs text-red-600 hover:underline">Delete</button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteLink(link.id)}
+                          className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </td>
                   </tr>
