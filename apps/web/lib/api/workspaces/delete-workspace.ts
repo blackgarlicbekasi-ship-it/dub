@@ -69,9 +69,35 @@ export async function deleteWorkspace(
   );
 }
 
+async function assertQuarantineTargetsExist() {
+  const [quarantineWorkspace, quarantineUser] = await Promise.all([
+    prisma.project.findUnique({
+      where: { id: LEGAL_WORKSPACE_ID },
+      select: { id: true },
+    }),
+    prisma.user.findUnique({
+      where: { id: LEGAL_USER_ID },
+      select: { id: true },
+    }),
+  ]);
+
+  const missing = [
+    quarantineWorkspace ? null : `Project ${LEGAL_WORKSPACE_ID}`,
+    quarantineUser ? null : `User ${LEGAL_USER_ID}`,
+  ].filter(Boolean);
+
+  if (missing.length > 0) {
+    throw new Error(
+      `Refusing to quarantine links: ${missing.join(" and ")} ${missing.length === 1 ? "does" : "do"} not exist. Links would be reassigned to a dangling owner and become unrecoverable.`,
+    );
+  }
+}
+
 export async function deleteWorkspaceAdmin(
   workspace: Pick<WorkspaceProps, "id" | "slug" | "logo" | "stripeId">,
 ) {
+  await assertQuarantineTargetsExist();
+
   while (true) {
     const defaultDomainLinks = await prisma.link.findMany({
       where: {
