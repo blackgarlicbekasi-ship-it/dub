@@ -21,7 +21,21 @@ export const GET = withAdmin(async () => {
   const plans = await prisma.$queryRawUnsafe<PlanConfigRow[]>(
     `SELECT * FROM PlanConfig ORDER BY FIELD(plan, 'free', 'pro', 'business', 'enterprise')`,
   );
-  return NextResponse.json({ plans });
+
+  const counts = await prisma.$queryRawUnsafe<{ plan: string; count: bigint }[]>(
+    `SELECT plan, COUNT(*) as count FROM Project GROUP BY plan`,
+  );
+
+  const countByPlan = new Map(
+    counts.map(({ plan, count }) => [plan, Number(count)]),
+  );
+
+  return NextResponse.json({
+    plans: plans.map((plan) => ({
+      ...plan,
+      workspaceCount: countByPlan.get(plan.plan) ?? 0,
+    })),
+  });
 });
 
 export const PATCH = withAdmin(async ({ req }) => {

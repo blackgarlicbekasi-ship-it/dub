@@ -15,6 +15,7 @@ interface PlanConfig {
   aiLimit: number;
   apiRateLimit: number;
   analyticsRetention: number;
+  workspaceCount?: number;
 }
 
 const PLAN_ORDER = ["free", "pro", "business", "enterprise"];
@@ -69,6 +70,17 @@ function PlanCard({
   };
 
   const handleSave = async () => {
+    const affected = config.workspaceCount ?? 0;
+    const confirmed = window.confirm(
+      `Overwrite limits for every workspace on the ${PLAN_LABELS[config.plan]} plan?\n\n` +
+        `${affected} workspace${affected === 1 ? "" : "s"} will be rewritten immediately. ` +
+        `Any per-workspace custom limits on this plan will be lost. This cannot be undone.`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     setSaving(true);
     try {
       await onSave(values);
@@ -89,6 +101,10 @@ function PlanCard({
             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${PLAN_COLORS[config.plan]}`}
           >
             {config.plan}
+          </span>
+          <span className="text-xs text-neutral-500">
+            {config.workspaceCount ?? 0} workspace
+            {config.workspaceCount === 1 ? "" : "s"}
           </span>
         </div>
         <Button
