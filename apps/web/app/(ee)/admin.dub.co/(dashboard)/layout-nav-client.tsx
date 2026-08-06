@@ -16,6 +16,7 @@ const tabs = [
   { href: "/plans", label: "Plans" },
   { href: "/domains", label: "Domains" },
   { href: "/links", label: "Links" },
+  { href: "/banned", label: "Banned" },
   { href: "/analytics", label: "Analytics" },
 ];
 
