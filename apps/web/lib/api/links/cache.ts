@@ -71,7 +71,9 @@ class LinkCache {
 
     if (cachedLink) {
       console.log(`[LRU Cache HIT] ${cacheKey}`);
-      linkLRUCache.set(cacheKey, cachedLink); // refresh the LRU cache
+      // NOTE: do not re-set the entry here. Writing it back restarts the 5s TTL,
+      // so a link hit more often than once every 5s would never expire and the
+      // instance would never re-consult Redis after an invalidation.
       return cachedLink;
     }
 
