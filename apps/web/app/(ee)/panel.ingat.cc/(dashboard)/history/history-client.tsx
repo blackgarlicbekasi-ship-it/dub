@@ -5,6 +5,18 @@ import { timeAgo } from "@dub/utils";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+// Undo is hidden, not removed: the route and the handler below are left intact.
+//
+// ReplaceLog does not record which match mode a replacement used, and the undo
+// route always reverts with `contains` matching. Undoing an exact-match replace
+// would therefore rewrite every link whose URL merely contains the new value,
+// touching links the original operation never did.
+//
+// To re-enable: persist the match mode on ReplaceLog (needs the table to exist
+// as a Prisma model first), have the undo route read it and apply the same
+// exact/contains semantics as the replace route, then flip this to true.
+const UNDO_ENABLED = false;
+
 interface LogEntry {
   id: string;
   oldDomain: string;
@@ -92,7 +104,7 @@ export function HistoryClient() {
                     <td className="px-4 py-3 text-sm text-neutral-500">{log.userEmail || "\u2014"}</td>
                   )}
                   <td className="px-4 py-3 text-right">
-                    {!log.isUndo && (
+                    {UNDO_ENABLED && !log.isUndo && (
                       <Button
                         text={undoing === log.id ? "Undoing..." : "Undo"}
                         variant="secondary"
