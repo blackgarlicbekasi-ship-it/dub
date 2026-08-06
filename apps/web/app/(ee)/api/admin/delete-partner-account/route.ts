@@ -7,7 +7,7 @@ import { prettyPrint } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 // POST /api/admin/delete-partner-account
-export const POST = withAdmin(async ({ req }) => {
+const archivedHandler = withAdmin(async ({ req }) => {
   const { email, deletePartnerAccount } = await req.json();
 
   const partner = await prisma.partner.findUnique({
@@ -136,3 +136,12 @@ export const POST = withAdmin(async ({ req }) => {
 
   return NextResponse.json({ success: true });
 });
+
+export const POST = async () =>
+  NextResponse.json(
+    {
+      error:
+        "This endpoint is retired. The partner programme is not in use on this deployment.",
+    },
+    { status: 410 },
+  );

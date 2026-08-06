@@ -15,7 +15,7 @@ function generateRandomString(length: number) {
   return result;
 }
 
-export const POST = withAdmin(async ({ req }) => {
+const archivedHandler = withAdmin(async ({ req }) => {
   const { email, password, plan } = await req.json();
 
   if (!email || !password) {
@@ -111,3 +111,12 @@ export const POST = withAdmin(async ({ req }) => {
     plan,
   });
 });
+
+export const POST = async () =>
+  NextResponse.json(
+    {
+      error:
+        "This endpoint is retired. Admin user creation is handled by POST /api/admin/users.",
+    },
+    { status: 410 },
+  );
