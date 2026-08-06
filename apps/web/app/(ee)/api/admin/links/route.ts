@@ -1,63 +1,60 @@
 import { transformLink } from "@/lib/api/links";
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
-import { DUB_DOMAINS_ARRAY, LEGAL_USER_ID } from "@dub/utils";
+import { Prisma } from "@dub/prisma/client";
+import { DUB_DOMAINS_ARRAY, LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
-// GET /api/admin/links
 export const GET = withAdmin(async ({ searchParams }) => {
   const {
     domain,
     search,
     sort = "createdAt",
     page,
+    banned,
   } = searchParams as {
     domain?: string;
     search?: string;
     sort?: "createdAt" | "clicks" | "lastClicked";
     page?: string;
+    banned?: string;
   };
 
-  const response = await prisma.link.findMany({
-    where: {
-      ...(domain
-        ? { domain }
+  const conditions: Prisma.LinkWhereInput[] = [
+    domain ? { domain } : { domain: { in: DUB_DOMAINS_ARRAY } },
+  ];
+
+  if (!search) {
+    conditions.push({
+      createdAt: {
+        gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+      },
+    });
+  }
+
+  if (search) {
+    conditions.push(
+      search.startsWith("https://")
+        ? { shortLink: search }
         : {
-            domain: {
-              in: DUB_DOMAINS_ARRAY,
-            },
-          }),
-      ...(!search && {
-        createdAt: {
-          gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30), // 30 days ago
-        },
-      }),
-      OR: [
-        {
-          userId: {
-            not: LEGAL_USER_ID,
+            OR: [
+              { shortLink: { contains: search } },
+              { url: { contains: search } },
+            ],
           },
-        },
-        {
-          userId: null,
-        },
-      ],
-      ...(search &&
-        (search.startsWith("https://")
-          ? {
-              shortLink: search,
-            }
-          : {
-              OR: [
-                {
-                  shortLink: { contains: search },
-                },
-                {
-                  url: { contains: search },
-                },
-              ],
-            })),
-    },
+    );
+  }
+
+  if (banned === "only") {
+    conditions.push({ projectId: LEGAL_WORKSPACE_ID });
+  } else if (banned === "exclude") {
+    conditions.push({
+      NOT: { projectId: LEGAL_WORKSPACE_ID },
+    });
+  }
+
+  const response = await prisma.link.findMany({
+    where: { AND: conditions },
     include: {
       user: true,
       tags: {
@@ -81,5 +78,10 @@ export const GET = withAdmin(async ({ searchParams }) => {
     }),
   });
 
-  return NextResponse.json(response.map((link) => transformLink(link)));
+  return NextResponse.json(
+    response.map((link) => ({
+      ...transformLink(link),
+      banned: link.projectId === LEGAL_WORKSPACE_ID,
+    })),
+  );
 });

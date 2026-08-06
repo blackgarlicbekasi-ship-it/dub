@@ -1,15 +1,16 @@
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
-import { DUB_DOMAINS_ARRAY, LEGAL_USER_ID } from "@dub/utils";
+import { DUB_DOMAINS_ARRAY, LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 // GET /api/admin/links/count
 export const GET = withAdmin(async ({ searchParams }) => {
-  let { groupBy, search, domain, tagId } = searchParams as {
+  let { groupBy, search, domain, tagId, banned } = searchParams as {
     groupBy?: "domain" | "tagId" | "userId";
     search?: string;
     domain?: string;
     tagId?: string;
+    banned?: string;
   };
 
   let response;
@@ -27,9 +28,10 @@ export const GET = withAdmin(async ({ searchParams }) => {
             in: DUB_DOMAINS_ARRAY,
           },
         }),
-    userId: {
-      not: LEGAL_USER_ID,
-    },
+    ...(banned === "only" && { projectId: LEGAL_WORKSPACE_ID }),
+    ...(banned === "exclude" && {
+      NOT: { projectId: LEGAL_WORKSPACE_ID },
+    }),
     ...(search && {
       OR: [
         {
