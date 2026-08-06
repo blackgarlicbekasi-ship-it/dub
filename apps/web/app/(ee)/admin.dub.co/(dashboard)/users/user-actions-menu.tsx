@@ -90,6 +90,15 @@ export function UserActionsMenu({
                 setModal("plan");
               }}
             />
+            {user.invalidLoginAttempts > 0 && (
+              <MenuButton
+                label={`Reset Login Attempts (${user.invalidLoginAttempts})`}
+                onClick={() => {
+                  setOpen(false);
+                  handleAction("reset_login_attempts");
+                }}
+              />
+            )}
             <MenuButton
               label={user.telegramEnabled ? "Disable Telegram" : "Enable Telegram"}
               onClick={() => {

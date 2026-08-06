@@ -66,6 +66,19 @@ export const PATCH = withAdmin(async ({ req, params }) => {
     return NextResponse.json({ success: true, message: "User suspended and sessions cleared" });
   }
 
+  if (action === "reset_login_attempts") {
+    const updated = await prisma.user.update({
+      where: { id: userId },
+      data: { invalidLoginAttempts: 0 },
+      select: { invalidLoginAttempts: true },
+    });
+    return NextResponse.json({
+      success: true,
+      message: "Login attempts reset",
+      invalidLoginAttempts: updated.invalidLoginAttempts,
+    });
+  }
+
   if (action === "unsuspend") {
     await prisma.user.update({
       where: { id: userId },
