@@ -126,14 +126,23 @@ function RefreshDomainSection() {
           const form = e.currentTarget;
           const domain = new FormData(form).get("domain") as string;
           if (!domain) return;
+          const confirmed = window.confirm(
+            `Remove ${domain} from the Vercel project and re-add it?\n\n` +
+              `While it is removed, every shortlink on ${domain} stops resolving. ` +
+              `If the re-add fails, ${domain} stays offline until it is added back manually.`,
+          );
+          if (!confirmed) return;
           setPending(true);
           try {
             const res = await fetch("/api/admin/refresh-domain", {
               method: "POST",
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ domain }),
             }).then((r) => r.json());
             if (res.error) toast.error(res.error);
-            else { toast.success("Domain refreshed"); form.reset(); }
+            else { toast.success(`${domain} refreshed`); form.reset(); }
+          } catch {
+            toast.error("Network error. The domain may be in an unknown state.");
           } finally {
             setPending(false);
           }
