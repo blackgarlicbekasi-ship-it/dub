@@ -19,6 +19,7 @@ interface UserOption {
 }
 
 type ReplaceMode = "my" | "selected" | "all";
+type MatchMode = "contains" | "exact";
 
 export function ReplaceClient() {
   const { data: session } = useSession();
@@ -30,6 +31,7 @@ export function ReplaceClient() {
   const [executing, setExecuting] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [mode, setMode] = useState<ReplaceMode>("my");
+  const [matchMode, setMatchMode] = useState<MatchMode>("contains");
   const [users, setUsers] = useState<UserOption[]>([]);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -71,6 +73,7 @@ export function ReplaceClient() {
         newDomain: newDomain.trim(),
         preview: true,
         mode: isAdmin ? mode : "my",
+        matchMode,
       };
       if (mode === "selected") body.selectedUserIds = selectedUserIds;
 
@@ -102,6 +105,7 @@ export function ReplaceClient() {
         newDomain: newDomain.trim(),
         preview: false,
         mode: isAdmin ? mode : "my",
+        matchMode,
       };
       if (mode === "selected") body.selectedUserIds = selectedUserIds;
 
@@ -195,6 +199,28 @@ export function ReplaceClient() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setNewDomain(e.target.value); setPreview(null); }}
             />
           </div>
+        </div>
+
+        <div className="mt-4">
+          <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-neutral-500">Match</label>
+          <div className="flex gap-2">
+            {(["contains", "exact"] as MatchMode[]).map((m) => (
+              <button
+                key={m}
+                onClick={() => { setMatchMode(m); setPreview(null); }}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                  matchMode === m ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                }`}
+              >
+                {m === "contains" ? "Contains" : "Exact match"}
+              </button>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-neutral-500">
+            {matchMode === "contains"
+              ? "Replaces the text anywhere it appears in the destination URL."
+              : "Only replaces links whose destination URL is exactly the old value. Trailing slashes count: “https://example.com/” will not match “https://example.com”."}
+          </p>
         </div>
 
         <div className="mt-4 flex gap-3">

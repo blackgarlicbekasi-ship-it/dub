@@ -28,7 +28,19 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { oldDomain, newDomain, preview, mode, selectedUserIds } = await req.json();
+  const {
+    oldDomain,
+    newDomain,
+    preview,
+    mode,
+    selectedUserIds,
+    matchMode: rawMatchMode,
+  } = await req.json();
+
+  // Anything other than an explicit "exact" falls back to the previous
+  // contains behaviour, so existing callers are unaffected.
+  const matchMode: "exact" | "contains" =
+    rawMatchMode === "exact" ? "exact" : "contains";
 
   const od = (oldDomain || "").trim();
   const nd = (newDomain || "").trim();
@@ -63,8 +75,10 @@ export const POST = async (req: NextRequest) => {
     projectIds = ws.map((w) => w.projectId);
   }
 
+  // exact  -> url must equal the search string
+  // contains -> url contains the search string anywhere (previous behaviour)
   const whereClause: Record<string, unknown> = {
-    url: { contains: od },
+    url: matchMode === "exact" ? od : { contains: od },
   };
   if (effectiveMode !== "all") {
     if (projectIds.length === 0) {
@@ -105,6 +119,18 @@ export const POST = async (req: NextRequest) => {
     take: MAX_LINKS,
   });
 
+  // Defined once and used by BOTH the preview branch and the execute branch, so
+  // the rows the user previews are exactly the rows that get written.
+  //
+  // In exact mode the row is replaced wholesale rather than via substring
+  // substitution: MySQL's collation makes the `url = od` filter case
+  // insensitive, so a matched row may differ in case from `od` and a
+  // case-sensitive JS replace would leave it untouched.
+  const computeNewUrl = (url: string) =>
+    matchMode === "exact"
+      ? nd
+      : url.replace(new RegExp(escapeRegex(od), "g"), nd);
+
   const total = matchingLinks.length;
 
   if (preview) {
@@ -113,7 +139,7 @@ export const POST = async (req: NextRequest) => {
         id: link.id,
         shortLink: link.shortLink || `https://${link.domain}/${link.key}`,
         currentUrl: link.url,
-        newUrl: link.url.replace(new RegExp(escapeRegex(od), "g"), nd),
+        newUrl: computeNewUrl(link.url),
       })),
       total,
     });
@@ -122,7 +148,7 @@ export const POST = async (req: NextRequest) => {
   const pending = matchingLinks
     .map((link) => ({
       link,
-      newUrl: link.url.replace(new RegExp(escapeRegex(od), "g"), nd),
+      newUrl: computeNewUrl(link.url),
     }))
     .filter(({ link, newUrl }) => newUrl !== link.url);
 
