@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, LoadingSpinner } from "@dub/ui";
+import { Button, Input } from "@dub/ui";
 import { cn } from "@dub/utils";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -79,6 +79,8 @@ function BanLinkSection() {
             ).then((r) => r.json());
             if (res.error) toast.error(res.error);
             else { toast.success("Link banned"); form.reset(); }
+          } catch {
+            toast.error("Network error. The link may not have been banned.");
           } finally {
             setPending(false);
           }
@@ -105,8 +107,14 @@ function BanLinkSection() {
               e.currentTarget.value = text.replace(/^https?:\/\/ingat\.cc\//, "").replace(/^ingat\.cc\//, "");
             }}
           />
-          {pending && <LoadingSpinner className="absolute inset-y-0 right-2 my-auto h-full w-5 text-neutral-400" />}
         </div>
+        <Button
+          text="Ban link"
+          variant="danger"
+          loading={pending}
+          disabled={pending}
+          className="mt-3 h-9 w-auto"
+        />
       </form>
     </div>
   );
@@ -161,8 +169,14 @@ function RefreshDomainSection() {
               pending && "bg-neutral-100",
             )}
           />
-          {pending && <LoadingSpinner className="absolute inset-y-0 right-2 my-auto h-full w-5 text-neutral-400" />}
         </div>
+        <Button
+          text="Refresh domain"
+          variant="secondary"
+          loading={pending}
+          disabled={pending}
+          className="mt-3 h-9 w-auto"
+        />
       </form>
     </div>
   );
@@ -186,10 +200,13 @@ function ResetLoginSection() {
           try {
             const res = await fetch("/api/admin/reset-login-attempts", {
               method: "POST",
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ email }),
             }).then((r) => r.json());
             if (res.error) toast.error(res.error);
             else { toast.success("Login attempts reset"); form.reset(); }
+          } catch {
+            toast.error("Network error. Nothing was changed.");
           } finally {
             setPending(false);
           }
@@ -208,8 +225,14 @@ function ResetLoginSection() {
               pending && "bg-neutral-100",
             )}
           />
-          {pending && <LoadingSpinner className="absolute inset-y-0 right-2 my-auto h-full w-5 text-neutral-400" />}
         </div>
+        <Button
+          text="Reset attempts"
+          variant="secondary"
+          loading={pending}
+          disabled={pending}
+          className="mt-3 h-9 w-auto"
+        />
       </form>
     </div>
   );
