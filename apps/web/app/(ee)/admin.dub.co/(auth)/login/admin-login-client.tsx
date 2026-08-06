@@ -6,8 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const ADMIN_EMAIL = "angelkongkonngaji@gmail.com";
-
 export function AdminLoginClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,11 +25,6 @@ export function AdminLoginClient() {
 
     if (!email || !password) {
       toast.error("Please enter your email and password.");
-      return;
-    }
-
-    if (email.toLowerCase() !== ADMIN_EMAIL) {
-      toast.error("Access denied. Admin login is restricted.");
       return;
     }
 

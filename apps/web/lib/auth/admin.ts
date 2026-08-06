@@ -1,5 +1,5 @@
-import { prisma } from "@dub/prisma";
-import { DUB_WORKSPACE_ID, getSearchParams } from "@dub/utils";
+import { getSearchParams } from "@dub/utils";
+import { isAdminUserId } from "./admin-ids";
 import { getSession } from "./utils";
 
 // Internal use only (for admin portal)
@@ -16,18 +16,7 @@ interface WithAdminHandler {
 }
 
 export const isDubAdmin = async (userId: string) => {
-  const response = await prisma.projectUsers.findUnique({
-    where: {
-      userId_projectId: {
-        userId,
-        projectId: DUB_WORKSPACE_ID,
-      },
-    },
-  });
-  if (!response) {
-    return false;
-  }
-  return true;
+  return isAdminUserId(userId);
 };
 
 export const withAdmin =
