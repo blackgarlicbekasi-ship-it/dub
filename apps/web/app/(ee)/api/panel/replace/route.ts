@@ -4,6 +4,24 @@ import { linkCache } from "@/lib/api/links/cache";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+// Max links touched by a single replace. Kept at the previous value so behaviour
+// is unchanged; named so it is easy to lower if batches ever get heavy.
+const MAX_LINKS = 500;
+
+// How many links are updated / re-cached at once. Sequential would be up to 500
+// serial round trips (minutes, against a 300s function ceiling); fully parallel
+// would swamp the Prisma connection pool. 10 sits at or below the typical
+// serverless pool size while still cutting wall-clock ~10x.
+const BATCH_SIZE = 10;
+
+const chunk = <T,>(items: T[], size: number): T[][] => {
+  const batches: T[][] = [];
+  for (let i = 0; i < items.length; i += size) {
+    batches.push(items.slice(i, i + size));
+  }
+  return batches;
+};
+
 export const POST = async (req: NextRequest) => {
   const session = await getSession();
   if (!session?.user?.id) {
@@ -57,8 +75,34 @@ export const POST = async (req: NextRequest) => {
 
   const matchingLinks = await prisma.link.findMany({
     where: whereClause,
-    select: { id: true, domain: true, key: true, shortLink: true, url: true },
-    take: 500,
+    // Only the fields formatRedisLink() consumes, plus domain/key for the cache
+    // key and shortLink for the preview response. Deliberately does NOT select
+    // title/description/image, which are the large columns.
+    select: {
+      id: true,
+      domain: true,
+      key: true,
+      shortLink: true,
+      url: true,
+      trackConversion: true,
+      password: true,
+      proxy: true,
+      rewrite: true,
+      expiresAt: true,
+      expiredUrl: true,
+      disabledAt: true,
+      ios: true,
+      android: true,
+      geo: true,
+      doIndex: true,
+      projectId: true,
+      programId: true,
+      partnerId: true,
+      testVariants: true,
+      testCompletedAt: true,
+      webhooks: { select: { webhookId: true } },
+    },
+    take: MAX_LINKS,
   });
 
   const total = matchingLinks.length;
@@ -75,33 +119,85 @@ export const POST = async (req: NextRequest) => {
     });
   }
 
-  let updated = 0;
-  const cacheKeys: { domain: string; key: string }[] = [];
+  const pending = matchingLinks
+    .map((link) => ({
+      link,
+      newUrl: link.url.replace(new RegExp(escapeRegex(od), "g"), nd),
+    }))
+    .filter(({ link, newUrl }) => newUrl !== link.url);
 
-  for (const link of matchingLinks) {
-    const newUrl = link.url.replace(new RegExp(escapeRegex(od), "g"), nd);
-    if (newUrl !== link.url) {
-      await prisma.link.update({ where: { id: link.id }, data: { url: newUrl } });
-      cacheKeys.push({ domain: link.domain, key: link.key });
-      updated++;
+  // Phase 1: persist. Each update is isolated, so one failing link neither
+  // aborts the batch nor prevents cache invalidation for the ones that landed.
+  const persisted: typeof matchingLinks = [];
+  let failed = 0;
+
+  for (const batch of chunk(pending, BATCH_SIZE)) {
+    const results = await Promise.allSettled(
+      batch.map(async ({ link, newUrl }) => {
+        await prisma.link.update({
+          where: { id: link.id },
+          data: { url: newUrl },
+        });
+        return { ...link, url: newUrl };
+      }),
+    );
+
+    for (const result of results) {
+      if (result.status === "fulfilled") {
+        persisted.push(result.value);
+      } else {
+        failed++;
+      }
     }
   }
 
-  if (cacheKeys.length > 0) {
-    await linkCache.deleteMany(cacheKeys);
+  const updated = persisted.length;
+
+  // Phase 2: invalidate, for the links that actually persisted.
+  //
+  // linkCache.set() is a write-through: it updates the LRU, writes Redis and
+  // invalidates the Vercel Data Cache (cache.ts:53/56/59). deleteMany() only
+  // issues a Redis del, which is why the Vercel copy survived a replace.
+  //
+  // Partner links take the delete path instead: their cache entry also carries
+  // partner/discount data that only getPartnerEnrollmentInfo() can supply, so
+  // writing through from this row alone would cache an entry missing that data
+  // for the full 24h Redis TTL. Deleting forces the redirect path to rebuild it
+  // completely (link.ts:99-118).
+  //
+  // Note the LRU here is this process's own; the instances serving redirects
+  // have their own copies and can only be bounded by the 5s TTL.
+  let cacheFailed = 0;
+
+  for (const batch of chunk(persisted, BATCH_SIZE)) {
+    const results = await Promise.allSettled(
+      batch.map((link) =>
+        link.programId && link.partnerId
+          ? linkCache.delete({ domain: link.domain, key: link.key })
+          : linkCache.set(link as any),
+      ),
+    );
+
+    cacheFailed += results.filter((r) => r.status === "rejected").length;
   }
 
-  await prisma.$executeRawUnsafe(
-    `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, isUndo, createdAt) VALUES (?, ?, ?, ?, ?, 0, NOW())`,
-    genId("rpl_"), userId, od, nd, updated,
-  );
+  // Non-fatal: the ReplaceLog table is not part of the Prisma schema and may not
+  // exist. Losing the audit row must not fail a replace that already persisted.
+  try {
+    await prisma.$executeRawUnsafe(
+      `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, isUndo, createdAt) VALUES (?, ?, ?, ?, ?, 0, NOW())`,
+      genId("rpl_"), userId, od, nd, updated,
+    );
+  } catch (e) {
+    console.error("[panel/replace] ReplaceLog insert failed", e);
+  }
 
   // Send telegram notifications (skip if user deactivated or telegram disabled)
   if (updated > 0) {
     sendTelegramNotifications(userId, od, nd, updated).catch(() => {});
   }
 
-  return NextResponse.json({ updated });
+  return NextResponse.json({ updated, failed, cacheFailed });
 };
 
 async function sendTelegramNotifications(userId: string, oldDomain: string, newDomain: string, linksUpdated: number) {
