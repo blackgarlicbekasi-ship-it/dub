@@ -13,7 +13,6 @@ export function CreateUserModal({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [plan, setPlan] = useState("pro");
   const [loading, setLoading] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -33,14 +32,14 @@ export function CreateUserModal({
       const res = await fetch("/api/admin/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, plan }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
         toast.success(
-          `User created: ${data.email} (${data.plan}). Workspace will be created on first login.`,
+          `User created: ${data.email}. They will create their workspace on first login.`,
         );
         onCreated();
       } else {
@@ -109,24 +108,10 @@ export function CreateUserModal({
               minLength={8}
             />
           </div>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-neutral-700">
-              Plan
-            </label>
-            <select
-              value={plan}
-              onChange={(e) => setPlan(e.target.value)}
-              className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
-            >
-              <option value="free">Free</option>
-              <option value="pro">Pro</option>
-              <option value="business">Business</option>
-              <option value="enterprise">Enterprise</option>
-            </select>
-            <p className="mt-1 text-xs text-neutral-400">
-              User will create their own workspace on first login via onboarding.
-            </p>
-          </div>
+          <p className="text-xs text-neutral-400">
+            The user creates their own workspace on first login. Set their plan
+            from the row actions once that workspace exists.
+          </p>
           <div className="mt-2 flex gap-3">
             <Button
               text="Cancel"

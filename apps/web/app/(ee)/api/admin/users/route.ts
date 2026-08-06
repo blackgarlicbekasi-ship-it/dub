@@ -98,7 +98,7 @@ export const GET = withAdmin(async ({ req, searchParams }) => {
 });
 
 export const POST = withAdmin(async ({ req }) => {
-  const { email, password, plan } = await req.json();
+  const { email, password } = await req.json();
 
   if (!email || !password) {
     return NextResponse.json(
@@ -112,11 +112,6 @@ export const POST = withAdmin(async ({ req }) => {
       { error: "Password must be at least 8 characters" },
       { status: 400 },
     );
-  }
-
-  const validPlans = ["free", "pro", "business", "enterprise"];
-  if (!validPlans.includes(plan)) {
-    return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
   }
 
   const existingUser = await prisma.user.findUnique({
@@ -139,7 +134,7 @@ export const POST = withAdmin(async ({ req }) => {
       email,
       passwordHash,
       emailVerified: new Date(),
-      source: `admin:${plan}`,
+      source: "admin",
       notificationPreferences: {
         create: {},
       },
@@ -149,7 +144,6 @@ export const POST = withAdmin(async ({ req }) => {
   return NextResponse.json({
     userId: user.id,
     email: user.email,
-    plan,
     message: "User created. They will set up their workspace on first login.",
   });
 });
