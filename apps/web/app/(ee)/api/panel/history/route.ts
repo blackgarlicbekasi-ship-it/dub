@@ -15,7 +15,7 @@ export const GET = async () => {
     if (admin) {
       const logs = await prisma.$queryRawUnsafe(
         `SELECT r.id, r.oldDomain, r.newDomain, r.linksUpdated, r.isUndo, r.createdAt, u.email as userEmail
-         FROM ReplaceLog r LEFT JOIN User u ON r.userId = u.id
+         FROM ReplaceLog r LEFT JOIN User u ON CONVERT(r.userId USING utf8mb4) COLLATE utf8mb4_unicode_ci = u.id
          ORDER BY r.createdAt DESC LIMIT 200`,
       );
       return NextResponse.json({ logs });
@@ -26,7 +26,11 @@ export const GET = async () => {
       session.user.id,
     );
     return NextResponse.json({ logs });
-  } catch {
-    return NextResponse.json({ logs: [] });
+  } catch (error) {
+    console.error("[panel/history] query failed", error);
+    return NextResponse.json(
+      { error: "Failed to load history", logs: [] },
+      { status: 500 },
+    );
   }
 };
