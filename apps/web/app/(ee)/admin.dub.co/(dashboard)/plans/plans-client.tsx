@@ -143,18 +143,30 @@ function PlanCard({
 
 export function PlansClient() {
   const [plans, setPlans] = useState<PlanConfig[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const fetchPlans = useCallback(() => {
     fetch("/api/admin/plans")
-      .then((r) => r.json())
+      .then(async (r) => {
+        if (!r.ok) {
+          throw new Error(`Request failed with status ${r.status}`);
+        }
+        return r.json();
+      })
       .then((data) => {
         const sorted = (data.plans || []).sort(
           (a: PlanConfig, b: PlanConfig) =>
             PLAN_ORDER.indexOf(a.plan) - PLAN_ORDER.indexOf(b.plan),
         );
         setPlans(sorted);
+        setLoadError(null);
       })
-      .catch(() => setPlans([]));
+      .catch((error) => {
+        setPlans([]);
+        setLoadError(
+          error instanceof Error ? error.message : "Failed to load plans",
+        );
+      });
   }, []);
 
   useEffect(() => {
@@ -194,6 +206,15 @@ export function PlansClient() {
       {plans === null ? (
         <div className="flex h-60 items-center justify-center">
           <LoadingSpinner className="h-6 w-6" />
+        </div>
+      ) : loadError ? (
+        <div className="flex h-60 flex-col items-center justify-center gap-1 rounded-xl border border-red-200 bg-red-50 px-4 text-center">
+          <span className="text-sm font-medium text-red-700">
+            Could not load plan configuration
+          </span>
+          <span className="text-xs text-red-600">
+            {loadError}. This is a failure to load, not an empty configuration.
+          </span>
         </div>
       ) : plans.length === 0 ? (
         <div className="flex h-60 items-center justify-center rounded-xl border border-neutral-200 bg-white text-sm text-neutral-500">

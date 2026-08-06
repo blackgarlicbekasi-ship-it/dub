@@ -15,6 +15,7 @@ interface DomainInfo {
 
 export function DomainsClient() {
   const [domains, setDomains] = useState<DomainInfo[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newDomain, setNewDomain] = useState("");
   const [newDescription, setNewDescription] = useState("");
@@ -22,9 +23,22 @@ export function DomainsClient() {
 
   const fetchDomains = useCallback(() => {
     fetch("/api/admin/domains")
-      .then((r) => r.json())
-      .then((data) => setDomains(data.domains || []))
-      .catch(() => setDomains([]));
+      .then(async (r) => {
+        if (!r.ok) {
+          throw new Error(`Request failed with status ${r.status}`);
+        }
+        return r.json();
+      })
+      .then((data) => {
+        setDomains(data.domains || []);
+        setLoadError(null);
+      })
+      .catch((error) => {
+        setDomains([]);
+        setLoadError(
+          error instanceof Error ? error.message : "Failed to load domains",
+        );
+      });
   }, []);
 
   useEffect(() => {
@@ -146,6 +160,15 @@ export function DomainsClient() {
         {domains === null ? (
           <div className="flex h-40 items-center justify-center">
             <LoadingSpinner className="h-6 w-6" />
+          </div>
+        ) : loadError ? (
+          <div className="flex h-40 flex-col items-center justify-center gap-1 px-4 text-center">
+            <span className="text-sm font-medium text-red-700">
+              Could not load domains
+            </span>
+            <span className="text-xs text-red-600">
+              {loadError}. This is a failure to load, not an empty list.
+            </span>
           </div>
         ) : domains.length === 0 ? (
           <div className="flex h-40 items-center justify-center text-sm text-neutral-500">

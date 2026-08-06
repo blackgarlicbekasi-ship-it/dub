@@ -14,18 +14,38 @@ interface AdminStats {
 
 export function AdminDashboardClient() {
   const [stats, setStats] = useState<AdminStats | null>(null);
+  const [statsError, setStatsError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/stats")
-      .then((r) => r.json())
-      .then(setStats)
-      .catch(() => {});
+      .then(async (r) => {
+        if (!r.ok) {
+          throw new Error(`Request failed with status ${r.status}`);
+        }
+        return r.json();
+      })
+      .then((data) => {
+        setStats(data);
+        setStatsError(null);
+      })
+      .catch((error) => {
+        setStatsError(
+          error instanceof Error ? error.message : "Failed to load stats",
+        );
+      });
   }, []);
 
   return (
     <div className="mx-auto w-full max-w-screen-lg px-3 py-6 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-semibold tracking-tight text-neutral-900">Dashboard</h1>
       <p className="mt-1 text-sm text-neutral-500">Ingat admin overview</p>
+
+      {statsError && (
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          Could not load stats: {statsError}. The figures below are unavailable,
+          not zero.
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <StatCard label="Users" value={stats?.totalUsers} />
