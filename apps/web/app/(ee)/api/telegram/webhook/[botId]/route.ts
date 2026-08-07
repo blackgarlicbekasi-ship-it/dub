@@ -54,6 +54,8 @@ const SESSION_EXPIRED = "Sesi telah berakhir. Mulai lagi dengan /ganti.";
 const NO_MATCHING_LINKS =
   "Tidak ada link dengan URL tersebut. Proses dibatalkan.";
 const COMMAND_FAILED = "That command failed. Nothing further was changed.";
+const ANONYMOUS_SENDER =
+  "Kirim perintah sebagai akun pribadi Anda, bukan sebagai grup. Ketuk foto pengirim di samping kolom pesan, pilih akun Anda, lalu ulangi perintahnya.";
 
 const HELP = [
   "<b>Ingat bot</b>",
@@ -108,13 +110,8 @@ export const POST = async (
   const chatId = message.chat?.id;
   const from = message.from;
 
-  if (chatId === undefined || !from || from.is_bot) {
-    console.error("[telegram/webhook] dropped, sender is not a plain user", {
-      botId,
-      chatId: chatId === undefined ? null : String(chatId),
-      hasFrom: !!from,
-      isBot: from?.is_bot ?? null,
-    });
+  if (chatId === undefined) {
+    console.error("[telegram/webhook] dropped, update has no chat", { botId });
     return ok();
   }
 
@@ -143,6 +140,28 @@ export const POST = async (
 
   const { command, args } = parseCommand(text);
   const isCommand = KNOWN_COMMANDS.has(command);
+
+  if (message.sender_chat && String(message.sender_chat.id) === String(chatId)) {
+    console.error("[telegram/webhook] anonymous sender", {
+      botId: bot.id,
+      chatId: String(chatId),
+      isCommand,
+    });
+
+    if (isCommand) {
+      await sendMessage(bot.botToken, bot.chatId, ANONYMOUS_SENDER);
+    }
+    return ok();
+  }
+
+  if (!from || from.is_bot) {
+    console.error("[telegram/webhook] dropped, sender is not a plain user", {
+      botId: bot.id,
+      hasFrom: !!from,
+      isBot: from?.is_bot ?? null,
+    });
+    return ok();
+  }
 
   const conversationId: ConversationId = {
     botId: bot.id,

@@ -16,6 +16,7 @@ export interface TelegramMessage {
   text?: string;
   chat?: TelegramChat;
   from?: TelegramFrom;
+  sender_chat?: TelegramChat;
 }
 
 export interface TelegramUpdate {
