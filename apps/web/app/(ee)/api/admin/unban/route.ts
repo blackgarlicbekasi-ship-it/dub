@@ -126,7 +126,15 @@ const restoreLink = async (domain: string, key: string, projectId?: string) => {
 
   const target = await prisma.project.findUnique({
     where: { id: targetProjectId },
-    select: { id: true, slug: true },
+    select: {
+      id: true,
+      slug: true,
+      users: {
+        where: { role: "owner" },
+        select: { userId: true },
+        take: 1,
+      },
+    },
   });
 
   if (!target) {
@@ -136,12 +144,24 @@ const restoreLink = async (domain: string, key: string, projectId?: string) => {
     );
   }
 
+  const currentOwner = link.userId
+    ? await prisma.user.findUnique({
+        where: { id: link.userId },
+        select: { id: true },
+      })
+    : null;
+
+  const restoredUserId =
+    currentOwner?.id ??
+    origin?.originalUserId ??
+    target.users[0]?.userId ??
+    null;
+
   await prisma.link.update({
     where: { id: link.id },
     data: {
       projectId: target.id,
-      ...(!link.userId &&
-        origin?.originalUserId && { userId: origin.originalUserId }),
+      userId: restoredUserId,
       archived: false,
     },
   });

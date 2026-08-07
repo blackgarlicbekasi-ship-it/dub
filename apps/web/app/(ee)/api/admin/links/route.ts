@@ -78,10 +78,53 @@ export const GET = withAdmin(async ({ searchParams }) => {
     }),
   });
 
+  const bannedLinks = response.filter(
+    (link) => link.projectId === LEGAL_WORKSPACE_ID,
+  );
+
+  let origins: { linkId: string }[] = [];
+
+  if (bannedLinks.length) {
+    try {
+      const placeholders = bannedLinks.map(() => "?").join(",");
+      origins = await prisma.$queryRawUnsafe(
+        `SELECT linkId FROM BannedLink WHERE linkId IN (${placeholders})`,
+        ...bannedLinks.map((link) => link.id),
+      );
+    } catch (error) {
+      console.error("[admin/links] origin lookup failed", error);
+    }
+  }
+
+  const originIds = new Set(origins.map(({ linkId }) => linkId));
+
+  const owners = await prisma.projectUsers.findMany({
+    where: {
+      userId: {
+        in: bannedLinks
+          .map((link) => link.userId)
+          .filter((id): id is string => Boolean(id)),
+      },
+      role: "owner",
+    },
+    select: { userId: true },
+  });
+
+  const ownerIds = new Set(owners.map(({ userId }) => userId));
+
   return NextResponse.json(
-    response.map((link) => ({
-      ...transformLink(link),
-      banned: link.projectId === LEGAL_WORKSPACE_ID,
-    })),
+    response.map((link) => {
+      const banned = link.projectId === LEGAL_WORKSPACE_ID;
+
+      return {
+        ...transformLink(link),
+        banned,
+        archived: link.archived,
+        originKnown: banned
+          ? originIds.has(link.id) ||
+            Boolean(link.userId && ownerIds.has(link.userId))
+          : true,
+      };
+    }),
   );
 });

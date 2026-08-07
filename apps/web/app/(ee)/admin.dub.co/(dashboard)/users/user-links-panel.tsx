@@ -227,7 +227,7 @@ export function UserLinksPanel({
                       </td>
                       <td className="px-4 py-3">
                         {editingLink === link.id ? (
-                          <div className="flex min-w-[22rem] items-center gap-2">
+                          <div className="flex min-w-[22rem] flex-col gap-2">
                             <Input
                               type="url"
                               value={editUrl}
@@ -236,19 +236,21 @@ export function UserLinksPanel({
                               ) => setEditUrl(e.target.value)}
                               className="w-full max-w-none text-sm"
                             />
-                            <Button
-                              text="Save"
-                              loading={pendingLink === link.id}
-                              disabled={pendingLink !== null}
-                              className="h-9 w-auto rounded-lg px-4"
-                              onClick={() => handleEditSave(link.id)}
-                            />
-                            <Button
-                              text="Cancel"
-                              variant="secondary"
-                              className="h-9 w-auto rounded-lg px-4"
-                              onClick={() => setEditingLink(null)}
-                            />
+                            <div className="flex items-center gap-2">
+                              <Button
+                                text="Save"
+                                loading={pendingLink === link.id}
+                                disabled={pendingLink !== null}
+                                className="h-9 w-auto rounded-lg px-4"
+                                onClick={() => handleEditSave(link.id)}
+                              />
+                              <Button
+                                text="Cancel"
+                                variant="secondary"
+                                className="h-9 w-auto rounded-lg px-4"
+                                onClick={() => setEditingLink(null)}
+                              />
+                            </div>
                           </div>
                         ) : (
                           <div
@@ -287,7 +289,9 @@ export function UserLinksPanel({
                                 onClick={() => handleDelete(link.id)}
                                 className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
                               >
-                                {pendingLink === link.id ? "Deleting..." : "Confirm"}
+                                {pendingLink === link.id
+                                  ? "Deleting..."
+                                  : "Confirm"}
                               </button>
                               <button
                                 type="button"
