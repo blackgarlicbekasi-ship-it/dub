@@ -3,7 +3,7 @@
 import { doLogout } from "@/lib/auth/logout";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Replace", icon: "M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" },
@@ -13,6 +13,25 @@ const navItems = [
 
 export default function PanelDashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const [telegramEnabled, setTelegramEnabled] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/panel/telegram")
+      .then((res) => {
+        if (!cancelled) setTelegramEnabled(res.ok);
+      })
+      .catch(() => {
+        if (!cancelled) setTelegramEnabled(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const visibleNavItems = navItems.filter(
+    (item) => item.href !== "/telegram" || telegramEnabled,
+  );
 
   const handleLogout = () => {
     doLogout("/login");
@@ -28,7 +47,7 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
         </div>
         <nav className="flex-1 px-3 py-4">
           <div className="flex flex-col gap-1">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const isActive = item.href === "/"
                 ? pathname === "/" || pathname === ""
                 : (pathname || "").startsWith(item.href);
@@ -67,7 +86,7 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
       <div className="md:hidden sticky top-0 z-20 flex h-14 items-center gap-4 border-b border-neutral-200 bg-white px-4">
         <span className="text-lg font-bold text-neutral-900">Ingat Panel</span>
         <div className="flex items-center gap-2 ml-auto">
-          {navItems.map((item) => {
+          {visibleNavItems.map((item) => {
             const isActive = item.href === "/"
               ? pathname === "/" || pathname === ""
               : (pathname || "").startsWith(item.href);

@@ -7,6 +7,7 @@ import {
 } from "@/lib/api/links/perform-replace";
 import { getSession } from "@/lib/auth";
 import { isDubAdmin } from "@/lib/auth/admin";
+import { hasTelegramAccess } from "@/lib/telegram/permissions";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -136,19 +137,8 @@ async function sendTelegramNotifications(
   newDomain: string,
   linksUpdated: number,
 ) {
-  // Check if user is active
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { lockedAt: true },
-  });
-  if (user?.lockedAt) return;
-
-  // Check if telegram feature is enabled
-  const featureRows = (await prisma.$queryRawUnsafe(
-    `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
-    userId,
-  )) as { enabled: number }[];
-  if (featureRows.length > 0 && featureRows[0].enabled !== 1) return;
+  const hasAccess = await hasTelegramAccess(userId);
+  if (!hasAccess) return;
 
   // Get active bots
   const bots = (await prisma.$queryRawUnsafe(

@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { hasTelegramAccess } from "@/lib/telegram/permissions";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,29 +11,15 @@ export const POST = async (req: NextRequest) => {
 
   const { id } = await req.json();
 
+  const hasAccess = await hasTelegramAccess(session.user.id);
+  if (!hasAccess) {
+    return NextResponse.json(
+      { error: "Telegram feature is disabled for your account" },
+      { status: 403 },
+    );
+  }
+
   try {
-    // Check if user account is active
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { lockedAt: true },
-    });
-
-    if (user?.lockedAt) {
-      return NextResponse.json({ error: "Account is deactivated" }, { status: 403 });
-    }
-
-    // Check if telegram feature is still enabled
-    const featureRows = await prisma.$queryRawUnsafe(
-      `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
-      session.user.id,
-    ) as { enabled: number }[];
-
-    // Allow if no feature row exists but user is admin (handled by the telegram route already)
-    // For non-admin users, require explicit feature enablement
-    if (featureRows.length > 0 && featureRows[0].enabled !== 1) {
-      return NextResponse.json({ error: "Telegram feature is disabled for your account" }, { status: 403 });
-    }
-
     const bots = await prisma.$queryRawUnsafe(
       `SELECT botToken, chatId FROM TelegramBot WHERE id = ? AND userId = ?`,
       id, session.user.id,
