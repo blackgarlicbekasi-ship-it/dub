@@ -160,7 +160,7 @@ export function AdminLinksClient() {
           <Button
             text="Search"
             variant="secondary"
-            className="h-9 w-auto"
+            className="h-9 w-auto rounded-lg px-4"
             type="submit"
           />
         </form>
@@ -171,7 +171,7 @@ export function AdminLinksClient() {
             setPage(1);
             setSort(e.target.value as SortField);
           }}
-          className="h-9 rounded-md border border-neutral-300 bg-white px-3 text-sm"
+          className="w-auto rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
         >
           {Object.entries(SORT_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
@@ -186,7 +186,7 @@ export function AdminLinksClient() {
             setPage(1);
             setBannedFilter(e.target.value as BannedFilter);
           }}
-          className="h-9 rounded-md border border-neutral-300 bg-white px-3 text-sm"
+          className="w-auto rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
         >
           {Object.entries(BANNED_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
@@ -273,23 +273,23 @@ export function AdminLinksClient() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       {link.banned ? (
-                        <Button
-                          text="Restore"
-                          variant="secondary"
-                          loading={acting === link.id}
+                        <button
+                          type="button"
                           disabled={acting !== null}
-                          className="h-8 w-auto"
                           onClick={() => handleUnban(link)}
-                        />
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                          {acting === link.id ? "Restoring..." : "Restore"}
+                        </button>
                       ) : (
-                        <Button
-                          text="Ban"
-                          variant="danger"
-                          loading={acting === link.id}
+                        <button
+                          type="button"
                           disabled={acting !== null}
-                          className="h-8 w-auto"
                           onClick={() => handleBan(link)}
-                        />
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                          {acting === link.id ? "Banning..." : "Ban"}
+                        </button>
                       )}
                     </td>
                   </tr>
@@ -307,14 +307,14 @@ export function AdminLinksClient() {
                 text="Previous"
                 variant="secondary"
                 disabled={page <= 1}
-                className="h-8 w-auto"
+                className="h-9 w-auto rounded-lg px-4"
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
               />
               <Button
                 text="Next"
                 variant="secondary"
                 disabled={links.length < 100}
-                className="h-8 w-auto"
+                className="h-9 w-auto rounded-lg px-4"
                 onClick={() => setPage((p) => p + 1)}
               />
             </div>

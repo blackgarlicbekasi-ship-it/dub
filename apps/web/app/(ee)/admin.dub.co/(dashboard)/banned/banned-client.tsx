@@ -184,7 +184,7 @@ export function BannedClient() {
             variant="secondary"
             loading={pending}
             disabled={pending}
-            className="h-8 w-auto px-3 text-xs"
+            className="h-9 w-auto rounded-lg px-4"
             onClick={() => restore(selectedLinks)}
           />
           <Button
@@ -192,7 +192,7 @@ export function BannedClient() {
             variant="danger"
             loading={pending}
             disabled={pending}
-            className="h-8 w-auto px-3 text-xs"
+            className="h-9 w-auto rounded-lg px-4"
             onClick={() => remove(selectedLinks)}
           />
         </div>
@@ -227,7 +227,7 @@ export function BannedClient() {
                       aria-label="Select all banned links"
                       checked={selected.size === links.length}
                       onChange={toggleAll}
-                      className="h-4 w-4 rounded border-neutral-300"
+                      className="h-4 w-4 rounded border-neutral-300 text-neutral-600 focus:ring-neutral-500"
                     />
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
@@ -253,7 +253,7 @@ export function BannedClient() {
                         aria-label={`Select ${link.shortLink}`}
                         checked={selected.has(link.id)}
                         onChange={() => toggle(link.id)}
-                        className="h-4 w-4 rounded border-neutral-300"
+                        className="h-4 w-4 rounded border-neutral-300 text-neutral-600 focus:ring-neutral-500"
                       />
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-neutral-900">
@@ -279,7 +279,7 @@ export function BannedClient() {
                                 [link.id]: e.target.value,
                               }))
                             }
-                            className="h-8 rounded-md border border-neutral-300 bg-white px-2 text-xs"
+                            className="w-auto rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
                           >
                             <option value="">Choose workspace...</option>
                             {workspaces.map((workspace) => (
@@ -289,20 +289,22 @@ export function BannedClient() {
                             ))}
                           </select>
                         )}
-                        <Button
-                          text="Restore"
-                          variant="secondary"
+                        <button
+                          type="button"
                           disabled={pending}
-                          className="h-8 w-auto shrink-0 px-3 text-xs"
                           onClick={() => restore([link])}
-                        />
-                        <Button
-                          text="Delete"
-                          variant="danger"
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                          Restore
+                        </button>
+                        <button
+                          type="button"
                           disabled={pending}
-                          className="h-8 w-auto shrink-0 px-3 text-xs"
                           onClick={() => remove([link])}
-                        />
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </td>
                   </tr>

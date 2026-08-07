@@ -126,7 +126,7 @@ export function UserLinksPanel({
         <button
           type="button"
           onClick={onBack}
-          className="mb-4 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+          className="mb-4 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
         >
           &larr; Back to Users
         </button>
@@ -162,14 +162,14 @@ export function UserLinksPanel({
             text="Search"
             type="submit"
             variant="secondary"
-            className="h-9 w-auto shrink-0 px-4"
+            className="h-9 w-auto rounded-lg px-4"
           />
           {search && (
             <Button
               text="Clear"
               type="button"
               variant="secondary"
-              className="h-9 w-auto shrink-0 px-4"
+              className="h-9 w-auto rounded-lg px-4"
               onClick={() => {
                 setSearch("");
                 setSubmittedSearch("");
@@ -234,19 +234,19 @@ export function UserLinksPanel({
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
                               ) => setEditUrl(e.target.value)}
-                              className="h-8 w-full max-w-none text-sm"
+                              className="w-full max-w-none text-sm"
                             />
                             <Button
                               text="Save"
                               loading={pendingLink === link.id}
                               disabled={pendingLink !== null}
-                              className="h-8 w-auto shrink-0 px-3 text-xs"
+                              className="h-9 w-auto rounded-lg px-4"
                               onClick={() => handleEditSave(link.id)}
                             />
                             <Button
                               text="Cancel"
                               variant="secondary"
-                              className="h-8 w-auto shrink-0 px-3 text-xs"
+                              className="h-9 w-auto rounded-lg px-4"
                               onClick={() => setEditingLink(null)}
                             />
                           </div>
@@ -274,7 +274,7 @@ export function UserLinksPanel({
                                 setEditingLink(link.id);
                                 setEditUrl(link.url);
                               }}
-                              className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+                              className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                               Edit
                             </button>
@@ -285,14 +285,14 @@ export function UserLinksPanel({
                                 type="button"
                                 disabled={pendingLink !== null}
                                 onClick={() => handleDelete(link.id)}
-                                className="rounded-md border border-transparent bg-red-600 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
                               >
                                 {pendingLink === link.id ? "Deleting..." : "Confirm"}
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setDeletingLink(null)}
-                                className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+                                className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
                               >
                                 Cancel
                               </button>
@@ -301,7 +301,7 @@ export function UserLinksPanel({
                             <button
                               type="button"
                               onClick={() => setDeletingLink(link.id)}
-                              className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+                              className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                               Delete
                             </button>
@@ -323,14 +323,14 @@ export function UserLinksPanel({
                   <Button
                     text="Previous"
                     variant="secondary"
-                    className="h-8 w-auto px-3 text-xs"
+                    className="h-9 w-auto rounded-lg px-4"
                     disabled={page <= 1}
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                   />
                   <Button
                     text="Next"
                     variant="secondary"
-                    className="h-8 w-auto px-3 text-xs"
+                    className="h-9 w-auto rounded-lg px-4"
                     disabled={page >= data.totalPages}
                     onClick={() => setPage((p) => p + 1)}
                   />
