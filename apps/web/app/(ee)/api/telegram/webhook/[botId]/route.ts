@@ -321,6 +321,7 @@ export const POST = async (
       newValue,
       matchMode: "contains",
       scope,
+      actorUserId: bot.userId,
     });
 
     await clearConversation(conversationId);

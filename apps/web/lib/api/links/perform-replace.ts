@@ -29,7 +29,42 @@ export interface ReplaceInput {
   newValue: string;
   matchMode: MatchMode;
   scope: ReplaceScope;
+  actorUserId: string;
 }
+
+const genId = (prefix: string) => {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let id = prefix;
+  for (let i = 0; i < 20; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return id;
+};
+
+const recordReplaceLog = async ({
+  actorUserId,
+  oldValue,
+  newValue,
+  linksUpdated,
+}: {
+  actorUserId: string;
+  oldValue: string;
+  newValue: string;
+  linksUpdated: number;
+}) => {
+  try {
+    await prisma.$executeRawUnsafe(
+      `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, isUndo, createdAt) VALUES (?, ?, ?, ?, ?, 0, NOW())`,
+      genId("rpl_"),
+      actorUserId,
+      oldValue,
+      newValue,
+      linksUpdated,
+    );
+  } catch (e) {
+    console.error("[performReplace] ReplaceLog insert failed", e);
+  }
+};
 
 const LINK_SELECT = {
   id: true,
@@ -175,6 +210,13 @@ export const performReplace = async (
 
     cacheFailed += results.filter((r) => r.status === "rejected").length;
   }
+
+  await recordReplaceLog({
+    actorUserId: input.actorUserId,
+    oldValue: input.oldValue,
+    newValue: input.newValue,
+    linksUpdated: persisted.length,
+  });
 
   return { updated: persisted.length, failed, cacheFailed };
 };

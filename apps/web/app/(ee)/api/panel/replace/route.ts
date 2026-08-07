@@ -109,20 +109,8 @@ export const POST = async (req: NextRequest) => {
     newValue: nd,
     matchMode,
     scope,
+    actorUserId: userId,
   });
-
-  try {
-    await prisma.$executeRawUnsafe(
-      `INSERT INTO ReplaceLog (id, userId, oldDomain, newDomain, linksUpdated, isUndo, createdAt) VALUES (?, ?, ?, ?, ?, 0, NOW())`,
-      genId("rpl_"),
-      userId,
-      od,
-      nd,
-      updated,
-    );
-  } catch (e) {
-    console.error("[panel/replace] ReplaceLog insert failed", e);
-  }
 
   if (updated > 0) {
     sendTelegramNotifications(userId, od, nd, updated).catch(() => {});
@@ -171,12 +159,4 @@ async function sendTelegramNotifications(
       // Silently skip failed notifications
     }
   }
-}
-
-function genId(prefix: string) {
-  const c = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let r = prefix;
-  for (let i = 0; i < 20; i++)
-    r += c.charAt(Math.floor(Math.random() * c.length));
-  return r;
 }
