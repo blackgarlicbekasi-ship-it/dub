@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@dub/ui";
+import { Button, Input } from "@dub/ui";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -65,8 +65,8 @@ export function AdminLoginClient() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-neutral-50 to-neutral-100">
-      <div className="w-full max-w-sm px-4">
-        <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+      <div className="w-full max-w-md px-4">
+        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
           <h1 className="text-center text-xl font-semibold text-neutral-900">
             Ingat Admin
           </h1>
@@ -76,15 +76,17 @@ export function AdminLoginClient() {
               <span className="mb-2 block text-sm font-medium text-neutral-700">
                 Email
               </span>
-              <input
+              <Input
                 type="email"
                 autoFocus
                 placeholder="admin@example.com"
                 autoComplete="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="block w-full rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder-neutral-400 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
+                className="max-w-none"
               />
             </label>
 
@@ -92,21 +94,20 @@ export function AdminLoginClient() {
               <span className="mb-2 block text-sm font-medium text-neutral-700">
                 Password
               </span>
-              <input
+              <Input
                 type="password"
                 placeholder="Enter your password"
+                autoComplete="current-password"
                 required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="block w-full rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder-neutral-400 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
+                className="max-w-none"
               />
             </label>
 
-            <Button
-              type="submit"
-              text="Log in"
-              loading={loading}
-            />
+            <Button type="submit" text="Log in" loading={loading} />
           </form>
         </div>
       </div>
