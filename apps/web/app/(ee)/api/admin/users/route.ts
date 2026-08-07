@@ -2,6 +2,7 @@ import { withAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/auth/password";
 import { createId } from "@/lib/api/create-id";
 import { prisma } from "@dub/prisma";
+import { LEGAL_USER_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 export const GET = withAdmin(async ({ req, searchParams }) => {
@@ -9,14 +10,12 @@ export const GET = withAdmin(async ({ req, searchParams }) => {
   const perPage = parseInt(searchParams.perPage || "20");
   const search = searchParams.search || "";
 
-  const where = search
-    ? {
-        OR: [
-          { email: { contains: search } },
-          { name: { contains: search } },
-        ],
-      }
-    : {};
+  const where = {
+    id: { not: LEGAL_USER_ID },
+    ...(search && {
+      OR: [{ email: { contains: search } }, { name: { contains: search } }],
+    }),
+  };
 
   const [users, total] = await Promise.all([
     prisma.user.findMany({

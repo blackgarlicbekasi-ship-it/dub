@@ -1,12 +1,20 @@
 import { withAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/auth/password";
 import { prisma } from "@dub/prisma";
+import { LEGAL_USER_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
+
+const RESERVED_USER_MESSAGE =
+  "This is the quarantine account that banned links are held under. Deleting or modifying it would orphan every banned link.";
 
 export const PATCH = withAdmin(async ({ req, params }) => {
   const userId = params.id;
   if (!userId) {
     return NextResponse.json({ error: "User ID required" }, { status: 400 });
+  }
+
+  if (userId === LEGAL_USER_ID) {
+    return NextResponse.json({ error: RESERVED_USER_MESSAGE }, { status: 403 });
   }
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -126,6 +134,10 @@ export const DELETE = withAdmin(async ({ params }) => {
   const userId = params.id;
   if (!userId) {
     return NextResponse.json({ error: "User ID required" }, { status: 400 });
+  }
+
+  if (userId === LEGAL_USER_ID) {
+    return NextResponse.json({ error: RESERVED_USER_MESSAGE }, { status: 403 });
   }
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
