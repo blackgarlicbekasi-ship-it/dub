@@ -105,16 +105,24 @@ export const sendMessage = async (
   botToken: string,
   chatId: string | number,
   text: string,
-) => {
+): Promise<boolean> => {
   try {
-    await call(botToken, "sendMessage", {
+    const data = await call(botToken, "sendMessage", {
       chat_id: chatId,
       text,
       parse_mode: "HTML",
       disable_web_page_preview: true,
     });
+
+    if (!data.ok) {
+      console.error("[telegram] sendMessage rejected", data.description);
+      return false;
+    }
+
+    return true;
   } catch (e) {
     console.error("[telegram] sendMessage failed", e);
+    return false;
   }
 };
 

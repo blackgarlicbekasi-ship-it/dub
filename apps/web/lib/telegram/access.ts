@@ -1,14 +1,16 @@
 import { isChatAdmin, type TelegramMessage } from "./api";
 
 export const NOT_ADMIN_MESSAGE =
-  "perintah tidak dapat dilaksanakan karena bukan admin yang bertugas";
+  "Perintah tidak dapat dilaksanakan karena bukan admin yang bertugas.";
+
+export type SenderRefusalReason = "foreign_chat" | "not_admin";
 
 export type SenderAuthorization =
   | { allowed: true }
-  | { allowed: false; notify: boolean };
+  | { allowed: false; reason: SenderRefusalReason };
 
-const DROP: SenderAuthorization = { allowed: false, notify: false };
-const REFUSE: SenderAuthorization = { allowed: false, notify: true };
+const DROP: SenderAuthorization = { allowed: false, reason: "foreign_chat" };
+const REFUSE: SenderAuthorization = { allowed: false, reason: "not_admin" };
 
 export const getAllowedTelegramUserIds = (): string[] =>
   (process.env.TELEGRAM_ALLOWED_USER_IDS || "")

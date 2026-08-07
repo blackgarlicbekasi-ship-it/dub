@@ -149,7 +149,7 @@ export const POST = async (
   });
 
   if (!authorization.allowed) {
-    if (authorization.notify) {
+    if (authorization.reason !== "foreign_chat") {
       await sendMessage(bot.botToken, bot.chatId, NOT_ADMIN_MESSAGE);
     }
     return ok();
