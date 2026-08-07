@@ -1,4 +1,6 @@
+import { linkCache } from "@/lib/api/links/cache";
 import { withAdmin } from "@/lib/auth";
+import { recordLink } from "@/lib/tinybird";
 import { prisma } from "@dub/prisma";
 import { NextResponse } from "next/server";
 
@@ -106,10 +108,18 @@ export const PATCH = withAdmin(async ({ req, params }) => {
     return NextResponse.json({ error: "Link does not belong to this user" }, { status: 403 });
   }
 
-  await prisma.link.update({
+  const updated = await prisma.link.update({
     where: { id: linkId },
     data: { url },
+    include: { webhooks: true },
   });
+
+  await Promise.allSettled([
+    updated.programId && updated.partnerId
+      ? linkCache.delete({ domain: updated.domain, key: updated.key })
+      : linkCache.set(updated as any),
+    recordLink(updated as any),
+  ]);
 
   return NextResponse.json({ success: true, message: "Link URL updated" });
 });
@@ -142,9 +152,15 @@ export const DELETE = withAdmin(async ({ req, params }) => {
     return NextResponse.json({ error: "Link does not belong to this user" }, { status: 403 });
   }
 
-  await prisma.link.delete({
+  const deleted = await prisma.link.delete({
     where: { id: linkId },
+    include: { webhooks: true },
   });
+
+  await Promise.allSettled([
+    linkCache.delete({ domain: deleted.domain, key: deleted.key }),
+    recordLink(deleted as any, { deleted: true }),
+  ]);
 
   return NextResponse.json({ success: true, message: "Link deleted" });
 });
