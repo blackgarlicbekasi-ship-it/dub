@@ -3,6 +3,7 @@
 import { Button, Input, LoadingSpinner } from "@dub/ui";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { UsageGuide } from "./usage-guide";
 
 interface TelegramBot {
   id: string;
@@ -300,6 +301,8 @@ export function TelegramClient() {
           </table>
         )}
       </div>
+
+      <UsageGuide />
     </div>
   );
 }
