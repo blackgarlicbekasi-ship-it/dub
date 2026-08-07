@@ -3,7 +3,7 @@ import {
   findReplaceCandidates,
   performReplace,
 } from "@/lib/api/links/perform-replace";
-import { isAuthorizedSender } from "@/lib/telegram/access";
+import { NOT_ADMIN_MESSAGE, authorizeSender } from "@/lib/telegram/access";
 import { sendMessage, type TelegramUpdate } from "@/lib/telegram/api";
 import { hasTelegramAccess } from "@/lib/telegram/permissions";
 import { getBotReplaceScope } from "@/lib/telegram/scope";
@@ -33,11 +33,20 @@ const secretMatches = (received: string | null): boolean => {
   return timingSafeEqual(a, b);
 };
 
+const REPLACE_COMMANDS = new Set(["/ganti", "/replace"]);
+
+const KNOWN_COMMANDS = new Set([
+  "/start",
+  "/help",
+  "/preview",
+  ...REPLACE_COMMANDS,
+]);
+
 const HELP = [
   "<b>Ingat bot</b>",
   "",
   "<code>/preview &lt;old&gt; &lt;new&gt;</code> show what would change",
-  "<code>/replace &lt;old&gt; &lt;new&gt;</code> apply the change",
+  "<code>/ganti &lt;old&gt; &lt;new&gt;</code> apply the change",
   "",
   `Matching is substring only, capped at ${MAX_REPLACE_LINKS} links.`,
 ].join("\n");
@@ -51,7 +60,7 @@ const parseCommand = (text: string) => {
 
 const validatePair = (args: string[]): string | null => {
   if (args.length !== 2) {
-    return "Usage: /replace &lt;old&gt; &lt;new&gt;";
+    return "Usage: /ganti &lt;old&gt; &lt;new&gt;";
   }
   if (args[0].length < 3 || args[1].length < 3) {
     return "Both values must be at least 3 characters.";
@@ -97,24 +106,27 @@ export const POST = async (
 
   const bot = bots[0];
 
-  const authorized = await isAuthorizedSender({
+  const { command, args } = parseCommand(text);
+
+  if (!KNOWN_COMMANDS.has(command)) {
+    return ok();
+  }
+
+  const authorization = await authorizeSender({
     message,
     botToken: bot.botToken,
     boundChatId: bot.chatId,
   });
 
-  if (!authorized) {
+  if (!authorization.allowed) {
+    if (authorization.notify) {
+      await sendMessage(bot.botToken, bot.chatId, NOT_ADMIN_MESSAGE);
+    }
     return ok();
   }
-
-  const { command, args } = parseCommand(text);
 
   if (command === "/start" || command === "/help") {
     await sendMessage(bot.botToken, bot.chatId, HELP);
-    return ok();
-  }
-
-  if (command !== "/preview" && command !== "/replace") {
     return ok();
   }
 
