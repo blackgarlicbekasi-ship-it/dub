@@ -109,6 +109,12 @@ export const POST = async (
   const from = message.from;
 
   if (chatId === undefined || !from || from.is_bot) {
+    console.error("[telegram/webhook] dropped, sender is not a plain user", {
+      botId,
+      chatId: chatId === undefined ? null : String(chatId),
+      hasFrom: !!from,
+      isBot: from?.is_bot ?? null,
+    });
     return ok();
   }
 
@@ -118,12 +124,20 @@ export const POST = async (
   )) as { id: string; userId: string; botToken: string; chatId: string }[];
 
   if (bots.length === 0) {
+    console.error("[telegram/webhook] dropped, no active bot for this id", {
+      botId,
+    });
     return ok();
   }
 
   const bot = bots[0];
 
   if (String(chatId) !== String(bot.chatId)) {
+    console.error("[telegram/webhook] dropped, chat is not the bound chat", {
+      botId: bot.id,
+      incomingChatId: String(chatId),
+      boundChatId: String(bot.chatId),
+    });
     return ok();
   }
 
@@ -149,6 +163,13 @@ export const POST = async (
   });
 
   if (!authorization.allowed) {
+    console.error("[telegram/webhook] sender refused", {
+      botId: bot.id,
+      chatId: String(chatId),
+      fromId: String(from.id),
+      reason: authorization.reason,
+    });
+
     if (authorization.reason !== "foreign_chat") {
       await sendMessage(bot.botToken, bot.chatId, NOT_ADMIN_MESSAGE);
     }
