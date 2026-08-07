@@ -51,6 +51,9 @@ const KNOWN_COMMANDS = new Set([
 const PROMPT_OLD = "Kirim URL lama yang ingin diganti.";
 const PROMPT_NEW = "Kirim URL baru.";
 const SESSION_EXPIRED = "Sesi telah berakhir. Mulai lagi dengan /ganti.";
+const NO_MATCHING_LINKS =
+  "Tidak ada link dengan URL tersebut. Proses dibatalkan.";
+const COMMAND_FAILED = "That command failed. Nothing further was changed.";
 
 const HELP = [
   "<b>Ingat bot</b>",
@@ -177,17 +180,6 @@ export const POST = async (
     return ok();
   }
 
-  if (!isCommand && conversation.status === "active") {
-    if (conversation.state.step === "old") {
-      await saveConversation(conversationId, {
-        step: "new",
-        oldValue: text.trim(),
-      });
-      await sendMessage(bot.botToken, bot.chatId, PROMPT_NEW);
-      return ok();
-    }
-  }
-
   const scope = await getBotReplaceScope(bot.userId);
 
   if (!scope) {
@@ -197,6 +189,37 @@ export const POST = async (
       bot.chatId,
       "This account is not a member of any workspace, so there is nothing to replace.",
     );
+    return ok();
+  }
+
+  if (
+    !isCommand &&
+    conversation.status === "active" &&
+    conversation.state.step === "old"
+  ) {
+    const oldValue = text.trim();
+
+    try {
+      const candidates = await findReplaceCandidates({
+        oldValue,
+        matchMode: "contains",
+        scope,
+      });
+
+      if (!candidates.some((link) => link.url.includes(oldValue))) {
+        await clearConversation(conversationId);
+        await sendMessage(bot.botToken, bot.chatId, NO_MATCHING_LINKS);
+        return ok();
+      }
+    } catch (e) {
+      console.error("[telegram/webhook] old value lookup failed", e);
+      await clearConversation(conversationId);
+      await sendMessage(bot.botToken, bot.chatId, COMMAND_FAILED);
+      return ok();
+    }
+
+    await saveConversation(conversationId, { step: "new", oldValue });
+    await sendMessage(bot.botToken, bot.chatId, PROMPT_NEW);
     return ok();
   }
 
@@ -275,11 +298,7 @@ export const POST = async (
   } catch (e) {
     console.error("[telegram/webhook] command failed", e);
     await clearConversation(conversationId);
-    await sendMessage(
-      bot.botToken,
-      bot.chatId,
-      "That command failed. Nothing further was changed.",
-    );
+    await sendMessage(bot.botToken, bot.chatId, COMMAND_FAILED);
   }
 
   return ok();
