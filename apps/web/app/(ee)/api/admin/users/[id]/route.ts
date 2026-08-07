@@ -1,5 +1,6 @@
 import { withAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/auth/password";
+import { clearUserSuspended, markUserSuspended } from "@/lib/auth/suspended";
 import { prisma } from "@dub/prisma";
 import { LEGAL_USER_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
@@ -68,10 +69,13 @@ export const PATCH = withAdmin(async ({ req, params }) => {
       where: { id: userId },
       data: { lockedAt: new Date() },
     });
-    await prisma.session.deleteMany({
-      where: { userId },
+    const marked = await markUserSuspended(userId);
+    return NextResponse.json({
+      success: true,
+      message: marked
+        ? "User suspended"
+        : "User suspended, but sign-out may be delayed",
     });
-    return NextResponse.json({ success: true, message: "User suspended and sessions cleared" });
   }
 
   if (action === "reset_login_attempts") {
@@ -92,6 +96,7 @@ export const PATCH = withAdmin(async ({ req, params }) => {
       where: { id: userId },
       data: { lockedAt: null, invalidLoginAttempts: 0 },
     });
+    await clearUserSuspended(userId);
     return NextResponse.json({ success: true, message: "User unsuspended" });
   }
 

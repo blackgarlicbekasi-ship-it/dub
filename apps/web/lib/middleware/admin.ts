@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminUserId } from "../auth/admin-ids";
+import { isUserSuspended, signOutSuspendedUser } from "../auth/suspended";
 import { getUserViaToken } from "./utils/get-user-via-token";
 import { parse } from "./utils/parse";
 
@@ -7,6 +8,10 @@ export async function AdminMiddleware(req: NextRequest) {
   const { path } = parse(req);
 
   const user = await getUserViaToken(req);
+
+  if (user?.id && (await isUserSuspended(user.id))) {
+    return signOutSuspendedUser(req);
+  }
 
   // Not logged in — allow login page, redirect everything else to login
   if (!user) {

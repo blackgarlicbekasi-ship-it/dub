@@ -3,6 +3,7 @@ import {
   ONBOARDING_WINDOW_SECONDS,
   onboardingStepCache,
 } from "../api/workspaces/onboarding-step-cache";
+import { isUserSuspended, signOutSuspendedUser } from "../auth/suspended";
 import { EmbedMiddleware } from "./embed";
 import { NewLinkMiddleware } from "./new-link";
 import { appRedirect } from "./utils/app-redirect";
@@ -21,6 +22,10 @@ export async function AppMiddleware(req: NextRequest) {
   }
 
   const user = await getUserViaToken(req);
+
+  if (user?.id && (await isUserSuspended(user.id))) {
+    return signOutSuspendedUser(req);
+  }
 
   // if there's no user and the path isn't /login or /register, redirect to /login
   if (
