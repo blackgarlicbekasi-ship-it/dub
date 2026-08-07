@@ -35,7 +35,70 @@ const call = async (
     body: JSON.stringify(payload),
   });
 
-  return (await res.json()) as { ok: boolean; result?: unknown };
+  return (await res.json()) as {
+    ok: boolean;
+    result?: unknown;
+    description?: string;
+  };
+};
+
+export interface TelegramWebhookInfo {
+  url: string;
+  pendingUpdateCount: number;
+  lastErrorMessage?: string;
+}
+
+export const setWebhook = async ({
+  botToken,
+  url,
+  secretToken,
+}: {
+  botToken: string;
+  url: string;
+  secretToken: string;
+}): Promise<{ ok: boolean; description?: string }> => {
+  const data = await call(botToken, "setWebhook", {
+    url,
+    secret_token: secretToken,
+    allowed_updates: ["message"],
+    drop_pending_updates: true,
+  });
+
+  return { ok: data.ok, description: data.description };
+};
+
+export const deleteWebhook = async (
+  botToken: string,
+): Promise<{ ok: boolean; description?: string }> => {
+  const data = await call(botToken, "deleteWebhook", {
+    drop_pending_updates: true,
+  });
+
+  return { ok: data.ok, description: data.description };
+};
+
+export const getWebhookInfo = async (
+  botToken: string,
+): Promise<TelegramWebhookInfo | null> => {
+  const data = await call(botToken, "getWebhookInfo", {});
+
+  if (!data.ok) {
+    return null;
+  }
+
+  const result = data.result as
+    | {
+        url?: string;
+        pending_update_count?: number;
+        last_error_message?: string;
+      }
+    | undefined;
+
+  return {
+    url: result?.url || "",
+    pendingUpdateCount: result?.pending_update_count || 0,
+    lastErrorMessage: result?.last_error_message,
+  };
 };
 
 export const sendMessage = async (

@@ -11,8 +11,17 @@ interface TelegramBot {
   isActive: number;
 }
 
+interface WebhookStatus {
+  loading: boolean;
+  connected: boolean;
+  pendingUpdateCount: number;
+  lastErrorMessage?: string;
+}
+
 export function TelegramClient() {
   const [bots, setBots] = useState<TelegramBot[] | null>(null);
+  const [webhooks, setWebhooks] = useState<Record<string, WebhookStatus>>({});
+  const [busy, setBusy] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [name, setName] = useState("");
   const [botToken, setBotToken] = useState("");
@@ -31,7 +40,51 @@ export function TelegramClient() {
       .catch(() => setBots([]));
   };
 
+  const fetchWebhook = async (id: string) => {
+    setWebhooks((prev) => ({
+      ...prev,
+      [id]: {
+        loading: true,
+        connected: prev[id]?.connected ?? false,
+        pendingUpdateCount: prev[id]?.pendingUpdateCount ?? 0,
+        lastErrorMessage: prev[id]?.lastErrorMessage,
+      },
+    }));
+    try {
+      const res = await fetch(
+        `/api/panel/telegram/webhook?id=${encodeURIComponent(id)}`,
+      );
+      if (!res.ok) {
+        setWebhooks((prev) => ({
+          ...prev,
+          [id]: { loading: false, connected: false, pendingUpdateCount: 0 },
+        }));
+        return;
+      }
+      const data = await res.json();
+      setWebhooks((prev) => ({
+        ...prev,
+        [id]: {
+          loading: false,
+          connected: !!data.connected,
+          pendingUpdateCount: data.pendingUpdateCount || 0,
+          lastErrorMessage: data.lastErrorMessage,
+        },
+      }));
+    } catch {
+      setWebhooks((prev) => ({
+        ...prev,
+        [id]: { loading: false, connected: false, pendingUpdateCount: 0 },
+      }));
+    }
+  };
+
   useEffect(() => { fetchBots(); }, []);
+
+  useEffect(() => {
+    if (!bots) return;
+    bots.forEach((bot) => fetchWebhook(bot.id));
+  }, [bots]);
 
   if (allowed === false) {
     return (
@@ -87,6 +140,43 @@ export function TelegramClient() {
     });
     if (res.ok) toast.success("Test message sent");
     else { const err = await res.json(); toast.error(err.error || "Test failed"); }
+  };
+
+  const handleConnect = async (id: string) => {
+    setBusy(id);
+    try {
+      const res = await fetch("/api/panel/telegram/webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) {
+        toast.success("Webhook connected");
+        await fetchWebhook(id);
+      } else {
+        const err = await res.json();
+        toast.error(err.error || "Failed to connect webhook");
+      }
+    } finally { setBusy(null); }
+  };
+
+  const handleDisconnect = async (id: string) => {
+    if (!window.confirm("Disconnect this webhook? The bot will stop receiving updates.")) return;
+    setBusy(id);
+    try {
+      const res = await fetch("/api/panel/telegram/webhook", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) {
+        toast.success("Webhook disconnected");
+        await fetchWebhook(id);
+      } else {
+        const err = await res.json();
+        toast.error(err.error || "Failed to disconnect webhook");
+      }
+    } finally { setBusy(null); }
   };
 
   return (
@@ -154,6 +244,7 @@ export function TelegramClient() {
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Name</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Chat ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">Webhook</th>
                 <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">Actions</th>
               </tr>
             </thead>
@@ -167,8 +258,32 @@ export function TelegramClient() {
                       {bot.isActive ? "Active" : "Inactive"}
                     </span>
                   </td>
+                  <td className="px-4 py-3">
+                    {!webhooks[bot.id] || webhooks[bot.id].loading ? (
+                      <span className="text-xs text-neutral-400">Checking</span>
+                    ) : (
+                      <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${webhooks[bot.id]?.connected ? "bg-green-50 text-green-700" : "bg-neutral-100 text-neutral-500"}`}>
+                        {webhooks[bot.id]?.connected
+                          ? webhooks[bot.id].pendingUpdateCount > 0
+                            ? `Connected, ${webhooks[bot.id].pendingUpdateCount} pending`
+                            : "Connected"
+                          : "Not connected"}
+                      </span>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
+                      {webhooks[bot.id]?.connected ? (
+                        <button onClick={() => handleDisconnect(bot.id)} disabled={busy === bot.id}
+                          className="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:opacity-50">
+                          Disconnect
+                        </button>
+                      ) : (
+                        <button onClick={() => handleConnect(bot.id)} disabled={busy === bot.id}
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50">
+                          Connect
+                        </button>
+                      )}
                       <button onClick={() => handleTest(bot.id)}
                         className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
                         Test
