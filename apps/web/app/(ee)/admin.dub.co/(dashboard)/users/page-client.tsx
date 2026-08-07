@@ -41,6 +41,7 @@ export function UsersPageClient() {
   const [data, setData] = useState<UsersResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [viewingLinksFor, setViewingLinksFor] = useState<UserRow | null>(null);
@@ -54,7 +55,7 @@ export function UsersPageClient() {
         page: page.toString(),
         perPage: "20",
       });
-      if (search) params.set("search", search);
+      if (debouncedSearch) params.set("search", debouncedSearch);
       const res = await fetch(`/api/admin/users?${params}`);
       if (res.ok) {
         setData(await res.json());
@@ -66,7 +67,7 @@ export function UsersPageClient() {
     } finally {
       setLoading(false);
     }
-  }, [page, search]);
+  }, [page, debouncedSearch]);
 
   useEffect(() => {
     fetchUsers();
@@ -76,6 +77,7 @@ export function UsersPageClient() {
     setSearch(val);
     if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
     searchTimerRef.current = setTimeout(() => {
+      setDebouncedSearch(val.trim());
       setPage(1);
     }, 400);
   };
@@ -128,7 +130,7 @@ export function UsersPageClient() {
             <button
               type="button"
               aria-label="Clear search"
-              onClick={() => { setSearch(""); setPage(1); }}
+              onClick={() => { setSearch(""); setDebouncedSearch(""); setPage(1); }}
               className="absolute inset-y-0 right-0 flex items-center pr-3"
             >
               <svg className="h-4 w-4 text-neutral-400 hover:text-neutral-600" fill="currentColor" viewBox="0 0 20 20">

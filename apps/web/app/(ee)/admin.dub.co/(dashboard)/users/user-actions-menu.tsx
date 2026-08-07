@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Popover } from "@dub/ui";
+import { Button, Input, LoadingSpinner, Popover } from "@dub/ui";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { UserRow } from "./page-client";
@@ -18,8 +18,10 @@ export function UserActionsMenu({
   const [modal, setModal] = useState<
     "password" | "plan" | "delete" | "workspace" | null
   >(null);
+  const [pending, setPending] = useState(false);
 
   const handleAction = async (action: string, body?: Record<string, string>) => {
+    setPending(true);
     try {
       const res = await fetch(`/api/admin/users/${user.id}`, {
         method: "PATCH",
@@ -35,10 +37,13 @@ export function UserActionsMenu({
       }
     } catch {
       toast.error("Network error");
+    } finally {
+      setPending(false);
     }
   };
 
   const handleDelete = async () => {
+    setPending(true);
     try {
       const res = await fetch(`/api/admin/users/${user.id}`, {
         method: "DELETE",
@@ -52,6 +57,8 @@ export function UserActionsMenu({
       }
     } catch {
       toast.error("Network error");
+    } finally {
+      setPending(false);
     }
   };
 
@@ -139,12 +146,21 @@ export function UserActionsMenu({
         setOpenPopover={setOpen}
         align="end"
       >
-        <button className="rounded-md p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <circle cx="8" cy="3" r="1.5" />
-            <circle cx="8" cy="8" r="1.5" />
-            <circle cx="8" cy="13" r="1.5" />
-          </svg>
+        <button
+          type="button"
+          aria-label="User actions"
+          disabled={pending}
+          className="rounded-md p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {pending ? (
+            <LoadingSpinner className="h-4 w-4" />
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <circle cx="8" cy="3" r="1.5" />
+              <circle cx="8" cy="8" r="1.5" />
+              <circle cx="8" cy="13" r="1.5" />
+            </svg>
+          )}
         </button>
       </Popover>
 

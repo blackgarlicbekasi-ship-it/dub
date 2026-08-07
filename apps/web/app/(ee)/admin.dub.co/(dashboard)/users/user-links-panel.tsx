@@ -36,10 +36,12 @@ export function UserLinksPanel({
   const [data, setData] = useState<LinksResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [submittedSearch, setSubmittedSearch] = useState("");
   const [page, setPage] = useState(1);
   const [editingLink, setEditingLink] = useState<string | null>(null);
   const [editUrl, setEditUrl] = useState("");
   const [deletingLink, setDeletingLink] = useState<string | null>(null);
+  const [pendingLink, setPendingLink] = useState<string | null>(null);
 
   const fetchLinks = useCallback(async () => {
     setLoading(true);
@@ -48,7 +50,7 @@ export function UserLinksPanel({
         page: page.toString(),
         perPage: "50",
       });
-      if (search) params.set("search", search);
+      if (submittedSearch) params.set("search", submittedSearch);
       const res = await fetch(`/api/admin/users/${user.id}/links?${params}`);
       if (res.ok) {
         setData(await res.json());
@@ -60,7 +62,7 @@ export function UserLinksPanel({
     } finally {
       setLoading(false);
     }
-  }, [user.id, page, search]);
+  }, [user.id, page, submittedSearch]);
 
   useEffect(() => {
     fetchLinks();
@@ -68,11 +70,12 @@ export function UserLinksPanel({
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmittedSearch(search.trim());
     setPage(1);
-    fetchLinks();
   };
 
   const handleEditSave = async (linkId: string) => {
+    setPendingLink(linkId);
     try {
       const res = await fetch(`/api/admin/users/${user.id}/links`, {
         method: "PATCH",
@@ -89,10 +92,13 @@ export function UserLinksPanel({
       }
     } catch {
       toast.error("Network error");
+    } finally {
+      setPendingLink(null);
     }
   };
 
   const handleDelete = async (linkId: string) => {
+    setPendingLink(linkId);
     try {
       const res = await fetch(`/api/admin/users/${user.id}/links`, {
         method: "DELETE",
@@ -109,6 +115,8 @@ export function UserLinksPanel({
       }
     } catch {
       toast.error("Network error");
+    } finally {
+      setPendingLink(null);
     }
   };
 
@@ -164,6 +172,7 @@ export function UserLinksPanel({
               className="h-9 w-auto shrink-0 px-4"
               onClick={() => {
                 setSearch("");
+                setSubmittedSearch("");
                 setPage(1);
               }}
             />
@@ -229,6 +238,8 @@ export function UserLinksPanel({
                             />
                             <Button
                               text="Save"
+                              loading={pendingLink === link.id}
+                              disabled={pendingLink !== null}
                               className="h-8 w-auto shrink-0 px-3 text-xs"
                               onClick={() => handleEditSave(link.id)}
                             />
@@ -272,10 +283,11 @@ export function UserLinksPanel({
                             <div className="flex items-center gap-1">
                               <button
                                 type="button"
+                                disabled={pendingLink !== null}
                                 onClick={() => handleDelete(link.id)}
-                                className="rounded-md border border-transparent bg-red-600 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700"
+                                className="rounded-md border border-transparent bg-red-600 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
                               >
-                                Confirm
+                                {pendingLink === link.id ? "Deleting..." : "Confirm"}
                               </button>
                               <button
                                 type="button"
