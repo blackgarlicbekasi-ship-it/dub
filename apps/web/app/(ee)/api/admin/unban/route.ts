@@ -1,3 +1,4 @@
+import { clearBannedOrigin, readBannedOrigin } from "@/lib/api/links/banned-origin";
 import { linkCache } from "@/lib/api/links/cache";
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
@@ -72,6 +73,7 @@ const restoreUser = async (email: string) => {
       data: { projectId: workspaceIds[0] },
     });
 
+    await clearBannedOrigin(quarantined.map((link) => link.id));
     await invalidate(quarantined);
   }
 
@@ -100,7 +102,9 @@ const restoreLink = async (domain: string, key: string, projectId?: string) => {
     );
   }
 
-  let targetProjectId = projectId;
+  const origin = await readBannedOrigin(link.id);
+
+  let targetProjectId = projectId || origin?.originalProjectId;
 
   if (!targetProjectId && link.userId) {
     const owner = await prisma.projectUsers.findFirst({
@@ -134,9 +138,15 @@ const restoreLink = async (domain: string, key: string, projectId?: string) => {
 
   await prisma.link.update({
     where: { id: link.id },
-    data: { projectId: target.id },
+    data: {
+      projectId: target.id,
+      ...(!link.userId &&
+        origin?.originalUserId && { userId: origin.originalUserId }),
+      archived: false,
+    },
   });
 
+  await clearBannedOrigin([link.id]);
   await invalidate([link]);
 
   return NextResponse.json({

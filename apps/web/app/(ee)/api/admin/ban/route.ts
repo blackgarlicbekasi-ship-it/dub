@@ -1,3 +1,4 @@
+import { recordBannedOrigin } from "@/lib/api/links/banned-origin";
 import { linkCache } from "@/lib/api/links/cache";
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
@@ -43,7 +44,7 @@ export const POST = withAdmin(async ({ req }) => {
   const links = workspaceIds.length
     ? await prisma.link.findMany({
         where: { projectId: { in: workspaceIds } },
-        select: { id: true, domain: true, key: true },
+        select: { id: true, domain: true, key: true, userId: true, projectId: true },
       })
     : [];
 
@@ -55,6 +56,8 @@ export const POST = withAdmin(async ({ req }) => {
   await prisma.session.deleteMany({ where: { userId: user.id } });
 
   if (links.length) {
+    await recordBannedOrigin(links);
+
     await prisma.link.updateMany({
       where: { id: { in: links.map((link) => link.id) } },
       data: { projectId: LEGAL_WORKSPACE_ID },
