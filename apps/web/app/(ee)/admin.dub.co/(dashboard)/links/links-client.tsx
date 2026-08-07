@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, LoadingSpinner } from "@dub/ui";
+import { Button, LoadingSpinner, Popover } from "@dub/ui";
 import { timeAgo } from "@dub/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -46,7 +46,6 @@ export function AdminLinksClient() {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const [destinations, setDestinations] = useState<Record<string, string>>({});
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [sort, setSort] = useState<SortField>("createdAt");
   const [bannedFilter, setBannedFilter] = useState<BannedFilter>("all");
@@ -130,12 +129,7 @@ export function AdminLinksClient() {
     }
   };
 
-  const handleUnban = async (link: AdminLink) => {
-    if (!link.originKnown && !destinations[link.id]) {
-      toast.error("Choose a destination workspace first");
-      return;
-    }
-
+  const handleUnban = async (link: AdminLink, workspaceId?: string) => {
     setActing(link.id);
 
     try {
@@ -145,7 +139,7 @@ export function AdminLinksClient() {
         body: JSON.stringify({
           domain: link.domain,
           key: link.key,
-          ...(destinations[link.id] && { workspaceId: destinations[link.id] }),
+          ...(workspaceId && { workspaceId }),
         }),
       });
       const data = await res.json();
@@ -365,54 +359,17 @@ export function AdminLinksClient() {
                       {link.clicks}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      {link.banned ? (
-                        <>
-                          {!link.originKnown && (
-                            <select
-                              value={destinations[link.id] ?? ""}
-                              onChange={(e) =>
-                                setDestinations((prev) => ({
-                                  ...prev,
-                                  [link.id]: e.target.value,
-                                }))
-                              }
-                              className="w-auto rounded-md border border-neutral-300 bg-white px-3 py-1 py-2 text-sm text-xs shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
-                            >
-                              <option value="">Restore to...</option>
-                              {workspaces.map((workspace) => (
-                                <option key={workspace.id} value={workspace.id}>
-                                  {workspace.name} ({workspace.slug})
-                                </option>
-                              ))}
-                            </select>
-                          )}
-                          <button
-                            type="button"
-                            disabled={acting !== null}
-                            onClick={() => handleUnban(link)}
-                            className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
-                          >
-                            {acting === link.id ? "Restoring..." : "Restore"}
-                          </button>
-                          <button
-                            type="button"
-                            disabled={acting !== null}
-                            onClick={() => handleRemove(link)}
-                            className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
-                          >
-                            Delete
-                          </button>
-                        </>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled={acting !== null}
-                          onClick={() => handleBan(link)}
-                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                          {acting === link.id ? "Banning..." : "Ban"}
-                        </button>
-                      )}
+                      <LinkActionsMenu
+                        link={link}
+                        workspaces={workspaces}
+                        disabled={acting !== null}
+                        busy={acting === link.id}
+                        onBan={() => handleBan(link)}
+                        onRestore={(workspaceId) =>
+                          handleUnban(link, workspaceId)
+                        }
+                        onRemove={() => handleRemove(link)}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -444,5 +401,190 @@ export function AdminLinksClient() {
         )}
       </div>
     </div>
+  );
+}
+
+function MenuButton({
+  label,
+  onClick,
+  className,
+}: {
+  label: string;
+  onClick: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full rounded-md px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-100 ${className || ""}`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function RestoreModal({
+  link,
+  workspaces,
+  onClose,
+  onConfirm,
+}: {
+  link: AdminLink;
+  workspaces: Workspace[];
+  onClose: () => void;
+  onConfirm: (workspaceId: string) => void;
+}) {
+  const [workspaceId, setWorkspaceId] = useState("");
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  return (
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={(e) => {
+        if (e.target === overlayRef.current) onClose();
+      }}
+    >
+      <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+        <h3 className="mb-1 text-lg font-semibold">Restore link</h3>
+        <p className="mb-4 text-sm text-neutral-500">
+          {link.shortLink} has no recorded owner, so choose the workspace it
+          should return to.
+        </p>
+        <select
+          value={workspaceId}
+          onChange={(e) => setWorkspaceId(e.target.value)}
+          className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+        >
+          <option value="">Select a workspace...</option>
+          {workspaces.map((workspace) => (
+            <option key={workspace.id} value={workspace.id}>
+              {workspace.name} ({workspace.slug})
+            </option>
+          ))}
+        </select>
+        <div className="mt-4 flex gap-3">
+          <Button
+            text="Cancel"
+            variant="secondary"
+            onClick={onClose}
+            type="button"
+            className="h-9 w-auto rounded-lg px-4"
+          />
+          <Button
+            text="Restore"
+            disabled={!workspaceId}
+            onClick={() => onConfirm(workspaceId)}
+            className="h-9 w-auto rounded-lg px-4"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LinkActionsMenu({
+  link,
+  workspaces,
+  disabled,
+  busy,
+  onBan,
+  onRestore,
+  onRemove,
+}: {
+  link: AdminLink;
+  workspaces: Workspace[];
+  disabled: boolean;
+  busy: boolean;
+  onBan: () => void;
+  onRestore: (workspaceId?: string) => void;
+  onRemove: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [showRestoreModal, setShowRestoreModal] = useState(false);
+
+  return (
+    <>
+      <Popover
+        content={
+          <div className="w-48 p-1">
+            {link.banned ? (
+              <>
+                <MenuButton
+                  label={link.originKnown ? "Restore" : "Restore to..."}
+                  onClick={() => {
+                    setOpen(false);
+                    if (link.originKnown) {
+                      onRestore();
+                    } else {
+                      setShowRestoreModal(true);
+                    }
+                  }}
+                />
+                <div className="my-1 border-t border-neutral-200" />
+                <MenuButton
+                  label="Delete"
+                  className="text-red-600 hover:bg-red-50"
+                  onClick={() => {
+                    setOpen(false);
+                    onRemove();
+                  }}
+                />
+              </>
+            ) : (
+              <MenuButton
+                label="Ban link"
+                className="text-red-600 hover:bg-red-50"
+                onClick={() => {
+                  setOpen(false);
+                  onBan();
+                }}
+              />
+            )}
+          </div>
+        }
+        openPopover={open}
+        setOpenPopover={setOpen}
+        align="end"
+      >
+        <button
+          type="button"
+          aria-label="Link actions"
+          disabled={disabled}
+          className="rounded-md p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {busy ? (
+            <LoadingSpinner className="h-4 w-4" />
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <circle cx="8" cy="3" r="1.5" />
+              <circle cx="8" cy="8" r="1.5" />
+              <circle cx="8" cy="13" r="1.5" />
+            </svg>
+          )}
+        </button>
+      </Popover>
+
+      {showRestoreModal && (
+        <RestoreModal
+          link={link}
+          workspaces={workspaces}
+          onClose={() => setShowRestoreModal(false)}
+          onConfirm={(workspaceId) => {
+            setShowRestoreModal(false);
+            onRestore(workspaceId);
+          }}
+        />
+      )}
+    </>
   );
 }
