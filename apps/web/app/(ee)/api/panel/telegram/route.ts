@@ -1,24 +1,7 @@
 import { getSession } from "@/lib/auth";
-import { isDubAdmin } from "@/lib/auth/admin";
+import { hasTelegramAccess } from "@/lib/telegram/permissions";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
-
-async function checkTelegramAccess(userId: string): Promise<boolean> {
-  // Admin always has access
-  const isAdmin = await isDubAdmin(userId);
-  if (isAdmin) return true;
-
-  try {
-    const rows = await prisma.$queryRawUnsafe(
-      `SELECT enabled FROM UserFeature WHERE userId = ? AND feature = 'telegram'`,
-      userId,
-    ) as { enabled: number }[];
-    if (rows.length === 0) return false;
-    return rows[0].enabled === 1;
-  } catch {
-    return false;
-  }
-}
 
 export const GET = async () => {
   const session = await getSession();
@@ -26,7 +9,7 @@ export const GET = async () => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const hasAccess = await checkTelegramAccess(session.user.id);
+  const hasAccess = await hasTelegramAccess(session.user.id);
   if (!hasAccess) {
     return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
   }
@@ -48,7 +31,7 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const hasAccess = await checkTelegramAccess(session.user.id);
+  const hasAccess = await hasTelegramAccess(session.user.id);
   if (!hasAccess) {
     return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
   }
@@ -87,7 +70,7 @@ export const DELETE = async (req: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const hasAccess = await checkTelegramAccess(session.user.id);
+  const hasAccess = await hasTelegramAccess(session.user.id);
   if (!hasAccess) {
     return NextResponse.json({ error: "Telegram feature not enabled" }, { status: 403 });
   }
