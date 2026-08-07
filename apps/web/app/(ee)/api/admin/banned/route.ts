@@ -1,24 +1,14 @@
 import { clearBannedOrigin } from "@/lib/api/links/banned-origin";
 import { linkCache } from "@/lib/api/links/cache";
+import { deleteLink } from "@/lib/api/links/delete-link";
 import { withAdmin } from "@/lib/auth";
-import { recordLink } from "@/lib/tinybird";
 import { prisma } from "@dub/prisma";
 import { LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
-const BATCH_SIZE = 10;
-
-const chunk = <T,>(items: T[], size: number): T[][] => {
-  const batches: T[][] = [];
-  for (let i = 0; i < items.length; i += size) {
-    batches.push(items.slice(i, i + size));
-  }
-  return batches;
-};
-
 export const GET = withAdmin(async () => {
   const links = await prisma.link.findMany({
-    where: { projectId: LEGAL_WORKSPACE_ID, archived: false },
+    where: { projectId: LEGAL_WORKSPACE_ID },
     select: {
       id: true,
       domain: true,
@@ -87,7 +77,7 @@ export const DELETE = withAdmin(async ({ req }) => {
 
   const links = await prisma.link.findMany({
     where: { id: { in: linkIds }, projectId: LEGAL_WORKSPACE_ID },
-    include: { webhooks: true },
+    select: { id: true, domain: true, key: true },
   });
 
   if (links.length === 0) {
@@ -97,21 +87,26 @@ export const DELETE = withAdmin(async ({ req }) => {
     );
   }
 
-  await prisma.link.updateMany({
-    where: { id: { in: links.map((link) => link.id) } },
-    data: { archived: true },
-  });
+  const deleted: string[] = [];
 
-  await clearBannedOrigin(links.map((link) => link.id));
-
-  for (const batch of chunk(links, BATCH_SIZE)) {
-    await Promise.allSettled(
-      batch.flatMap((link) => [
-        linkCache.delete({ domain: link.domain, key: link.key }),
-        recordLink(link as any, { deleted: true }),
-      ]),
-    );
+  for (const link of links) {
+    try {
+      await deleteLink(link.id);
+      await linkCache.delete({ domain: link.domain, key: link.key });
+      deleted.push(link.id);
+    } catch (error) {
+      console.error(
+        `[admin/banned] failed to delete ${link.domain}/${link.key}`,
+        error,
+      );
+    }
   }
 
-  return NextResponse.json({ success: true, removed: links.length });
+  await clearBannedOrigin(deleted);
+
+  return NextResponse.json({
+    success: true,
+    removed: deleted.length,
+    failed: links.length - deleted.length,
+  });
 });

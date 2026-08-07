@@ -47,7 +47,9 @@ export function BannedClient() {
       .catch((error) => {
         setLinks([]);
         setLoadError(
-          error instanceof Error ? error.message : "Failed to load banned links",
+          error instanceof Error
+            ? error.message
+            : "Failed to load banned links",
         );
       });
   }, []);
@@ -103,7 +105,9 @@ export function BannedClient() {
           body: JSON.stringify({
             domain: link.domain,
             key: link.key,
-            ...(destinations[link.id] && { workspaceId: destinations[link.id] }),
+            ...(destinations[link.id] && {
+              workspaceId: destinations[link.id],
+            }),
           }),
         });
 
@@ -127,10 +131,12 @@ export function BannedClient() {
   };
 
   const remove = async (targets: BannedLink[]) => {
+    const plural = targets.length === 1 ? "" : "s";
     const confirmed = window.confirm(
-      `Remove ${targets.length} link${targets.length === 1 ? "" : "s"} from the banned list?\n\n` +
-        `The slug${targets.length === 1 ? "" : "s"} stay permanently claimed and can never be reused. ` +
-        `This cannot be undone from the panel.`,
+      `Permanently delete ${targets.length} link${plural}?\n\n` +
+        `The link${plural} will be removed from the database entirely and stop resolving immediately.\n\n` +
+        `The slug${plural} become free to reuse, so anyone can recreate ${targets.length === 1 ? "it" : "them"}, including whoever created ${targets.length === 1 ? "it" : "them"} originally.\n\n` +
+        `This cannot be undone.`,
     );
 
     if (!confirmed) {
@@ -148,7 +154,7 @@ export function BannedClient() {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success(`${data.removed} removed. Slugs remain claimed.`);
+        toast.success(`${data.removed} deleted. Slugs are now free to reuse.`);
         fetchBanned();
       } else {
         toast.error(data.error || "Failed to remove links");
@@ -169,8 +175,8 @@ export function BannedClient() {
           Banned Links
         </h1>
         <p className="mt-0.5 text-sm text-neutral-500">
-          Links held in quarantine. They serve the banned page and their slugs
-          stay claimed.
+          Links held in quarantine. They serve the banned page instead of
+          redirecting.
         </p>
       </div>
 

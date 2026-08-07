@@ -159,9 +159,10 @@ export function AdminLinksClient() {
 
   const handleRemove = async (link: AdminLink) => {
     const confirmed = window.confirm(
-      `Remove ${link.shortLink} from the banned list?\n\n` +
-        `The slug stays permanently claimed and can never be reused. ` +
-        `This cannot be undone from the panel.`,
+      `Permanently delete ${link.shortLink}?\n\n` +
+        `The link will be removed from the database entirely and stop resolving immediately.\n\n` +
+        `The slug "${link.key}" becomes free to reuse, so anyone can recreate ${link.shortLink}, including whoever created it originally.\n\n` +
+        `This cannot be undone.`,
     );
 
     if (!confirmed) {
@@ -179,7 +180,9 @@ export function AdminLinksClient() {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success("Removed. The slug remains claimed.");
+        toast.success(
+          `${link.shortLink} deleted. The slug is now free to reuse.`,
+        );
         fetchLinks();
       } else {
         toast.error(data.error || "Failed to remove link");
