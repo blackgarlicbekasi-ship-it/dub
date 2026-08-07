@@ -140,32 +140,31 @@ export function UserLinksPanel({
       </div>
 
       <div className="mb-4">
-        <form onSubmit={handleSearch} className="flex gap-2">
-          <div className="max-w-xs flex-1">
-            <Input
-              type="text"
-              placeholder="Search by key or URL..."
-              value={search}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSearch(e.target.value)
-              }
-            />
-          </div>
+        <form onSubmit={handleSearch} className="flex items-center gap-2">
+          <Input
+            type="text"
+            placeholder="Search by key or URL..."
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+            className="h-9 w-full max-w-md"
+          />
           <Button
             text="Search"
             type="submit"
             variant="secondary"
-            className="h-9"
+            className="h-9 w-auto shrink-0 px-4"
           />
           {search && (
             <Button
               text="Clear"
+              type="button"
               variant="secondary"
-              className="h-9"
+              className="h-9 w-auto shrink-0 px-4"
               onClick={() => {
                 setSearch("");
                 setPage(1);
-                setTimeout(fetchLinks, 0);
               }}
             />
           )}
@@ -217,32 +216,32 @@ export function UserLinksPanel({
                           </span>
                         )}
                       </td>
-                      <td className="max-w-xs px-4 py-3">
+                      <td className="px-4 py-3">
                         {editingLink === link.id ? (
-                          <div className="flex items-center gap-2">
+                          <div className="flex min-w-[22rem] items-center gap-2">
                             <Input
                               type="url"
                               value={editUrl}
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
                               ) => setEditUrl(e.target.value)}
-                              className="h-8 text-sm"
+                              className="h-8 w-full max-w-none text-sm"
                             />
                             <Button
                               text="Save"
-                              className="h-8 text-xs"
+                              className="h-8 w-auto shrink-0 px-3 text-xs"
                               onClick={() => handleEditSave(link.id)}
                             />
                             <Button
                               text="Cancel"
                               variant="secondary"
-                              className="h-8 text-xs"
+                              className="h-8 w-auto shrink-0 px-3 text-xs"
                               onClick={() => setEditingLink(null)}
                             />
                           </div>
                         ) : (
                           <div
-                            className="truncate text-sm text-neutral-500"
+                            className="max-w-xs truncate text-sm text-neutral-500"
                             title={link.url}
                           >
                             {link.url}
@@ -312,14 +311,14 @@ export function UserLinksPanel({
                   <Button
                     text="Previous"
                     variant="secondary"
-                    className="h-8 text-xs"
+                    className="h-8 w-auto px-3 text-xs"
                     disabled={page <= 1}
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                   />
                   <Button
                     text="Next"
                     variant="secondary"
-                    className="h-8 text-xs"
+                    className="h-8 w-auto px-3 text-xs"
                     disabled={page >= data.totalPages}
                     onClick={() => setPage((p) => p + 1)}
                   />
