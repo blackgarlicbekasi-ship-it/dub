@@ -5,6 +5,12 @@ import {
 } from "@/lib/api/links/perform-replace";
 import { NOT_ADMIN_MESSAGE, authorizeSender } from "@/lib/telegram/access";
 import { sendMessage, type TelegramUpdate } from "@/lib/telegram/api";
+import {
+  clearConversation,
+  loadConversation,
+  saveConversation,
+  type ConversationId,
+} from "@/lib/telegram/conversation";
 import { hasTelegramAccess } from "@/lib/telegram/permissions";
 import { getBotReplaceScope } from "@/lib/telegram/scope";
 import { prisma } from "@dub/prisma";
@@ -42,11 +48,15 @@ const KNOWN_COMMANDS = new Set([
   ...REPLACE_COMMANDS,
 ]);
 
+const PROMPT_OLD = "Kirim URL lama yang ingin diganti.";
+const PROMPT_NEW = "Kirim URL baru.";
+const SESSION_EXPIRED = "Sesi telah berakhir. Mulai lagi dengan /ganti.";
+
 const HELP = [
   "<b>Ingat bot</b>",
   "",
+  "<code>/ganti</code> mulai penggantian URL langkah demi langkah",
   "<code>/preview &lt;old&gt; &lt;new&gt;</code> show what would change",
-  "<code>/ganti &lt;old&gt; &lt;new&gt;</code> apply the change",
   "",
   `Matching is substring only, capped at ${MAX_REPLACE_LINKS} links.`,
 ].join("\n");
@@ -58,14 +68,11 @@ const parseCommand = (text: string) => {
   return { command, args: parts.slice(1) };
 };
 
-const validatePair = (args: string[]): string | null => {
-  if (args.length !== 2) {
-    return "Usage: /ganti &lt;old&gt; &lt;new&gt;";
-  }
-  if (args[0].length < 3 || args[1].length < 3) {
+const validatePair = (oldValue: string, newValue: string): string | null => {
+  if (oldValue.length < 3 || newValue.length < 3) {
     return "Both values must be at least 3 characters.";
   }
-  if (args[0] === args[1]) {
+  if (oldValue === newValue) {
     return "Old and new value cannot be the same.";
   }
   return null;
@@ -95,6 +102,13 @@ export const POST = async (
     return ok();
   }
 
+  const chatId = message.chat?.id;
+  const from = message.from;
+
+  if (chatId === undefined || !from || from.is_bot) {
+    return ok();
+  }
+
   const bots = (await prisma.$queryRawUnsafe(
     `SELECT id, userId, botToken, chatId FROM TelegramBot WHERE id = ? AND isActive = 1`,
     botId,
@@ -106,9 +120,22 @@ export const POST = async (
 
   const bot = bots[0];
 
-  const { command, args } = parseCommand(text);
+  if (String(chatId) !== String(bot.chatId)) {
+    return ok();
+  }
 
-  if (!KNOWN_COMMANDS.has(command)) {
+  const { command, args } = parseCommand(text);
+  const isCommand = KNOWN_COMMANDS.has(command);
+
+  const conversationId: ConversationId = {
+    botId: bot.id,
+    chatId,
+    fromId: from.id,
+  };
+
+  const conversation = await loadConversation(conversationId);
+
+  if (!isCommand && conversation.status === "none") {
     return ok();
   }
 
@@ -139,14 +166,32 @@ export const POST = async (
     return ok();
   }
 
-  const invalid = validatePair(args);
-  if (invalid) {
-    await sendMessage(bot.botToken, bot.chatId, invalid);
+  if (REPLACE_COMMANDS.has(command)) {
+    await saveConversation(conversationId, { step: "old" });
+    await sendMessage(bot.botToken, bot.chatId, PROMPT_OLD);
     return ok();
   }
 
+  if (!isCommand && conversation.status === "expired") {
+    await sendMessage(bot.botToken, bot.chatId, SESSION_EXPIRED);
+    return ok();
+  }
+
+  if (!isCommand && conversation.status === "active") {
+    if (conversation.state.step === "old") {
+      await saveConversation(conversationId, {
+        step: "new",
+        oldValue: text.trim(),
+      });
+      await sendMessage(bot.botToken, bot.chatId, PROMPT_NEW);
+      return ok();
+    }
+  }
+
   const scope = await getBotReplaceScope(bot.userId);
+
   if (!scope) {
+    await clearConversation(conversationId);
     await sendMessage(
       bot.botToken,
       bot.chatId,
@@ -155,12 +200,19 @@ export const POST = async (
     return ok();
   }
 
-  const [oldValue, newValue] = args;
-
   try {
     if (command === "/preview") {
+      if (args.length !== 2) {
+        await sendMessage(
+          bot.botToken,
+          bot.chatId,
+          "Usage: /preview &lt;old&gt; &lt;new&gt;",
+        );
+        return ok();
+      }
+
       const candidates = await findReplaceCandidates({
-        oldValue,
+        oldValue: args[0],
         matchMode: "contains",
         scope,
       });
@@ -186,12 +238,29 @@ export const POST = async (
       return ok();
     }
 
+    if (isCommand || conversation.status !== "active") {
+      return ok();
+    }
+
+    const oldValue = conversation.state.oldValue ?? "";
+    const newValue = text.trim();
+
+    const invalid = validatePair(oldValue, newValue);
+
+    if (invalid) {
+      await clearConversation(conversationId);
+      await sendMessage(bot.botToken, bot.chatId, invalid);
+      return ok();
+    }
+
     const { updated, failed, cacheFailed } = await performReplace({
       oldValue,
       newValue,
       matchMode: "contains",
       scope,
     });
+
+    await clearConversation(conversationId);
 
     await sendMessage(
       bot.botToken,
@@ -205,6 +274,7 @@ export const POST = async (
     );
   } catch (e) {
     console.error("[telegram/webhook] command failed", e);
+    await clearConversation(conversationId);
     await sendMessage(
       bot.botToken,
       bot.chatId,
