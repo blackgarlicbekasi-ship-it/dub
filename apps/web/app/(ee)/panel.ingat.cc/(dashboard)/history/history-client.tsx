@@ -194,9 +194,11 @@ export function HistoryClient() {
                     User
                   </th>
                 )}
-                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">
-                  Actions
-                </th>
+                {UNDO_ENABLED && (
+                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">
+                    Actions
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100">
@@ -224,17 +226,19 @@ export function HistoryClient() {
                       {log.userEmail || "\u2014"}
                     </td>
                   )}
-                  <td className="px-4 py-3 text-right">
-                    {UNDO_ENABLED && !log.isUndo && (
-                      <Button
-                        text={undoing === log.id ? "Undoing..." : "Undo"}
-                        variant="secondary"
-                        className="h-7 w-auto rounded-lg px-3 text-xs"
-                        loading={undoing === log.id}
-                        onClick={() => handleUndo(log)}
-                      />
-                    )}
-                  </td>
+                  {UNDO_ENABLED && (
+                    <td className="px-4 py-3 text-right">
+                      {!log.isUndo && (
+                        <Button
+                          text={undoing === log.id ? "Undoing..." : "Undo"}
+                          variant="secondary"
+                          className="h-7 w-auto rounded-lg px-3 text-xs"
+                          loading={undoing === log.id}
+                          onClick={() => handleUndo(log)}
+                        />
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
