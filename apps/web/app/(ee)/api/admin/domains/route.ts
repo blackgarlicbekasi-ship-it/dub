@@ -1,3 +1,5 @@
+import { addDomainToVercel } from "@/lib/api/domains/add-domain-vercel";
+import { getDomainResponse } from "@/lib/api/domains/get-domain-response";
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
 import { DUB_WORKSPACE_ID } from "@dub/utils";
@@ -10,6 +12,8 @@ export const GET = withAdmin(async () => {
       verified: true,
       primary: true,
       archived: true,
+      platformWide: true,
+      platformDefault: true,
       createdAt: true,
     },
     orderBy: { createdAt: "asc" },
@@ -54,10 +58,21 @@ export const POST = withAdmin(async ({ req }) => {
     );
   }
 
+  const vercelResponse = await addDomainToVercel(slug.toLowerCase());
+
+  if (vercelResponse.error) {
+    return NextResponse.json(
+      { error: `Vercel rejected the domain: ${vercelResponse.error.message}` },
+      { status: 422 },
+    );
+  }
+
+  const status = await getDomainResponse(slug.toLowerCase());
+
   const domain = await prisma.domain.create({
     data: {
       slug: slug.toLowerCase(),
-      verified: true,
+      verified: Boolean(status?.verified),
       primary: false,
       placeholder: description || null,
       projectId: DUB_WORKSPACE_ID,
@@ -67,6 +82,8 @@ export const POST = withAdmin(async ({ req }) => {
       verified: true,
       primary: true,
       archived: true,
+      platformWide: true,
+      platformDefault: true,
       createdAt: true,
     },
   });
