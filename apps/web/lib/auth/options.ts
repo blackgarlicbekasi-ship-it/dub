@@ -314,7 +314,7 @@ export const authOptions: NextAuthOptions = {
   ],
   // @ts-ignore
   adapter: CustomPrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt", maxAge: 2 * 60 * 60 },
   cookies: {
     sessionToken: {
       name: SESSION_COOKIE_NAME,
