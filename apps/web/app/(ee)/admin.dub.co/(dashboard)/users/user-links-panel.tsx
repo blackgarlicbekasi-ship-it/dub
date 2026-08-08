@@ -97,6 +97,36 @@ export function UserLinksPanel({
     }
   };
 
+  const handleBan = async (link: LinkRow) => {
+    const confirmed = window.confirm(
+      `Ban ${link.shortLink}?\n\nIt will serve the banned page instead of redirecting to ${link.url}. The slug stays claimed and can be restored later.`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setPendingLink(link.id);
+    try {
+      const res = await fetch(
+        `/api/admin/links/ban?domain=${encodeURIComponent(link.domain)}&key=${encodeURIComponent(link.key)}`,
+        { method: "DELETE" },
+      );
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(`${link.shortLink} banned`);
+        fetchLinks();
+      } else {
+        toast.error(data.error || "Failed to ban link");
+      }
+    } catch {
+      toast.error("Network error. The link was not banned.");
+    } finally {
+      setPendingLink(null);
+    }
+  };
+
   const handleDelete = async (linkId: string) => {
     setPendingLink(linkId);
     try {
@@ -279,6 +309,16 @@ export function UserLinksPanel({
                               className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                               Edit
+                            </button>
+                          )}
+                          {editingLink !== link.id && (
+                            <button
+                              type="button"
+                              disabled={pendingLink !== null}
+                              onClick={() => handleBan(link)}
+                              className="rounded-lg border border-amber-200 bg-white px-3 py-1.5 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-50 disabled:cursor-not-allowed disabled:opacity-40"
+                            >
+                              Ban
                             </button>
                           )}
                           {deletingLink === link.id ? (
