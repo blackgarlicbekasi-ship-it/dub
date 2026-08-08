@@ -60,6 +60,12 @@ export const getEnabledPlatformDomains = async (
   );
 };
 
+export const isPlatformDomain = async (domain: string): Promise<boolean> => {
+  const platformDomains = await getPlatformDomains();
+
+  return platformDomains.some((d) => d.slug === domain);
+};
+
 export const isPlatformDomainEnabledForUser = async ({
   domain,
   userId,

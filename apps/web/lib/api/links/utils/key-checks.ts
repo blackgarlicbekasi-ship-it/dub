@@ -1,4 +1,5 @@
 import { DubApiError } from "@/lib/api/errors";
+import { isPlatformDomain } from "@/lib/api/domains/platform-domains";
 import { isBlacklistedKey, isReservedUsername } from "@/lib/edge-config";
 import { checkIfKeyExists } from "@/lib/planetscale";
 import { Project } from "@dub/prisma/client";
@@ -71,7 +72,10 @@ export async function keyChecks({
     };
   }
 
-  if (domain === SHORT_DOMAIN && RESERVED_SHORT_DOMAIN_KEYS.has(key)) {
+  if (
+    RESERVED_SHORT_DOMAIN_KEYS.has(key) &&
+    (domain === SHORT_DOMAIN || (await isPlatformDomain(domain)))
+  ) {
     return {
       error: "This slug is reserved and cannot be used",
       code: "forbidden",
