@@ -1,7 +1,6 @@
 import { clearBannedOrigin, readBannedOrigin } from "@/lib/api/links/banned-origin";
 import { linkCache } from "@/lib/api/links/cache";
 import { withAdmin } from "@/lib/auth";
-import { clearUserSuspended } from "@/lib/auth/suspended";
 import { prisma } from "@dub/prisma";
 import { LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
@@ -67,8 +66,6 @@ const restoreUser = async (email: string) => {
     where: { id: user.id },
     data: { lockedAt: null, invalidLoginAttempts: 0 },
   });
-
-  await clearUserSuspended(user.id);
 
   if (quarantined.length) {
     await prisma.link.updateMany({

@@ -1,6 +1,5 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { isUserSuspended, signOutSuspendedUser } from "../auth/suspended";
 
 export const PanelMiddleware = async (req: NextRequest) => {
   const path = req.nextUrl.pathname;
@@ -9,10 +8,6 @@ export const PanelMiddleware = async (req: NextRequest) => {
     req,
     secret: process.env.NEXTAUTH_SECRET,
   });
-
-  if (session?.sub && (await isUserSuspended(session.sub))) {
-    return signOutSuspendedUser(req);
-  }
 
   if (!session?.email && path !== "/login") {
     return NextResponse.redirect(new URL("/login", req.url));

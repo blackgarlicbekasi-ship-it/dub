@@ -28,9 +28,11 @@ import {
   incrementLoginAttempts,
 } from "./lock-account";
 import { validatePassword } from "./password";
+import {
+  SESSION_COOKIE_NAME,
+  SESSION_COOKIE_OPTIONS,
+} from "./session-cookie";
 import { trackDubLead } from "./track-dub-lead";
-
-const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 
 const CustomPrismaAdapter = (p: PrismaClient) => {
   return {
@@ -315,17 +317,8 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   cookies: {
     sessionToken: {
-      name: `${VERCEL_DEPLOYMENT ? "__Secure-" : ""}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
-        domain: VERCEL_DEPLOYMENT
-          ? `.${process.env.NEXT_PUBLIC_APP_DOMAIN}`
-          : undefined,
-        secure: VERCEL_DEPLOYMENT,
-      },
+      name: SESSION_COOKIE_NAME,
+      options: SESSION_COOKIE_OPTIONS,
     },
   },
   pages: {
@@ -527,18 +520,21 @@ export const authOptions: NextAuthOptions = {
         if (refreshedUser) {
           token.user = refreshedUser;
         } else {
-          return {};
+          throw new Error("session-revoked");
         }
       }
 
-      if (token.sub) {
-        const lockedUser = await prisma.user.findUnique({
-          where: { id: token.sub },
-          select: { lockedAt: true },
-        });
-        if (lockedUser?.lockedAt) {
-          return {};
-        }
+      if (!token.sub) {
+        throw new Error("session-revoked");
+      }
+
+      const lockedUser = await prisma.user.findUnique({
+        where: { id: token.sub },
+        select: { lockedAt: true },
+      });
+
+      if (lockedUser?.lockedAt) {
+        throw new Error("session-revoked");
       }
 
       return token;

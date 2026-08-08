@@ -1,7 +1,6 @@
 import { recordBannedOrigin } from "@/lib/api/links/banned-origin";
 import { linkCache } from "@/lib/api/links/cache";
 import { withAdmin } from "@/lib/auth";
-import { markUserSuspended } from "@/lib/auth/suspended";
 import { prisma } from "@dub/prisma";
 import { LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
@@ -53,8 +52,6 @@ export const POST = withAdmin(async ({ req }) => {
     where: { id: user.id },
     data: { lockedAt: new Date() },
   });
-
-  await markUserSuspended(user.id);
 
   if (links.length) {
     await recordBannedOrigin(links);
