@@ -1,14 +1,27 @@
 "use client";
 
+import useDomains from "@/lib/swr/use-domains";
 import usePlatformDomains from "@/lib/swr/use-platform-domains";
 import { DomainCardTitleColumn } from "@/ui/domains/domain-card-title-column";
 import { Logo, Switch } from "@dub/ui";
-import { useState } from "react";
+import { DUB_DOMAINS_ARRAY } from "@dub/utils";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export function PlatformDomains() {
   const { platformDomains, loading, mutate } = usePlatformDomains();
+  const { allWorkspaceDomains } = useDomains();
   const [pending, setPending] = useState<string | null>(null);
+
+  const workspaceOwned = useMemo(
+    () => new Set((allWorkspaceDomains ?? []).map((d) => d.slug)),
+    [allWorkspaceDomains],
+  );
+
+  const visibleDomains = useMemo(
+    () => platformDomains.filter((d) => !DUB_DOMAINS_ARRAY.includes(d.slug)),
+    [platformDomains],
+  );
 
   const toggle = async (slug: string, enabled: boolean) => {
     if (!enabled) {
@@ -40,39 +53,47 @@ export function PlatformDomains() {
     }
   };
 
-  if (loading || platformDomains.length === 0) {
+  if (loading || visibleDomains.length === 0) {
     return null;
   }
 
   return (
     <div className="mt-2 grid grid-cols-1 gap-3">
-      {platformDomains.map(({ slug, description, alwaysOn, enabled }) => (
-        <div
-          key={slug}
-          className="flex items-center justify-between gap-4 rounded-xl border border-neutral-200 bg-white p-5"
-        >
-          <DomainCardTitleColumn
-            domain={slug}
-            icon={Logo}
-            description={
-              alwaysOn
-                ? "Available to everyone by default"
-                : description || "Shared domain"
-            }
-            defaultDomain
-          />
-          <Switch
-            disabled={alwaysOn || pending === slug}
-            disabledTooltip={
-              alwaysOn
-                ? "This domain is always available and cannot be turned off."
-                : undefined
-            }
-            checked={enabled}
-            fn={() => toggle(slug, !enabled)}
-          />
-        </div>
-      ))}
+      {visibleDomains.map(({ slug, description, alwaysOn, enabled }) => {
+        const owned = workspaceOwned.has(slug);
+
+        return (
+          <div
+            key={slug}
+            className="flex items-center justify-between gap-4 rounded-xl border border-neutral-200 bg-white p-5"
+          >
+            <DomainCardTitleColumn
+              domain={slug}
+              icon={Logo}
+              description={
+                owned
+                  ? "Owned by your workspace, always available to you"
+                  : alwaysOn
+                    ? "Available to everyone by default"
+                    : description || "Shared domain"
+              }
+              defaultDomain
+            />
+            {!owned && (
+              <Switch
+                disabled={alwaysOn || pending === slug}
+                disabledTooltip={
+                  alwaysOn
+                    ? "This domain is always available and cannot be turned off."
+                    : undefined
+                }
+                checked={enabled}
+                fn={() => toggle(slug, !enabled)}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
