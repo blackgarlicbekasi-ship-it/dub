@@ -20,6 +20,7 @@ import {
 } from "@dub/utils";
 import { combineTagIds } from "../tags/combine-tag-ids";
 import { businessFeaturesCheck, proFeaturesCheck } from "./plan-features-check";
+import { isPlatformDomainEnabledForUser } from "@/lib/api/domains/platform-domains";
 import { keyChecks, processKey } from "./utils";
 
 export async function processLink<T extends Record<string, any>>({
@@ -233,7 +234,10 @@ export async function processLink<T extends Record<string, any>>({
     }
 
     // else, check if the domain belongs to the workspace
-  } else if (!domains?.find((d) => d.slug === domain)) {
+  } else if (
+    !domains?.find((d) => d.slug === domain) &&
+    !(await isPlatformDomainEnabledForUser({ domain, userId }))
+  ) {
     return {
       link: payload,
       error: "Domain does not belong to workspace.",

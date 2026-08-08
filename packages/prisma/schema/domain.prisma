@@ -6,6 +6,8 @@ model Domain {
   expiredUrl              String?  @db.LongText // URL to redirect to for expired links
   notFoundUrl             String?  @db.LongText // URL to redirect to for links that don't exist
   primary                 Boolean  @default(false)
+  platformWide            Boolean  @default(false)
+  platformDefault         Boolean  @default(false)
   archived                Boolean  @default(false)
   lastChecked             DateTime @default(now())
   logo                    String?
