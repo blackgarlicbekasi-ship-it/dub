@@ -528,12 +528,19 @@ export const authOptions: NextAuthOptions = {
         throw new Error("session-revoked");
       }
 
-      const lockedUser = await prisma.user.findUnique({
-        where: { id: token.sub },
-        select: { lockedAt: true },
-      });
+      let currentUser: { lockedAt: Date | null } | null;
 
-      if (lockedUser?.lockedAt) {
+      try {
+        currentUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { lockedAt: true },
+        });
+      } catch (e) {
+        console.error("[auth] user lookup failed, allowing session", e);
+        return token;
+      }
+
+      if (!currentUser || currentUser.lockedAt) {
         throw new Error("session-revoked");
       }
 
