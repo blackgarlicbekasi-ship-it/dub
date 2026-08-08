@@ -365,7 +365,7 @@ export function DomainsClient() {
                           Verify
                         </button>
                       )}
-                      {!d.platformDefault && (
+                      {!locked && !d.platformDefault && (
                         <button
                           onClick={() => handleSetPrimary(d)}
                           disabled={busy === d.slug}

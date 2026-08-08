@@ -114,6 +114,15 @@ export const PATCH = withAdmin(async ({ req }) => {
   }
 
   if (action === "set_primary") {
+    if (domain.slug === SHORT_DOMAIN) {
+      return NextResponse.json(
+        {
+          error: `${SHORT_DOMAIN} is the built in default and does not use the platform primary flag`,
+        },
+        { status: 403 },
+      );
+    }
+
     const updated = await setPlatformDefault(domain.slug);
     return NextResponse.json({
       success: true,
