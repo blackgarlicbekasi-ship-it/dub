@@ -1,6 +1,6 @@
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
-import { DUB_DOMAINS_ARRAY, LEGAL_WORKSPACE_ID } from "@dub/utils";
+import { LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 // GET /api/admin/links/count
@@ -19,15 +19,7 @@ export const GET = withAdmin(async ({ searchParams }) => {
 
   const linksWhere = {
     // when filtering by domain, only filter by domain if the filter group is not "Domains"
-    ...(domain && groupBy !== "domain"
-      ? {
-          domain,
-        }
-      : {
-          domain: {
-            in: DUB_DOMAINS_ARRAY,
-          },
-        }),
+    ...(domain && groupBy !== "domain" ? { domain } : {}),
     ...(banned === "only" && { projectId: LEGAL_WORKSPACE_ID }),
     ...(banned === "exclude" && {
       NOT: { projectId: LEGAL_WORKSPACE_ID },

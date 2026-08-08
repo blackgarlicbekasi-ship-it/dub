@@ -2,7 +2,7 @@ import { transformLink } from "@/lib/api/links";
 import { withAdmin } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
 import { Prisma } from "@dub/prisma/client";
-import { DUB_DOMAINS_ARRAY, LEGAL_WORKSPACE_ID } from "@dub/utils";
+import { LEGAL_WORKSPACE_ID } from "@dub/utils";
 import { NextResponse } from "next/server";
 
 export const GET = withAdmin(async ({ searchParams }) => {
@@ -20,9 +20,7 @@ export const GET = withAdmin(async ({ searchParams }) => {
     banned?: string;
   };
 
-  const conditions: Prisma.LinkWhereInput[] = [
-    domain ? { domain } : { domain: { in: DUB_DOMAINS_ARRAY } },
-  ];
+  const conditions: Prisma.LinkWhereInput[] = domain ? [{ domain }] : [];
 
   if (!search) {
     conditions.push({
