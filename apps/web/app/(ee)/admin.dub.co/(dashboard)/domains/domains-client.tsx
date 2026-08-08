@@ -10,6 +10,8 @@ interface DomainInfo {
   verified: boolean;
   primary: boolean;
   archived: boolean;
+  platformWide: boolean;
+  platformDefault: boolean;
   createdAt: string;
 }
 
@@ -20,6 +22,7 @@ export function DomainsClient() {
   const [newDomain, setNewDomain] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [adding, setAdding] = useState(false);
+  const [busy, setBusy] = useState<string | null>(null);
 
   const fetchDomains = useCallback(() => {
     fetch("/api/admin/domains")
@@ -44,6 +47,105 @@ export function DomainsClient() {
   useEffect(() => {
     fetchDomains();
   }, [fetchDomains]);
+
+
+  const call = async (
+    slug: string,
+    init: RequestInit,
+    onOk: (data: any) => void,
+  ) => {
+    setBusy(slug);
+    try {
+      const res = await fetch("/api/admin/domains", init);
+      const data = await res.json();
+      if (res.ok) {
+        onOk(data);
+        fetchDomains();
+      } else {
+        toast.error(data.error || "Request failed");
+      }
+    } catch {
+      toast.error("Network error");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const handleTogglePlatformWide = (d: DomainInfo) =>
+    call(
+      d.slug,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: d.slug, platformWide: !d.platformWide }),
+      },
+      () =>
+        toast.success(
+          d.platformWide
+            ? `${d.slug} is no longer available to all users`
+            : `${d.slug} is now available to all users`,
+        ),
+    );
+
+  const handleSetPrimary = (d: DomainInfo) => {
+    if (!window.confirm(`Make ${d.slug} the primary domain for everyone?`)) {
+      return;
+    }
+    call(
+      d.slug,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: d.slug, action: "set_primary" }),
+      },
+      (data) => toast.success(data.message || "Primary updated"),
+    );
+  };
+
+  const handleVerify = async (d: DomainInfo) => {
+    setBusy(d.slug);
+    try {
+      const res = await fetch("/api/admin/domains/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: d.slug }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(
+          data.verified
+            ? `${d.slug} is verified`
+            : `${d.slug} is not verified yet. Check its DNS records in Vercel.`,
+        );
+        fetchDomains();
+      } else {
+        toast.error(data.error || "Verification failed");
+      }
+    } catch {
+      toast.error("Network error");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const handleDelete = (d: DomainInfo) => {
+    if (
+      !window.confirm(
+        `Delete ${d.slug}? This removes it from Vercel and cannot be undone.`,
+      )
+    ) {
+      return;
+    }
+    call(
+      d.slug,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: d.slug }),
+      },
+      (data) => toast.success(data.message || "Domain deleted"),
+    );
+  };
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,8 +251,8 @@ export function DomainsClient() {
               />
             </div>
             <p className="text-xs text-neutral-400">
-              Domain will be added as verified. DNS and Vercel configuration must
-              be done manually.
+              The domain is registered with Vercel and its real status is stored.
+              Point its DNS at Vercel, then use Verify.
             </p>
           </form>
         </div>
@@ -185,7 +287,13 @@ export function DomainsClient() {
                   Status
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
+                  Platform wide
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
                   Created
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -194,7 +302,12 @@ export function DomainsClient() {
                 <tr key={d.slug} className="hover:bg-neutral-50">
                   <td className="px-4 py-3 text-sm font-medium text-neutral-900">
                     {d.slug}
-                    {d.primary && (
+                    {d.platformDefault && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                        Primary
+                      </span>
+                    )}
+                    {d.primary && !d.platformDefault && (
                       <span className="ml-2 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
                         Primary
                       </span>
@@ -216,8 +329,55 @@ export function DomainsClient() {
                       {d.verified ? "Verified" : "Pending"}
                     </span>
                   </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                        d.platformWide
+                          ? "bg-green-50 text-green-700"
+                          : "bg-neutral-100 text-neutral-500"
+                      }`}
+                    >
+                      {d.platformWide ? "On" : "Off"}
+                    </span>
+                  </td>
                   <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-500">
                     {timeAgo(new Date(d.createdAt))}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => handleTogglePlatformWide(d)}
+                        disabled={busy === d.slug}
+                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+                      >
+                        {d.platformWide ? "Make private" : "Make platform wide"}
+                      </button>
+                      <button
+                        onClick={() => handleVerify(d)}
+                        disabled={busy === d.slug}
+                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+                      >
+                        Verify
+                      </button>
+                      {!d.platformDefault && (
+                        <button
+                          onClick={() => handleSetPrimary(d)}
+                          disabled={busy === d.slug}
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+                        >
+                          Set as primary
+                        </button>
+                      )}
+                      {!d.platformDefault && !d.primary && (
+                        <button
+                          onClick={() => handleDelete(d)}
+                          disabled={busy === d.slug}
+                          className="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 disabled:opacity-50"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
