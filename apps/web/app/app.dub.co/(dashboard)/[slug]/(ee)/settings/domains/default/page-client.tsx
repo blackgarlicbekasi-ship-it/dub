@@ -4,6 +4,7 @@ import { clientAccessCheck } from "@/lib/client-access-check";
 import useDefaultDomains from "@/lib/swr/use-default-domains";
 import useWorkspace from "@/lib/swr/use-workspace";
 import { DomainCardTitleColumn } from "@/ui/domains/domain-card-title-column";
+import { PlatformDomains } from "@/ui/domains/platform-domains";
 import { Logo, Switch } from "@dub/ui";
 import { DUB_DOMAINS } from "@dub/utils";
 import Link from "next/link";
@@ -42,6 +43,8 @@ export function DefaultDomains() {
           </Link>
         </p>
       </div>
+
+      <PlatformDomains />
 
       <div className="mt-2 grid grid-cols-1 gap-3">
         {DUB_DOMAINS.map(({ slug, description }) => {

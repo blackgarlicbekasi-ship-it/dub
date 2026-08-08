@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import useSWR from "swr";
 import { prefixWorkspaceId } from "../api/workspaces/workspace-id";
 import useDefaultDomains from "./use-default-domains";
+import usePlatformDomains from "./use-platform-domains";
 import useWorkspace from "./use-workspace";
 
 export default function useDomains({
@@ -48,6 +49,27 @@ export default function useDomains({
     loading: loadingDefaultDomains,
   } = useDefaultDomains(opts);
 
+  const {
+    enabledPlatformDomains,
+    loading: loadingPlatformDomains,
+  } = usePlatformDomains();
+
+  const platformDomainEntries = useMemo(
+    () =>
+      enabledPlatformDomains.map((d) => ({
+        id: d.slug,
+        slug: d.slug,
+        verified: d.verified,
+        primary: false,
+        archived: false,
+        placeholder: d.description ?? "",
+        allowedHostnames: [],
+        description: d.description ?? "",
+        projectId: "",
+      })),
+    [enabledPlatformDomains],
+  );
+
   const allWorkspaceDomains = useMemo(() => data || [], [data]);
   const activeWorkspaceDomains = useMemo(
     () => data?.filter((domain) => !domain.archived),
@@ -68,8 +90,9 @@ export default function useDomains({
       ...(workspaceId === prefixWorkspaceId(DUB_WORKSPACE_ID)
         ? []
         : DUB_DOMAINS),
+      ...platformDomainEntries,
     ],
-    [allWorkspaceDomains, workspaceId],
+    [allWorkspaceDomains, workspaceId, platformDomainEntries],
   );
   const allActiveDomains = useMemo(
     () => [
@@ -77,8 +100,14 @@ export default function useDomains({
       ...(workspaceId === prefixWorkspaceId(DUB_WORKSPACE_ID)
         ? []
         : activeDefaultDomains),
+      ...platformDomainEntries,
     ],
-    [activeWorkspaceDomains, activeDefaultDomains, workspaceId],
+    [
+      activeWorkspaceDomains,
+      activeDefaultDomains,
+      workspaceId,
+      platformDomainEntries,
+    ],
   );
 
   const primaryDomain = useMemo(() => {
@@ -100,7 +129,7 @@ export default function useDomains({
     allActiveDomains, // all active domains (active workspace domains + active default Dub domains)
     allDomains, // all domains (all workspace domains + all default Dub domains)
     primaryDomain,
-    loading: (!data && !error) || loadingDefaultDomains,
+    loading: (!data && !error) || loadingDefaultDomains || loadingPlatformDomains,
     mutate,
     error,
   };
