@@ -12,6 +12,7 @@ interface DomainInfo {
   archived: boolean;
   platformWide: boolean;
   platformDefault: boolean;
+  dnsResolving: boolean;
   createdAt: string;
 }
 
@@ -79,12 +80,16 @@ export function DomainsClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug: d.slug, platformWide: !d.platformWide }),
       },
-      () =>
+      (data) => {
         toast.success(
           d.platformWide
             ? `${d.slug} is no longer available to all users`
             : `${d.slug} is now available to all users`,
-        ),
+        );
+        if (data?.warning) {
+          toast.warning(data.warning, { duration: 10000 });
+        }
+      },
     );
 
   const handleSetPrimary = (d: DomainInfo) => {
@@ -100,32 +105,6 @@ export function DomainsClient() {
       },
       (data) => toast.success(data.message || "Primary updated"),
     );
-  };
-
-  const handleVerify = async (d: DomainInfo) => {
-    setBusy(d.slug);
-    try {
-      const res = await fetch("/api/admin/domains/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: d.slug }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success(
-          data.verified
-            ? `${d.slug} is verified`
-            : `${d.slug} is not verified yet. Check its DNS records in Vercel.`,
-        );
-        fetchDomains();
-      } else {
-        toast.error(data.error || "Verification failed");
-      }
-    } catch {
-      toast.error("Network error");
-    } finally {
-      setBusy(null);
-    }
   };
 
   const handleDelete = (d: DomainInfo) => {
@@ -251,8 +230,8 @@ export function DomainsClient() {
               />
             </div>
             <p className="text-xs text-neutral-400">
-              The domain is registered with Vercel and its real status is stored.
-              Point its DNS at Vercel, then use Verify.
+              The domain is added as verified. Point its DNS at this project
+              before making it available to users.
             </p>
           </form>
         </div>
@@ -284,7 +263,7 @@ export function DomainsClient() {
                   Domain
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
-                  Status
+                  DNS
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500">
                   Platform wide
@@ -323,12 +302,12 @@ export function DomainsClient() {
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                        locked || d.verified
+                        d.dnsResolving
                           ? "bg-green-50 text-green-700"
                           : "bg-yellow-50 text-yellow-700"
                       }`}
                     >
-                      {locked || d.verified ? "Verified" : "Pending"}
+                      {d.dnsResolving ? "DNS OK" : "DNS not pointed"}
                     </span>
                   </td>
                   <td className="px-4 py-3">
@@ -354,15 +333,6 @@ export function DomainsClient() {
                           className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
                         >
                           {d.platformWide ? "Make private" : "Make platform wide"}
-                        </button>
-                      )}
-                      {!locked && (
-                        <button
-                          onClick={() => handleVerify(d)}
-                          disabled={busy === d.slug}
-                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
-                        >
-                          Verify
                         </button>
                       )}
                       {!locked && !d.platformDefault && (

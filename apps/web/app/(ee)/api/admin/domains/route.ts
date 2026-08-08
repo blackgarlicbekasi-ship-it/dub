@@ -1,5 +1,5 @@
 import { addDomainToVercel } from "@/lib/api/domains/add-domain-vercel";
-import { getDomainResponse } from "@/lib/api/domains/get-domain-response";
+import { isDomainResolving } from "@/lib/api/domains/is-domain-resolving";
 import { removeDomainFromVercel } from "@/lib/api/domains/remove-domain-vercel";
 import { setPlatformDefault } from "@/lib/api/domains/set-platform-default";
 import { withAdmin } from "@/lib/auth";
@@ -22,7 +22,14 @@ export const GET = withAdmin(async () => {
     take: 50,
   });
 
-  return NextResponse.json({ domains });
+  const withDns = await Promise.all(
+    domains.map(async (domain) => ({
+      ...domain,
+      dnsResolving: await isDomainResolving(domain.slug),
+    })),
+  );
+
+  return NextResponse.json({ domains: withDns });
 });
 
 export const POST = withAdmin(async ({ req }) => {
@@ -60,21 +67,16 @@ export const POST = withAdmin(async ({ req }) => {
     );
   }
 
-  const vercelResponse = await addDomainToVercel(slug.toLowerCase());
-
-  if (vercelResponse.error) {
-    return NextResponse.json(
-      { error: `Vercel rejected the domain: ${vercelResponse.error.message}` },
-      { status: 422 },
-    );
+  try {
+    await addDomainToVercel(slug.toLowerCase());
+  } catch (e) {
+    console.error("[admin/domains] Vercel registration failed", e);
   }
-
-  const status = await getDomainResponse(slug.toLowerCase());
 
   const domain = await prisma.domain.create({
     data: {
       slug: slug.toLowerCase(),
-      verified: Boolean(status?.verified),
+      verified: true,
       primary: false,
       placeholder: description || null,
       projectId: DUB_WORKSPACE_ID,
@@ -146,7 +148,13 @@ export const PATCH = withAdmin(async ({ req }) => {
       data: { platformWide },
       select: { slug: true, platformWide: true, platformDefault: true },
     });
-    return NextResponse.json({ success: true, domain: updated });
+
+    const warning =
+      platformWide && !(await isDomainResolving(domain.slug))
+        ? `${domain.slug} is not resolving yet. Point its DNS at this project, or links created on it will not work until you do.`
+        : undefined;
+
+    return NextResponse.json({ success: true, domain: updated, warning });
   }
 
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
