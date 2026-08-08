@@ -1,4 +1,7 @@
-import { getPlatformDomains } from "@/lib/api/domains/platform-domains";
+import {
+  getEnabledPlatformDomains,
+  getPlatformDomains,
+} from "@/lib/api/domains/platform-domains";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@dub/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -25,18 +28,8 @@ export const GET = async () => {
     return NextResponse.json({ domains: [] });
   }
 
-  let enabled = new Set<string>();
-
-  try {
-    const rows = (await prisma.$queryRawUnsafe(
-      `SELECT domain FROM UserDomain WHERE userId = ? AND enabled = 1`,
-      session.user.id,
-    )) as { domain: string }[];
-
-    enabled = new Set(rows.map((r) => r.domain));
-  } catch (e) {
-    console.error("[domains/platform] preferences unreadable", e);
-  }
+  const enabledDomains = await getEnabledPlatformDomains(session.user.id);
+  const enabled = new Set(enabledDomains.map((d) => d.slug));
 
   return NextResponse.json({
     domains: platformDomains.map((d) => ({
@@ -44,7 +37,7 @@ export const GET = async () => {
       description: d.placeholder,
       verified: d.verified,
       alwaysOn: d.platformDefault,
-      enabled: d.platformDefault || enabled.has(d.slug),
+      enabled: enabled.has(d.slug),
     })),
   });
 };

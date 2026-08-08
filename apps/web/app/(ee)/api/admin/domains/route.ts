@@ -123,6 +123,15 @@ export const PATCH = withAdmin(async ({ req }) => {
   }
 
   if (typeof platformWide === "boolean") {
+    if (domain.slug === SHORT_DOMAIN && !platformWide) {
+      return NextResponse.json(
+        {
+          error: `${SHORT_DOMAIN} is the built in domain and must stay available to everyone`,
+        },
+        { status: 403 },
+      );
+    }
+
     const updated = await prisma.domain.update({
       where: { slug: domain.slug },
       data: { platformWide },

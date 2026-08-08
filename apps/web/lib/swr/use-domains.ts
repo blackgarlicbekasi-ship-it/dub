@@ -2,6 +2,7 @@ import { DomainProps } from "@/lib/types";
 import { useRouterStuff } from "@dub/ui";
 import {
   DUB_DOMAINS,
+  DUB_DOMAINS_ARRAY,
   DUB_WORKSPACE_ID,
   SHORT_DOMAIN,
   fetcher,
@@ -56,7 +57,9 @@ export default function useDomains({
 
   const platformDomainEntries = useMemo(
     () =>
-      enabledPlatformDomains.map((d) => ({
+      enabledPlatformDomains
+        .filter((d) => !DUB_DOMAINS_ARRAY.includes(d.slug))
+        .map((d) => ({
         id: d.slug,
         slug: d.slug,
         verified: d.verified,
@@ -65,8 +68,8 @@ export default function useDomains({
         placeholder: d.description ?? "",
         allowedHostnames: [],
         description: d.description ?? "",
-        projectId: "",
-      })),
+          projectId: "",
+        })),
     [enabledPlatformDomains],
   );
 
@@ -77,11 +80,13 @@ export default function useDomains({
   );
 
   const activeDefaultDomains = useMemo(
-    () =>
-      (workspaceDefaultDomains &&
+    () => [
+      ...((workspaceDefaultDomains &&
         DUB_DOMAINS.filter((d) => workspaceDefaultDomains?.includes(d.slug))) ||
-      DUB_DOMAINS,
-    [workspaceDefaultDomains],
+        DUB_DOMAINS),
+      ...platformDomainEntries,
+    ],
+    [workspaceDefaultDomains, platformDomainEntries],
   );
 
   const allDomains = useMemo(
@@ -100,14 +105,8 @@ export default function useDomains({
       ...(workspaceId === prefixWorkspaceId(DUB_WORKSPACE_ID)
         ? []
         : activeDefaultDomains),
-      ...platformDomainEntries,
     ],
-    [
-      activeWorkspaceDomains,
-      activeDefaultDomains,
-      workspaceId,
-      platformDomainEntries,
-    ],
+    [activeWorkspaceDomains, activeDefaultDomains, workspaceId],
   );
 
   const primaryDomain = useMemo(() => {

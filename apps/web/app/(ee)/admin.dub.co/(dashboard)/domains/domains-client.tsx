@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input, LoadingSpinner } from "@dub/ui";
-import { timeAgo } from "@dub/utils";
+import { SHORT_DOMAIN, timeAgo } from "@dub/utils";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -298,7 +298,9 @@ export function DomainsClient() {
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-200">
-              {domains.map((d) => (
+              {domains.map((d) => {
+                const locked = d.slug === SHORT_DOMAIN;
+                return (
                 <tr key={d.slug} className="hover:bg-neutral-50">
                   <td className="px-4 py-3 text-sm font-medium text-neutral-900">
                     {d.slug}
@@ -321,12 +323,12 @@ export function DomainsClient() {
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                        d.verified
+                        locked || d.verified
                           ? "bg-green-50 text-green-700"
                           : "bg-yellow-50 text-yellow-700"
                       }`}
                     >
-                      {d.verified ? "Verified" : "Pending"}
+                      {locked || d.verified ? "Verified" : "Pending"}
                     </span>
                   </td>
                   <td className="px-4 py-3">
@@ -345,20 +347,24 @@ export function DomainsClient() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <button
-                        onClick={() => handleTogglePlatformWide(d)}
-                        disabled={busy === d.slug}
-                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
-                      >
-                        {d.platformWide ? "Make private" : "Make platform wide"}
-                      </button>
-                      <button
-                        onClick={() => handleVerify(d)}
-                        disabled={busy === d.slug}
-                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
-                      >
-                        Verify
-                      </button>
+                      {!locked && (
+                        <button
+                          onClick={() => handleTogglePlatformWide(d)}
+                          disabled={busy === d.slug}
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+                        >
+                          {d.platformWide ? "Make private" : "Make platform wide"}
+                        </button>
+                      )}
+                      {!locked && (
+                        <button
+                          onClick={() => handleVerify(d)}
+                          disabled={busy === d.slug}
+                          className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+                        >
+                          Verify
+                        </button>
+                      )}
                       {!d.platformDefault && (
                         <button
                           onClick={() => handleSetPrimary(d)}
@@ -368,7 +374,7 @@ export function DomainsClient() {
                           Set as primary
                         </button>
                       )}
-                      {!d.platformDefault && !d.primary && (
+                      {!locked && !d.platformDefault && !d.primary && (
                         <button
                           onClick={() => handleDelete(d)}
                           disabled={busy === d.slug}
@@ -380,7 +386,8 @@ export function DomainsClient() {
                     </div>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         )}
