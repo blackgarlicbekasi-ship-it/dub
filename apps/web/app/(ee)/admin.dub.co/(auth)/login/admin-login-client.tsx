@@ -64,53 +64,45 @@ export function AdminLoginClient() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-neutral-50 to-neutral-100">
-      <div className="w-full max-w-md px-4">
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <h1 className="text-center text-xl font-semibold text-neutral-900">
-            Ingat Admin
-          </h1>
+    <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-5">
+        <label>
+          <span className="mb-2 block text-sm font-medium text-neutral-700">
+            Email
+          </span>
+          <Input
+            type="email"
+            autoFocus
+            placeholder="admin@example.com"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+            className="max-w-none"
+          />
+        </label>
 
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-y-5">
-            <label>
-              <span className="mb-2 block text-sm font-medium text-neutral-700">
-                Email
-              </span>
-              <Input
-                type="email"
-                autoFocus
-                placeholder="admin@example.com"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.target.value)
-                }
-                className="max-w-none"
-              />
-            </label>
+        <label>
+          <span className="mb-2 block text-sm font-medium text-neutral-700">
+            Password
+          </span>
+          <Input
+            type="password"
+            placeholder="Enter your password"
+            autoComplete="current-password"
+            required
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
+            className="max-w-none"
+          />
+        </label>
 
-            <label>
-              <span className="mb-2 block text-sm font-medium text-neutral-700">
-                Password
-              </span>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
-                className="max-w-none"
-              />
-            </label>
-
-            <Button type="submit" text="Log in" loading={loading} />
-          </form>
-        </div>
-      </div>
+        <Button type="submit" text="Log in" loading={loading} />
+      </form>
     </div>
   );
 }
