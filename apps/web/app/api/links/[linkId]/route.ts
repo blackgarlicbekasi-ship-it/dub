@@ -156,6 +156,7 @@ export const PATCH = withWorkspace(
     } = await processLink({
       payload: updatedLink,
       workspace,
+      ...(session && { userId: session.user.id }),
       skipKeyChecks,
       skipExternalIdChecks,
       skipFolderChecks: true,
