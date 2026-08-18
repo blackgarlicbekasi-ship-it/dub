@@ -116,6 +116,22 @@ function handleApiError(error: any): ErrorResponse & { status: number } {
     };
   }
 
+  if (error.code === "P2002") {
+    const target = error?.meta?.target;
+    const fields = Array.isArray(target) ? target.join(", ") : target;
+
+    return {
+      error: {
+        code: "conflict",
+        message: fields
+          ? `Duplicate key: a record with this ${fields} already exists.`
+          : "Duplicate key: a record with these values already exists.",
+        doc_url: `${docErrorUrl}#conflict`,
+      },
+      status: ErrorCodes.conflict,
+    };
+  }
+
   // Prisma record not found error
   if (error.code === "P2025") {
     return {
