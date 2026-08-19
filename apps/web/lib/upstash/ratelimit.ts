@@ -14,7 +14,7 @@ export const ratelimit = (
   return new Ratelimit({
     redis: redis,
     limiter: Ratelimit.slidingWindow(requests, seconds),
-    analytics: true,
+    analytics: false,
     prefix: "dub",
     timeout: 1000,
   });

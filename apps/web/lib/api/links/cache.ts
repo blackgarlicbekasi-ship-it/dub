@@ -12,11 +12,11 @@ import { ExpandedLink } from "./utils/transform-link";
 
 /*
  * Link LRU cache to reduce Redis load during traffic spikes.
- * Max 10,000 entries with 5-second TTL.
+ * Max 10,000 entries with 30-second TTL.
  */
 const linkLRUCache = new LRUCache<string, RedisLinkProps>({
   max: 10000, // max 10,000 entries
-  ttl: 5000, // 5 seconds
+  ttl: 30000, // 30 seconds
 });
 /*
  * When traffic spikes, new Fluid instances are spun up.
