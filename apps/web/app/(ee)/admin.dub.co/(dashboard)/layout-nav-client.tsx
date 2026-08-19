@@ -7,6 +7,7 @@ import {
   useMediaQuery,
 } from "@dub/ui";
 import { doLogout } from "@/lib/auth/logout";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -24,6 +25,8 @@ export function AdminNav() {
   const [openPopover, setOpenPopover] = useState(false);
   const { isMobile } = useMediaQuery();
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const email = session?.user?.email;
 
   const handleLogout = () => {
     doLogout("/login");
@@ -48,6 +51,11 @@ export function AdminNav() {
         );
       })}
       <div className="my-1 border-t border-neutral-200" />
+      {email && (
+        <p title={email} className="truncate px-4 py-2 text-xs text-neutral-500">
+          {email}
+        </p>
+      )}
       <button
         onClick={handleLogout}
         className="block w-full rounded-md px-4 py-2 text-left text-sm text-neutral-500 transition-colors hover:bg-neutral-100"
@@ -107,15 +115,22 @@ export function AdminNav() {
                 </button>
               </Popover>
             ) : (
+              <div className="flex min-w-0 items-center gap-3">
+                {email && (
+                  <span title={email} className="max-w-[220px] truncate text-sm text-neutral-500">
+                    {email}
+                  </span>
+                )}
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+                className="flex shrink-0 items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                 </svg>
                 Log out
               </button>
+              </div>
             )}
           </ClientOnly>
         </div>

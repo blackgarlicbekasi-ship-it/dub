@@ -1,6 +1,7 @@
 "use client";
 
 import { doLogout } from "@/lib/auth/logout";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -13,6 +14,8 @@ const navItems = [
 
 export default function PanelDashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const email = session?.user?.email;
   const [telegramEnabled, setTelegramEnabled] = useState(false);
 
   useEffect(() => {
@@ -71,6 +74,11 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
           </div>
         </nav>
         <div className="border-t border-neutral-200 px-3 py-3">
+          {email && (
+            <p title={email} className="truncate px-3 pb-2 text-xs text-neutral-500">
+              {email}
+            </p>
+          )}
           <button
             onClick={handleLogout}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-neutral-500 transition-colors hover:bg-neutral-50 hover:text-neutral-700"
@@ -83,7 +91,8 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
         </div>
       </aside>
 
-      <div className="md:hidden sticky top-0 z-20 flex h-14 items-center gap-4 border-b border-neutral-200 bg-white px-4">
+      <div className="md:hidden sticky top-0 z-20 border-b border-neutral-200 bg-white">
+        <div className="flex h-14 items-center gap-4 px-4">
         <span className="text-lg font-bold text-neutral-900">Ingat Panel</span>
         <div className="flex items-center gap-2 ml-auto">
           {visibleNavItems.map((item) => {
@@ -112,6 +121,12 @@ export default function PanelDashboardLayout({ children }: { children: ReactNode
             </svg>
           </button>
         </div>
+        </div>
+        {email && (
+          <p title={email} className="truncate border-t border-neutral-100 px-4 py-1.5 text-xs text-neutral-500">
+            {email}
+          </p>
+        )}
       </div>
 
       <main className="bg-neutral-50 min-h-screen">
