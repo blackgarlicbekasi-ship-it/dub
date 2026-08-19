@@ -61,7 +61,7 @@ export const Turnstile = forwardRef<
 
     widgetId.current = window.turnstile.render(container.current, {
       sitekey: SITE_KEY,
-      appearance: "always",
+      appearance: "interaction-only",
       callback: (token: string) => onTokenRef.current(token),
       "expired-callback": () => onTokenRef.current(""),
       "timeout-callback": () => onTokenRef.current(""),
