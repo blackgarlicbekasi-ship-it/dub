@@ -1,9 +1,10 @@
 "use client";
 
+import { Turnstile, TurnstileHandle } from "@/ui/auth/turnstile";
 import { Button, Input } from "@dub/ui";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export function AdminLoginClient() {
@@ -12,6 +13,8 @@ export function AdminLoginClient() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   useEffect(() => {
     const error = searchParams?.get("error");
@@ -34,11 +37,13 @@ export function AdminLoginClient() {
       const response = await signIn("credentials", {
         email,
         password,
+        turnstileToken,
         redirect: false,
         callbackUrl: "/",
       });
 
       if (!response) {
+        turnstileRef.current?.reset();
         setLoading(false);
         return;
       }
@@ -50,8 +55,11 @@ export function AdminLoginClient() {
           "exceeded-login-attempts": "Account locked. Too many attempts.",
           "too-many-login-attempts": "Too many attempts. Try again later.",
           "account-suspended": "Account suspended. Contact administrator.",
+          "invalid-captcha":
+            "Could not verify that you are human. Please try again.",
         };
         toast.error(errorMessages[response.error] || response.error);
+        turnstileRef.current?.reset();
         setLoading(false);
         return;
       }
@@ -59,6 +67,7 @@ export function AdminLoginClient() {
       router.push("/");
     } catch {
       toast.error("An error occurred. Please try again.");
+      turnstileRef.current?.reset();
       setLoading(false);
     }
   };
@@ -100,6 +109,8 @@ export function AdminLoginClient() {
             className="max-w-none"
           />
         </label>
+
+        <Turnstile ref={turnstileRef} onToken={setTurnstileToken} />
 
         <Button type="submit" text="Log in" loading={loading} />
       </form>

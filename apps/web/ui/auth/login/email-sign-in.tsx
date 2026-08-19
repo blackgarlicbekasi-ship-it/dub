@@ -1,10 +1,11 @@
 import { checkAccountExistsAction } from "@/lib/actions/check-account-exists";
+import { Turnstile, TurnstileHandle } from "@/ui/auth/turnstile";
 import { Button, Input, useMediaQuery } from "@dub/ui";
 import { cn } from "@dub/utils";
 import { signIn } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 import { errorCodes, LoginFormContext } from "./login-form";
 
@@ -15,6 +16,8 @@ export const EmailSignIn = ({ next }: { next?: string }) => {
   const { isMobile } = useMediaQuery();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const {
     setClickedMethod,
@@ -78,11 +81,13 @@ export const EmailSignIn = ({ next }: { next?: string }) => {
           const response = await signIn("credentials", {
             email,
             password,
+            turnstileToken,
             redirect: false,
             callbackUrl: finalNext || "/workspaces",
           });
 
           if (!response) {
+            turnstileRef.current?.reset();
             setClickedMethod(undefined);
             return;
           }
@@ -94,6 +99,7 @@ export const EmailSignIn = ({ next }: { next?: string }) => {
               toast.error(response.error);
             }
 
+            turnstileRef.current?.reset();
             setClickedMethod(undefined);
             return;
           }
@@ -142,6 +148,10 @@ export const EmailSignIn = ({ next }: { next?: string }) => {
               />
             </label>
           </>
+        )}
+
+        {authMethod === "email" && (
+          <Turnstile ref={turnstileRef} onToken={setTurnstileToken} />
         )}
 
         <Button

@@ -32,6 +32,8 @@ export const errorCodes: Record<string, string> = {
   "exceeded-login-attempts":
     "Account has been locked due to too many login attempts. Please contact support to unlock your account.",
   "too-many-login-attempts": "Too many login attempts. Please try again later.",
+  "invalid-captcha":
+    "Could not verify that you are human. Please try again.",
   "email-not-verified": "Please verify your email address.",
   "framer-account-linking-not-allowed":
     "It looks like you already have an account with us. Please sign in with your Framer account email instead.",

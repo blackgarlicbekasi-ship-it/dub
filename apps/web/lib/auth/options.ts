@@ -20,6 +20,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { createId } from "../api/create-id";
 import { isProduction, skipAuthThrottling } from "../api/environment";
 import { isSamlEnforcedForEmailDomain } from "../api/workspaces/is-saml-enforced-for-email-domain";
+import { verifyTurnstile } from "./verify-turnstile";
 import { qstash } from "../cron";
 import { completeProgramApplications } from "../partners/complete-program-applications";
 import { FRAMER_API_HOST } from "./constants";
@@ -197,16 +198,21 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { type: "email" },
         password: { type: "password" },
+        turnstileToken: { type: "text" },
       },
       async authorize(credentials, req) {
         if (!credentials) {
           throw new Error("no-credentials");
         }
 
-        const { email, password } = credentials;
+        const { email, password, turnstileToken } = credentials;
 
         if (!email || !password) {
           throw new Error("no-credentials");
+        }
+
+        if (!(await verifyTurnstile(turnstileToken))) {
+          throw new Error("invalid-captcha");
         }
 
         if (!skipAuthThrottling) {
