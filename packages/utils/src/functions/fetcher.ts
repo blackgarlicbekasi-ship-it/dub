@@ -13,10 +13,19 @@ export async function fetcher<JSON = any>(
   });
 
   if (!res.ok) {
-    const message =
-      (await res.json())?.error?.message ||
-      "An error occurred while fetching the data.";
-    const error = new Error(message) as SWRError;
+    let message = "";
+
+    try {
+      message = (await res.json())?.error?.message ?? "";
+    } catch {
+      message = "";
+    }
+
+    const error = new Error(
+      message ||
+        `${res.status} ${res.statusText}`.trim() ||
+        "An error occurred while fetching the data.",
+    ) as SWRError;
     error.info = message;
     error.status = res.status;
 
