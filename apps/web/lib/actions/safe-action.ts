@@ -6,6 +6,19 @@ import { getSession } from "../auth";
 import { logger } from "../axiom/server";
 import { PlanProps } from "../types";
 
+const GENERIC_SERVER_ERROR =
+  "Something went wrong. Please try again, or contact support if the problem persists.";
+
+const CONTAINS_IP_ADDRESS = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+
+const MAX_SURFACED_MESSAGE_LENGTH = 300;
+
+const isSafeToSurface = (e: unknown): e is Error =>
+  e instanceof Error &&
+  e.constructor === Error &&
+  e.message.length <= MAX_SURFACED_MESSAGE_LENGTH &&
+  !CONTAINS_IP_ADDRESS.test(e.message);
+
 export const actionClient = createSafeActionClient({
   handleServerError: async (e) => {
     console.error("Server action error:", e);
@@ -14,11 +27,11 @@ export const actionClient = createSafeActionClient({
     logger.error(e.message, e);
     after(logger.flush());
 
-    if (e instanceof Error) {
+    if (isSafeToSurface(e)) {
       return e.message;
     }
 
-    return "An unknown error occurred.";
+    return GENERIC_SERVER_ERROR;
   },
 });
 
