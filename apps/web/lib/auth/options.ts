@@ -210,11 +210,18 @@ export const authOptions: NextAuthOptions = {
         }
 
         if (!skipAuthThrottling) {
-          const { success } = await ratelimit(5, "1 m").limit(
-            `login-attempts:${email}`,
-          );
+          let throttled = false;
 
-          if (!success) {
+          try {
+            const { success } = await ratelimit(5, "1 m").limit(
+              `login-attempts:${email}`,
+            );
+            throttled = !success;
+          } catch (e) {
+            console.error("[auth] login throttle unavailable, allowing", e);
+          }
+
+          if (throttled) {
             throw new Error("too-many-login-attempts");
           }
         }
