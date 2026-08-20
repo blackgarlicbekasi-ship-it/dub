@@ -1,5 +1,5 @@
 import type { ResolvedReport } from "../report";
-import { COLUMNS, rowToCells, summaryLines } from "./shared";
+import { COLUMNS, reportToRenderRows, summaryLines } from "./shared";
 
 export const buildXlsx = async (report: ResolvedReport): Promise<Buffer> => {
   const ExcelJS = (await import("exceljs")).default;
@@ -30,13 +30,26 @@ export const buildXlsx = async (report: ResolvedReport): Promise<Buffer> => {
     cell.border = { bottom: { style: "thin", color: { argb: "FFD1D5DB" } } };
   });
 
-  for (const row of report.rows) {
-    const added = sheet.addRow(rowToCells(row));
-    added.getCell(3).alignment = { horizontal: "right" };
-    added.getCell(4).alignment = { horizontal: "right" };
-    added.getCell(5).alignment = { horizontal: "right" };
-    added.getCell(6).alignment = { horizontal: "right" };
-    added.getCell(7).alignment = { horizontal: "right" };
+  for (const { kind, cells } of reportToRenderRows(report)) {
+    const added = sheet.addRow(cells);
+
+    for (let i = 3; i <= 7; i++) {
+      added.getCell(i).alignment = { horizontal: "right" };
+    }
+
+    if (kind === "subtotal") {
+      added.font = { bold: true };
+      added.eachCell((cell) => {
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "FFF9FAFB" },
+        };
+      });
+    } else {
+      added.getCell(2).alignment = { horizontal: "left", indent: 2 };
+      added.font = { color: { argb: "FF4B5563" } };
+    }
   }
 
   sheet.addRow([]);

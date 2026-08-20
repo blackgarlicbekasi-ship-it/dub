@@ -19,6 +19,7 @@ const tabs = [
   { href: "/links", label: "Links" },
   { href: "/banned", label: "Banned" },
   { href: "/analytics", label: "Analytics" },
+  { href: "/billing", label: "Billing" },
 ];
 
 export function AdminNav() {

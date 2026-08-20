@@ -1,3 +1,5 @@
+import { groupRowsByOwner } from "../group";
+import { fixedSummaryLines } from "../summary-lines";
 import type { ResolvedReport, ResolvedRow } from "../report";
 
 export const EMPTY_POT = "-";
@@ -13,6 +15,11 @@ export const COLUMNS = [
 ] as const;
 
 export type ExportFormat = "csv" | "xlsx" | "pdf";
+
+export interface RenderRow {
+  kind: "subtotal" | "slug";
+  cells: string[];
+}
 
 export const formatAmount = (value: number | null): string =>
   value === null ? EMPTY_POT : value.toFixed(2);
@@ -33,11 +40,48 @@ export const rowToCells = (row: ResolvedRow): string[] => [
   formatAmount(row.totalAmount),
 ];
 
+export const reportToRenderRows = (report: ResolvedReport): RenderRow[] => {
+  const groups = groupRowsByOwner(report.rows, report.summary.totalClicks);
+  const rendered: RenderRow[] = [];
+
+  for (const group of groups) {
+    rendered.push({
+      kind: "subtotal",
+      cells: [
+        group.toko,
+        "",
+        formatClicks(group.subtotal.clicks),
+        formatPercent(group.subtotal.share),
+        formatAmount(group.subtotal.vercelAmount),
+        formatAmount(group.subtotal.upstashAmount),
+        formatAmount(group.subtotal.totalAmount),
+      ],
+    });
+
+    for (const row of group.rows) {
+      rendered.push({
+        kind: "slug",
+        cells: [
+          "",
+          row.shortLink,
+          formatClicks(row.clicks),
+          formatPercent(row.share),
+          formatAmount(row.vercelAmount),
+          formatAmount(row.upstashAmount),
+          formatAmount(row.totalAmount),
+        ],
+      });
+    }
+  }
+
+  return rendered;
+};
+
 export const summaryLines = (report: ResolvedReport): [string, string][] => [
   ["TOTAL CLICK", formatClicks(report.summary.totalClicks)],
   ["PERIODE", report.summary.periode],
   ["TOTAL", formatAmount(report.summary.grandTotal)],
-  ["VERCEL", report.summary.vercelLine],
+  ...fixedSummaryLines(report.summary.vercelLine),
 ];
 
 const slugifyPeriode = (periode: string) =>

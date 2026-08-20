@@ -1,5 +1,5 @@
 import type { ResolvedReport } from "../report";
-import { COLUMNS, rowToCells, summaryLines } from "./shared";
+import { COLUMNS, reportToRenderRows, summaryLines } from "./shared";
 
 const COLUMN_WIDTHS = ["26%", "24%", "12%", "10%", "9%", "9%", "10%"];
 
@@ -34,6 +34,17 @@ export const buildPdf = async (report: ResolvedReport): Promise<Buffer> => {
       paddingVertical: 3.5,
       paddingHorizontal: 4,
     },
+    subtotalRow: {
+      flexDirection: "row",
+      backgroundColor: "#F9FAFB",
+      borderBottomWidth: 0.5,
+      borderBottomColor: "#D1D5DB",
+      paddingVertical: 4,
+      paddingHorizontal: 4,
+    },
+    subtotalCell: { fontFamily: "Helvetica-Bold", fontSize: 8 },
+    slugCell: { fontSize: 8, color: "#4B5563" },
+    indent: { paddingLeft: 8 },
     headerCell: { fontFamily: "Helvetica-Bold", fontSize: 8 },
     cell: { fontSize: 8 },
     right: { textAlign: "right" },
@@ -87,19 +98,24 @@ export const buildPdf = async (report: ResolvedReport): Promise<Buffer> => {
           ),
         ),
       ),
-      ...report.rows.map((row, rowIndex) =>
+      ...reportToRenderRows(report).map(({ kind, cells }, rowIndex) =>
         React.createElement(
           View,
-          { key: row.linkId + rowIndex, style: styles.row, wrap: false },
-          ...rowToCells(row).map((cell, i) =>
+          {
+            key: `${kind}-${rowIndex}`,
+            style: kind === "subtotal" ? styles.subtotalRow : styles.row,
+            wrap: false,
+          },
+          ...cells.map((cell, i) =>
             React.createElement(
               Text,
               {
                 key: i,
                 style: [
-                  styles.cell,
+                  kind === "subtotal" ? styles.subtotalCell : styles.slugCell,
                   { width: COLUMN_WIDTHS[i] },
                   i >= 2 ? styles.right : {},
+                  kind === "slug" && i === 1 ? styles.indent : {},
                 ],
               },
               cell,

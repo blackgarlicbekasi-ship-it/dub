@@ -1,11 +1,11 @@
 import Papa from "papaparse";
 import type { ResolvedReport } from "../report";
-import { COLUMNS, rowToCells, summaryLines } from "./shared";
+import { COLUMNS, reportToRenderRows, summaryLines } from "./shared";
 
 export const buildCsv = (report: ResolvedReport): string => {
   const table = [
     [...COLUMNS],
-    ...report.rows.map((row) => rowToCells(row)),
+    ...reportToRenderRows(report).map(({ cells }) => cells),
     [],
     ...summaryLines(report).map(([label, value]) => [label, value]),
   ];
