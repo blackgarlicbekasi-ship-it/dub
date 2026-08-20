@@ -2,7 +2,7 @@
 
 import { groupRowsByOwner } from "@/lib/analytics/billing/group";
 import SimpleDateRangePicker from "@/ui/shared/simple-date-range-picker";
-import { fixedSummaryLines } from "@/lib/analytics/billing/summary-lines";
+import { buildSummaryLines } from "@/lib/analytics/billing/summary-lines";
 import { Button, LoadingSpinner, TabSelect } from "@dub/ui";
 import { cn } from "@dub/utils";
 import { useSearchParams } from "next/navigation";
@@ -890,26 +890,27 @@ function ReportView({ report }: { report: Report }) {
       </div>
 
       <div className="grid gap-1.5 border-t border-neutral-200 bg-neutral-50 px-4 py-4 text-sm">
-        <div className="flex gap-3">
-          <span className="w-28 font-medium text-neutral-500">TOTAL CLICK</span>
-          <span className="tabular-nums text-neutral-900">
-            {clicks(report.summary.totalClicks)}
-          </span>
-        </div>
-        <div className="flex gap-3">
-          <span className="w-28 font-medium text-neutral-500">PERIODE</span>
-          <span className="text-neutral-900">{report.summary.periode}</span>
-        </div>
-        <div className="flex gap-3">
-          <span className="w-28 font-medium text-neutral-500">TOTAL</span>
-          <span className="tabular-nums text-neutral-900">
-            {money(report.summary.grandTotal)}
-          </span>
-        </div>
-        {fixedSummaryLines(report.summary.vercelLine).map(([label, value]) => (
+        {buildSummaryLines({
+          totalClicks: report.summary.totalClicks,
+          periode: report.summary.periode,
+          vercelTotal: report.summary.vercelTotal,
+          upstashTotal: report.summary.upstashTotal,
+          vercelNote: report.summary.vercelLine,
+        }).map(({ label, value, note }) => (
           <div key={label} className="flex gap-3">
-            <span className="w-28 font-medium text-neutral-500">{label}</span>
-            <span className="text-neutral-900">{value}</span>
+            <span className="w-28 shrink-0 font-medium text-neutral-500">
+              {label}
+            </span>
+            <span
+              className={cn(
+                "tabular-nums text-neutral-900",
+                note && "w-20 shrink-0 text-right",
+                value === EMPTY && "text-neutral-400",
+              )}
+            >
+              {value}
+            </span>
+            {note && <span className="text-neutral-600">{note}</span>}
           </div>
         ))}
       </div>

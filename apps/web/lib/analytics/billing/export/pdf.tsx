@@ -56,7 +56,8 @@ export const buildPdf = async (report: ResolvedReport): Promise<Buffer> => {
     },
     summaryRow: { flexDirection: "row", marginBottom: 3 },
     summaryLabel: { width: 90, fontFamily: "Helvetica-Bold", fontSize: 9 },
-    summaryValue: { fontSize: 9 },
+    summaryValue: { fontSize: 9, width: 70 },
+    summaryNote: { fontSize: 9, color: "#4B5563" },
     footer: {
       position: "absolute",
       bottom: 20,
@@ -126,12 +127,15 @@ export const buildPdf = async (report: ResolvedReport): Promise<Buffer> => {
       React.createElement(
         View,
         { style: styles.summary },
-        ...summaryLines(report).map(([label, value]) =>
+        ...summaryLines(report).map(({ label, value, note }) =>
           React.createElement(
             View,
             { key: label, style: styles.summaryRow },
             React.createElement(Text, { style: styles.summaryLabel }, label),
             React.createElement(Text, { style: styles.summaryValue }, value),
+            note
+              ? React.createElement(Text, { style: styles.summaryNote }, note)
+              : null,
           ),
         ),
       ),

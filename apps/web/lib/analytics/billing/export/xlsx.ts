@@ -54,9 +54,10 @@ export const buildXlsx = async (report: ResolvedReport): Promise<Buffer> => {
 
   sheet.addRow([]);
 
-  for (const [label, value] of summaryLines(report)) {
-    const added = sheet.addRow([label, value]);
+  for (const { label, value, note } of summaryLines(report)) {
+    const added = sheet.addRow([label, value, note]);
     added.getCell(1).font = { bold: true };
+    added.getCell(2).font = { bold: true };
   }
 
   const buffer = await workbook.xlsx.writeBuffer();

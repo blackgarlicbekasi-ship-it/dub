@@ -1,5 +1,5 @@
 import { groupRowsByOwner } from "../group";
-import { fixedSummaryLines } from "../summary-lines";
+import { buildSummaryLines, type SummaryLine } from "../summary-lines";
 import type { ResolvedReport, ResolvedRow } from "../report";
 
 export const EMPTY_POT = "-";
@@ -80,12 +80,14 @@ export const reportToRenderRows = (report: ResolvedReport): RenderRow[] => {
   return rendered;
 };
 
-export const summaryLines = (report: ResolvedReport): [string, string][] => [
-  ["TOTAL CLICK", formatClicks(report.summary.totalClicks)],
-  ["PERIODE", report.summary.periode],
-  ["TOTAL", formatAmount(report.summary.grandTotal)],
-  ...fixedSummaryLines(report.summary.vercelLine),
-];
+export const summaryLines = (report: ResolvedReport): SummaryLine[] =>
+  buildSummaryLines({
+    totalClicks: report.summary.totalClicks,
+    periode: report.summary.periode,
+    vercelTotal: report.summary.vercelTotal,
+    upstashTotal: report.summary.upstashTotal,
+    vercelNote: report.summary.vercelLine,
+  });
 
 const slugifyPeriode = (periode: string) =>
   periode
