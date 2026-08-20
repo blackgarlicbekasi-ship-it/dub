@@ -1,6 +1,7 @@
 "use client";
 
 import { groupRowsByOwner } from "@/lib/analytics/billing/group";
+import SimpleDateRangePicker from "@/ui/shared/simple-date-range-picker";
 import { fixedSummaryLines } from "@/lib/analytics/billing/summary-lines";
 import { Button, LoadingSpinner, TabSelect } from "@dub/ui";
 import { cn } from "@dub/utils";
@@ -294,6 +295,22 @@ export function BillingReportSection() {
 
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-lg font-semibold text-neutral-900">
+            Billing report
+          </h1>
+          <p className="mt-1 text-sm text-neutral-500">
+            Allocates the infrastructure bill across shortlinks by click share
+          </p>
+        </div>
+        <SimpleDateRangePicker
+          className="w-full sm:w-fit"
+          align="end"
+          defaultInterval="30d"
+        />
+      </div>
+
       <div className="border-b border-neutral-200">
         <TabSelect
           options={TABS.map(({ id, label }) => ({ id, label }))}
