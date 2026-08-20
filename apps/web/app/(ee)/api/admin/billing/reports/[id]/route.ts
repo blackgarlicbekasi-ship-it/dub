@@ -1,5 +1,6 @@
 import { resolveReport } from "@/lib/analytics/billing/report";
 import {
+  BILLING_TIMEZONE,
   fetchClickSnapshot,
   formatPeriode,
   TinybirdUnavailableError,
@@ -77,6 +78,7 @@ export const PATCH = withAdmin(async ({ req, params }) => {
       interval: typeof body.interval === "string" ? body.interval : undefined,
       start: typeof body.start === "string" ? body.start : undefined,
       end: typeof body.end === "string" ? body.end : undefined,
+      timezone: BILLING_TIMEZONE,
     });
 
     const sameInterval =
@@ -118,4 +120,19 @@ export const PATCH = withAdmin(async ({ req, params }) => {
   });
 
   return NextResponse.json({ report: await resolveReport(updated) });
+});
+
+export const DELETE = withAdmin(async ({ params }) => {
+  const report = await prisma.billingReport.findUnique({
+    where: { id: params.id },
+    select: { id: true, periode: true },
+  });
+
+  if (!report) {
+    return NextResponse.json({ error: "Report not found" }, { status: 404 });
+  }
+
+  await prisma.billingReport.delete({ where: { id: params.id } });
+
+  return NextResponse.json({ deleted: report.id, periode: report.periode });
 });

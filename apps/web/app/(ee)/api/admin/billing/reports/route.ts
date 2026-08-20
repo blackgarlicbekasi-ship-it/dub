@@ -1,5 +1,8 @@
 import { getStartEndDates } from "@/lib/analytics/utils/get-start-end-dates";
-import { formatPeriode } from "@/lib/analytics/billing/snapshot";
+import {
+  BILLING_TIMEZONE,
+  formatPeriode,
+} from "@/lib/analytics/billing/snapshot";
 import {
   fetchClickSnapshot,
   TinybirdUnavailableError,
@@ -76,6 +79,7 @@ export const POST = withAdmin(async ({ req }) => {
     interval: typeof body.interval === "string" ? body.interval : undefined,
     start: typeof body.start === "string" ? body.start : undefined,
     end: typeof body.end === "string" ? body.end : undefined,
+    timezone: BILLING_TIMEZONE,
   });
 
   const existing = await prisma.billingReport.findFirst({

@@ -30,7 +30,13 @@ export class TinybirdUnavailableError extends Error {
 const SQL_TIMEOUT_MS = 20000;
 
 export const formatClickhouseDate = (date: Date): string =>
-  date.toISOString().replace("T", " ").replace("Z", "").slice(0, 19);
+  new Date(date.getTime())
+    .toISOString()
+    .replace("T", " ")
+    .replace("Z", "")
+    .slice(0, 19);
+
+export const BILLING_TIMEZONE = "Asia/Jakarta";
 
 export const formatPeriode = (start: Date, end: Date): string => {
   const fmt = (d: Date) =>
@@ -39,7 +45,7 @@ export const formatPeriode = (start: Date, end: Date): string => {
         day: "2-digit",
         month: "short",
         year: "numeric",
-        timeZone: "UTC",
+        timeZone: BILLING_TIMEZONE,
       })
       .toUpperCase()
       .replace(/,/g, "");

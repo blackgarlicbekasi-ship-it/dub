@@ -340,6 +340,13 @@ export function BillingReportSection() {
           history={history}
           openReportId={report?.id ?? null}
           onOpen={(id) => openReport(id)}
+          onDeleted={(id) => {
+            if (report?.id === id) {
+              startNew();
+            }
+
+            return loadHistory();
+          }}
         />
       )}
 
@@ -485,11 +492,46 @@ function HistoryTab({
   history,
   openReportId,
   onOpen,
+  onDeleted,
 }: {
   history: HistoryItem[] | null;
   openReportId: string | null;
   onOpen: (id: string) => void;
+  onDeleted: (id: string) => Promise<void>;
 }) {
+  const [deleting, setDeleting] = useState<string | null>(null);
+
+  const remove = async (item: HistoryItem) => {
+    if (
+      !window.confirm(
+        `Delete the report for ${item.periode}?\n\nThis permanently removes the saved click snapshot and both bill totals. It cannot be undone.`,
+      )
+    ) {
+      return;
+    }
+
+    setDeleting(item.id);
+
+    try {
+      const res = await fetch(`/api/admin/billing/reports/${item.id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Could not delete report");
+      }
+
+      toast.success("Report deleted");
+      await onDeleted(item.id);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not delete report");
+    } finally {
+      setDeleting(null);
+    }
+  };
+
   return (
     <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
       <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-3">
@@ -513,19 +555,24 @@ function HistoryTab({
         <table className="w-full">
           <thead>
             <tr className="border-b border-neutral-200 bg-neutral-50">
-              {["Periode", "Clicks", "Vercel($)", "Upstash($)", "Created"].map(
-                (h) => (
-                  <th
-                    key={h}
-                    className={cn(
-                      "px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500",
-                      h !== "Periode" && "text-right",
-                    )}
-                  >
-                    {h}
-                  </th>
-                ),
-              )}
+              {[
+                "Periode",
+                "Clicks",
+                "Vercel($)",
+                "Upstash($)",
+                "Created",
+                "",
+              ].map((h, i) => (
+                <th
+                  key={h || `col-${i}`}
+                  className={cn(
+                    "px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-neutral-500",
+                    h !== "Periode" && "text-right",
+                  )}
+                >
+                  {h}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-100">
@@ -566,6 +613,18 @@ function HistoryTab({
                 </td>
                 <td className="px-4 py-2.5 text-right text-sm text-neutral-500">
                   {new Date(item.createdAt).toLocaleDateString()}
+                </td>
+                <td
+                  className="px-4 py-2.5 text-right"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Button
+                    text="Delete"
+                    variant="secondary"
+                    loading={deleting === item.id}
+                    className="h-7 w-auto rounded-md px-2.5 text-xs"
+                    onClick={() => remove(item)}
+                  />
                 </td>
               </tr>
             ))}

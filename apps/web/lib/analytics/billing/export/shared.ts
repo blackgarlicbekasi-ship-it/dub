@@ -40,6 +40,9 @@ export const rowToCells = (row: ResolvedRow): string[] => [
   formatAmount(row.totalAmount),
 ];
 
+const isPrintableSlug = (row: ResolvedRow): boolean =>
+  row.totalAmount === null || Math.round(row.totalAmount * 100) !== 0;
+
 export const reportToRenderRows = (report: ResolvedReport): RenderRow[] => {
   const groups = groupRowsByOwner(report.rows, report.summary.totalClicks);
   const rendered: RenderRow[] = [];
@@ -58,7 +61,7 @@ export const reportToRenderRows = (report: ResolvedReport): RenderRow[] => {
       ],
     });
 
-    for (const row of group.rows) {
+    for (const row of group.rows.filter(isPrintableSlug)) {
       rendered.push({
         kind: "slug",
         cells: [
